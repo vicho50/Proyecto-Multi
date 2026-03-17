@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bf8fn0mlk8lrx"]
+
+[ext_resource type="Script" uid="uid://b1mrdo5gouqr7" path="res://Scenes/unit_base.gd" id="1_kf76p"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3hm6q"]
+size = Vector3(0.5, 0.6, 0.5)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kf76p"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ekbak"]
+
+[node name="UnitBase" type="CharacterBody3D" unique_id=1174531821]
+script = ExtResource("1_kf76p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1547892109]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2645874, 0)
+shape = SubResource("BoxShape3D_3hm6q")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1691600252]
+mesh = SubResource("CapsuleMesh_kf76p")
+
+[node name="DetectionArea" type="Area3D" parent="." unique_id=1989561081]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" unique_id=1018855715]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0.38766152, 0)
+shape = SubResource("SphereShape3D_ekbak")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=274427054]
+path_desired_distance = 0.5
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=478743375]
+one_shot = true

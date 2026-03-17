@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cq0v2esf2blvk"]
+
+[ext_resource type="PackedScene" uid="uid://b3ppsl5j3eeke" path="res://Scenes/UnitBase.tscn" id="1_bo1nx"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7u77a"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jjgbg"]
+size = Vector3(19.444641, 0.47558594, 19.537903)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_bo1nx"]
+
+[node name="Main" type="Node3D" unique_id=1683675]
+
+[node name="GroundMesh" type="MeshInstance3D" parent="." unique_id=1624177180]
+transform = Transform3D(9.999999, 0, 0, 0, 10, 0, 0, 0, 9.999999, 0, 0, 0)
+mesh = SubResource("PlaneMesh_7u77a")
+
+[node name="GroundBody" type="StaticBody3D" parent="." unique_id=960797228]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundBody" unique_id=1062358500]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11349487, -0.26220703, 0.068573)
+shape = SubResource("BoxShape3D_jjgbg")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=25395312]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 14, 14)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2111205552]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=779683127]
+navigation_mesh = SubResource("NavigationMesh_bo1nx")
+
+[node name="UnitBase" parent="." unique_id=1174531821 instance=ExtResource("1_bo1nx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8053966, -0.041549683, -2.8157947)
+
+[node name="UnitBase2" parent="." unique_id=321755954 instance=ExtResource("1_bo1nx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56990767, -0.024414063, -1.6766152)
