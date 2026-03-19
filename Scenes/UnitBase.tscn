@@ -23,6 +23,13 @@ albedo_color = Color(0.98039216, 0, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_pfo53"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hcycw"]
+albedo_color = Color(0.39728877, 0.37815684, 0.344512, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7qt50"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5pi0x"]
+
 [node name="UnitBase" type="CharacterBody3D" unique_id=1174531821]
 script = ExtResource("1_r1p7q")
 
@@ -43,26 +50,38 @@ path_desired_distance = 0.5
 [node name="AttackTimer" type="Timer" parent="." unique_id=478743375]
 one_shot = true
 
-[node name="Node3D" type="Node3D" parent="." unique_id=59750531]
+[node name="Visuals" type="Node3D" parent="." unique_id=59750531]
 
-[node name="Body" type="MeshInstance3D" parent="Node3D" unique_id=1516072477]
+[node name="Body" type="MeshInstance3D" parent="Visuals" unique_id=1516072477]
 transform = Transform3D(0.25, 0, 0, 0, 0.35, 0, 0, 0, 0.25, 0, 0.18643412, 0)
 mesh = SubResource("BoxMesh_3hm6q")
 
-[node name="Head" type="MeshInstance3D" parent="Node3D" unique_id=1170542737]
+[node name="Head" type="MeshInstance3D" parent="Visuals" unique_id=1170542737]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.41142452, 0)
 mesh = SubResource("BoxMesh_hcycw")
 
-[node name="Helmet" type="MeshInstance3D" parent="Node3D" unique_id=1699733147]
-transform = Transform3D(0.155, 0, 0, 0, 0.1, 0, 0, 0, 0.15, 0.005368635, 0.4707564, 0)
+[node name="Helmet" type="MeshInstance3D" parent="Visuals" unique_id=1699733147]
+transform = Transform3D(0.155, 0, 0, 0, 0.1, 0, 0, 0, 0.165, 0.005368635, 0.4707564, 0)
 material_override = SubResource("StandardMaterial3D_r1p7q")
 mesh = SubResource("BoxMesh_r1p7q")
 
-[node name="Crest" type="MeshInstance3D" parent="Node3D" unique_id=1661850419]
+[node name="Crest" type="MeshInstance3D" parent="Visuals" unique_id=1661850419]
 transform = Transform3D(0.14, 0, 0, 0, 0.1, 0, 0, 0, 0.05, 0, 0.53556144, 0)
 material_override = SubResource("StandardMaterial3D_3hm6q")
 mesh = SubResource("BoxMesh_ekbak")
 
-[node name="Sword" type="MeshInstance3D" parent="Node3D" unique_id=1708571657]
+[node name="Sword" type="MeshInstance3D" parent="Visuals" unique_id=1708571657]
 transform = Transform3D(0.342813, 0.025763124, 0, -0.206105, 0.042851623, 0, 0, 0, 0.05, -0.17742218, 0.34181982, -0.20163363)
 mesh = SubResource("BoxMesh_pfo53")
+surface_material_override/0 = SubResource("StandardMaterial3D_hcycw")
+
+[node name="HealthBarRoot" type="Node3D" parent="." unique_id=893945190]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1.5, 0)
+
+[node name="HealthBarBg" type="MeshInstance3D" parent="HealthBarRoot" unique_id=608113209]
+transform = Transform3D(0.8, 0, 0, 0, 0.08, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("BoxMesh_7qt50")
+
+[node name="HealthBarFill" type="MeshInstance3D" parent="HealthBarRoot" unique_id=1834092928]
+transform = Transform3D(0.8, 0, 0, 0, 0.08, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("BoxMesh_5pi0x")
