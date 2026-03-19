@@ -30,12 +30,11 @@ navigation_mesh = SubResource("NavigationMesh_bo1nx")
 
 [node name="UnitBase" parent="." unique_id=1174531821 instance=ExtResource("1_bo1nx")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -9.084725, 0.031998992, 0.0016906261)
-objective_position = Vector3(8, 0, 0)
 
 [node name="UnitBase2" parent="." unique_id=321755954 instance=ExtResource("1_bo1nx")]
 transform = Transform3D(0.9653361, 0, -0.26101, 0, 1, 0, 0.26101, 0, 0.9653361, 9.326679, -0.020311356, -0.05941224)
 team_id = 1
-objective_position = Vector3(-8, 0, 0)
+advance_direction = Vector3(-1, 0, 0)
 
 [node name="CameraRig" type="Node3D" parent="." unique_id=48742980]
 script = ExtResource("2_bo1nx")
@@ -47,8 +46,9 @@ transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
 
 [node name="RomanHeavy" parent="." unique_id=1624337721 instance=ExtResource("3_8gbba")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.083445, 0, -0.9632826)
 team_id = 1
+advance_direction = Vector3(-1, 0, 0)
 
 [node name="RomanHeavy2" parent="." unique_id=549145367 instance=ExtResource("3_8gbba")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -9.046101, 0.16747236, -1.2488623)

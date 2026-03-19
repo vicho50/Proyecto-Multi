@@ -11,7 +11,7 @@ enum UnitState {
 @export var team_id: int = 0
 
 # Punto fijo al que avanza la unidad cuando no tiene enemigos
-@export var objective_position: Vector3 = Vector3.ZERO
+@export var advance_direction: Vector3 = Vector3.RIGHT
 
 @onready var detection_area: Area3D = $DetectionArea
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
@@ -89,8 +89,8 @@ func update_logic(delta: float) -> void:
 	# Si no hay enemigo, avanzar al objetivo fijo
 	if target == null:
 		update_state(UnitState.CHASE)
-		face_direction(objective_position, delta)
-		move_towards_position(objective_position)
+		face_movement_direction(advance_direction, delta)
+		move_forward(advance_direction)
 		return
 
 	var distance_to_target = global_position.distance_to(target.global_position)
@@ -192,6 +192,28 @@ func face_direction(pos: Vector3, delta: float) -> void:
 
 	direction = direction.normalized()
 	var target_angle = atan2(direction.x, direction.z)
+	rotation.y = lerp_angle(rotation.y, target_angle, 10.0 * delta)
+
+func move_forward(dir: Vector3) -> void:
+	var flat_dir = dir
+	flat_dir.y = 0.0
+	
+	if flat_dir.length() <= 0.001:
+		velocity = Vector3.ZERO
+		return
+	
+	flat_dir = flat_dir.normalized()
+	velocity = flat_dir * stats.move_speed
+
+func face_movement_direction(dir: Vector3, delta: float) -> void:
+	var flat_dir = dir
+	flat_dir.y = 0.0
+	
+	if flat_dir.length() <= 0.001:
+		return
+	
+	flat_dir = flat_dir.normalized()
+	var target_angle = atan2(flat_dir.x, flat_dir.z)
 	rotation.y = lerp_angle(rotation.y, target_angle, 10.0 * delta)
 
 func try_attack() -> void:
