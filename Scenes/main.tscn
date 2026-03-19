@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b3ppsl5j3eeke" path="res://Scenes/UnitBase.tscn" id="1_bo1nx"]
 [ext_resource type="Script" uid="uid://cg1xwohoy5kgf" path="res://Scenes/camera_rig.gd" id="2_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://hrpxwu8a20yf" path="res://Scenes/roman_heavy.tscn" id="3_8gbba"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7u77a"]
 
@@ -28,7 +29,7 @@ shape = SubResource("BoxShape3D_jjgbg")
 navigation_mesh = SubResource("NavigationMesh_bo1nx")
 
 [node name="UnitBase" parent="." unique_id=1174531821 instance=ExtResource("1_bo1nx")]
-transform = Transform3D(-0.8600928, 0, 0.5101376, 0, 1, 0, -0.5101376, 0, -0.8600928, -9.084725, 0.031998992, 0.0016906261)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -9.084725, 0.031998992, 0.0016906261)
 objective_position = Vector3(8, 0, 0)
 
 [node name="UnitBase2" parent="." unique_id=321755954 instance=ExtResource("1_bo1nx")]
@@ -44,3 +45,10 @@ transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig/CameraPivot" unique_id=268650126]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+
+[node name="RomanHeavy" parent="." unique_id=1624337721 instance=ExtResource("3_8gbba")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -1)
+team_id = 1
+
+[node name="RomanHeavy2" parent="." unique_id=549145367 instance=ExtResource("3_8gbba")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -9.046101, 0.16747236, -1.2488623)

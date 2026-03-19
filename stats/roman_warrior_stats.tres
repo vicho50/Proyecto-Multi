@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="UnitStats" format=3 uid="uid://ct24xuf1xfuh6"]
+
+[ext_resource type="Script" uid="uid://df13edy1thx33" path="res://scripts/UnitStats.gd" id="1_jja6d"]
+
+[resource]
+script = ExtResource("1_jja6d")
+unit_name = "Roman Warrior"
+move_speed = 1.5
+metadata/_custom_type_script = "uid://df13edy1thx33"

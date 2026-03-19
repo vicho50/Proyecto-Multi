@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="UnitStats" format=3 uid="uid://c6r3igkuevhke"]
+
+[ext_resource type="Script" uid="uid://df13edy1thx33" path="res://scripts/UnitStats.gd" id="1_0heco"]
+
+[resource]
+script = ExtResource("1_0heco")
+unit_name = "Roman Heavy"
+max_health = 200
+move_speed = 0.75
+attack_cooldown = 2.0
+cost = 25
+metadata/_custom_type_script = "uid://df13edy1thx33"
