@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b3ppsl5j3eeke"]
 
-[ext_resource type="Script" uid="uid://d36iiti0u01xg" path="res://scripts/Resource.gd" id="1_r1p7q"]
+[ext_resource type="Script" uid="uid://d36iiti0u01xg" path="res://scripts/MeleeUnit.gd" id="1_r1p7q"]
 [ext_resource type="Resource" uid="uid://ct24xuf1xfuh6" path="res://stats/roman_warrior_stats.tres" id="2_3hm6q"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r1p7q"]
@@ -11,16 +11,6 @@ size = Vector3(0.25402832, 0.47802734, 0.25495148)
 [sub_resource type="BoxMesh" id="BoxMesh_3hm6q"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_hcycw"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r1p7q"]
-albedo_color = Color(0.63079154, 0.5282076, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_r1p7q"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3hm6q"]
-albedo_color = Color(0.98039216, 0, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_ekbak"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_pfo53"]
 
@@ -61,16 +51,6 @@ mesh = SubResource("BoxMesh_3hm6q")
 [node name="Head" type="MeshInstance3D" parent="Visuals" unique_id=1170542737]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.41142452, 0)
 mesh = SubResource("BoxMesh_hcycw")
-
-[node name="Helmet" type="MeshInstance3D" parent="Visuals" unique_id=1699733147]
-transform = Transform3D(0.155, 0, 0, 0, 0.1, 0, 0, 0, 0.165, 0.005368635, 0.4707564, 0)
-material_override = SubResource("StandardMaterial3D_r1p7q")
-mesh = SubResource("BoxMesh_r1p7q")
-
-[node name="Crest" type="MeshInstance3D" parent="Visuals" unique_id=1661850419]
-transform = Transform3D(0.14, 0, 0, 0, 0.1, 0, 0, 0, 0.05, 0, 0.53556144, 0)
-material_override = SubResource("StandardMaterial3D_3hm6q")
-mesh = SubResource("BoxMesh_ekbak")
 
 [node name="Sword" type="MeshInstance3D" parent="Visuals" unique_id=1708571657]
 transform = Transform3D(0.342813, 0.025763124, 0, -0.206105, 0.042851623, 0, 0, 0, 0.05, -0.17742218, 0.34181982, -0.20163363)

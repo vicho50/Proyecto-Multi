@@ -1,10 +1,13 @@
 [gd_scene format=3 uid="uid://cq0v2esf2blvk"]
 
 [ext_resource type="PackedScene" uid="uid://b3ppsl5j3eeke" path="res://Scenes/UnitBase.tscn" id="1_bo1nx"]
-[ext_resource type="Script" uid="uid://cg1xwohoy5kgf" path="res://Scenes/camera_rig.gd" id="2_bo1nx"]
+[ext_resource type="Script" uid="uid://cg1xwohoy5kgf" path="res://scripts/camera_rig.gd" id="2_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://hrpxwu8a20yf" path="res://Scenes/roman_heavy.tscn" id="3_8gbba"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7u77a"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8gbba"]
+albedo_color = Color(0, 1, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jjgbg"]
 size = Vector3(19.444641, 0.47558594, 19.537903)
@@ -16,6 +19,7 @@ size = Vector3(19.444641, 0.47558594, 19.537903)
 [node name="GroundMesh" type="MeshInstance3D" parent="." unique_id=1624177180]
 transform = Transform3D(9.999999, 0, 0, 0, 10, 0, 0, 0, 9.999999, 0, 0, 0)
 mesh = SubResource("PlaneMesh_7u77a")
+surface_material_override/0 = SubResource("StandardMaterial3D_8gbba")
 
 [node name="GroundBody" type="StaticBody3D" parent="." unique_id=960797228]
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://hrpxwu8a20yf"]
 
-[ext_resource type="Script" uid="uid://d36iiti0u01xg" path="res://scripts/Resource.gd" id="1_3rfe5"]
+[ext_resource type="Script" uid="uid://dd8a2mabresiw" path="res://scripts/roman_heavy.gd" id="1_3rfe5"]
 [ext_resource type="Resource" uid="uid://ct24xuf1xfuh6" path="res://stats/roman_warrior_stats.tres" id="2_kj6gk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r1p7q"]

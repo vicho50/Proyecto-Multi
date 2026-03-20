@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cjistf0ptqdlf"]
+
+[ext_resource type="PackedScene" uid="uid://b3ppsl5j3eeke" path="res://Scenes/UnitBase.tscn" id="1_huogh"]
+[ext_resource type="Script" uid="uid://cbrl4ii37ybyc" path="res://scripts/roman_warrior.gd" id="2_r8mty"]
+
+[node name="RomanWarrior" unique_id=1174531821 instance=ExtResource("1_huogh")]
+script = ExtResource("2_r8mty")
