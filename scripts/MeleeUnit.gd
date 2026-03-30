@@ -12,6 +12,9 @@ enum UnitState {
 @export var team_id: int = 0
 @export var advance_direction: Vector3 = Vector3.RIGHT
 
+# Network synchronization
+var network_id: int = -1
+
 @onready var detection_area: Area3D = $DetectionArea
 @onready var attack_timer: Timer = $AttackTimer
 
@@ -38,6 +41,13 @@ var attack_anim_time := 0.0
 var attack_anim_duration := 0.18
 var weapon_attack_local_dir: Vector3 = Vector3.ZERO
 
+# Network synchronization variables
+var _sync_timer := 0.0
+var _sync_tick_rate := 0.05  # 20 Hz update rate
+var _target_position: Vector3
+var _target_rotation: float
+var _interpolation_speed := 10.0
+
 func _ready() -> void:
 	if stats == null:
 		push_error("%s sin stats asignados" % name)
@@ -47,6 +57,17 @@ func _ready() -> void:
 	current_health = stats.max_health
 	add_to_group("units")
 	attack_timer.wait_time = stats.attack_cooldown
+
+	# Register with UnitManager if this is the server and network_id not set
+	if multiplayer.is_server() and network_id == -1:
+		network_id = UnitManager.register_unit(self)
+	elif network_id != -1:
+		# Client received a spawn with network_id already set
+		UnitManager.register_unit_with_id(self, network_id)
+
+	# Initialize interpolation targets
+	_target_position = global_position
+	_target_rotation = rotation.y
 
 	visual_base_y = visuals.position.y
 	weapon_base_pos = weapon_mesh.position
@@ -62,11 +83,25 @@ func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
 
-	update_target()
-	update_logic(delta)
-	update_visuals(delta)
-	move_and_slide()
-	update_health_bar()
+	# Server runs full simulation
+	if multiplayer.is_server():
+		update_target()
+		update_logic(delta)
+		update_visuals(delta)
+		move_and_slide()
+		update_health_bar()
+
+		# Broadcast state to clients at regular intervals
+		_sync_timer += delta
+		if _sync_timer >= _sync_tick_rate:
+			_sync_timer = 0.0
+			sync_unit_state.rpc(global_position, rotation.y, current_health, current_state)
+	else:
+		# Clients interpolate to received state
+		global_position = global_position.lerp(_target_position, _interpolation_speed * delta)
+		rotation.y = lerp_angle(rotation.y, _target_rotation, _interpolation_speed * delta)
+		update_visuals(delta)
+		update_health_bar()
 
 func update_state(new_state: UnitState) -> void:
 	if current_state == new_state:
@@ -321,8 +356,25 @@ func die() -> void:
 	velocity = Vector3.ZERO
 	remove_from_group("units")
 
+	# Unregister from UnitManager
+	if network_id != -1:
+		UnitManager.unregister_unit(network_id)
+
 	if has_node("DetectionArea"):
 		$DetectionArea.monitoring = false
 
 	await get_tree().create_timer(0.6).timeout
 	queue_free()
+
+# Network synchronization RPC
+# Server broadcasts unit state to all clients
+@rpc("authority", "unreliable_ordered")
+func sync_unit_state(pos: Vector3, rot: float, health: int, state: UnitState) -> void:
+	if multiplayer.is_server():
+		return  # Server doesn't need to receive its own updates
+
+	# Update interpolation targets
+	_target_position = pos
+	_target_rotation = rot
+	current_health = health
+	current_state = state
