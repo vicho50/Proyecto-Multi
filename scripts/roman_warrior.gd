@@ -1,7 +1,7 @@
 extends MeleeUnit
 
-@onready var helmet_mesh: MeshInstance3D = $Visuals/Helmet
-@onready var crest_mesh: MeshInstance3D = $Visuals/Crest
+@onready var helmet_mesh: MeshInstance3D = get_node_or_null("Visuals/Helmet")
+@onready var crest_mesh: MeshInstance3D = get_node_or_null("Visuals/Crest")
 
 func _ready() -> void:
 	super._ready()
@@ -19,13 +19,13 @@ func apply_roman_visuals() -> void:
 	helmet_mesh.material_override = helmet_material
 
 func get_helmet_color() -> Color:
-	return Color(0.578, 0.481, 0.0, 1.0)
+	return Color(0.45, 0.35, 0.0, 1.0)
 
 func get_weapon_color() -> Color:
-	return Color(0.8, 0.8, 0.8)
+	return Color(0.7, 0.7, 0.72)
 
 func get_visual_rotation_degrees() -> float:
 	return 90.0
 
 func get_attack_animation_distance() -> float:
-	return 0.22
+	return 0.28

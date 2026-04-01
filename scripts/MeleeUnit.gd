@@ -61,11 +61,13 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
-
-	update_target()
-	update_logic(delta)
+	
+	if multiplayer.is_server():
+		update_target()
+		update_logic(delta)
+		move_and_slide()
+		
 	update_visuals(delta)
-	move_and_slide()
 	update_health_bar()
 
 func update_state(new_state: UnitState) -> void:
@@ -296,22 +298,23 @@ func get_head_color() -> Color:
 func get_weapon_color() -> Color:
 	return Color(0.8, 0.8, 0.8)
 
-func get_visual_rotation_degrees() -> float:
-	return 90.0
-
 func get_attack_animation_distance() -> float:
-	return 0.22
+	return 0.2
 
 func take_damage(amount: int) -> void:
-	if is_dead:
+	if not multiplayer.is_server():
 		return
-
 	current_health -= amount
-	update_health_bar()
-
 	if current_health <= 0:
-		die()
+		current_health = 0
+		is_dead = true
+		update_state(UnitState.DEAD)
 
+func get_visual_rotation_degrees() -> float:
+	return 90.0
+	
+
+@rpc("authority", "call_local", "reliable")
 func die() -> void:
 	if is_dead:
 		return

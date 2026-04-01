@@ -21,6 +21,29 @@ albedo_color = Color(0.39728877, 0.37815684, 0.344512, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_5pi0x"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3hm6q"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:current_health")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:current_state")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:is_dead")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:team_id")
+properties/5/spawn = true
+properties/5/replication_mode = 0
+properties/6/path = NodePath(".:advance_direction")
+properties/6/spawn = true
+properties/6/replication_mode = 0
+
 [node name="UnitBase" type="CharacterBody3D" unique_id=1174531821]
 script = ExtResource("1_r1p7q")
 stats = ExtResource("2_3hm6q")
@@ -52,7 +75,7 @@ mesh = SubResource("BoxMesh_3hm6q")
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.41142452, 0)
 mesh = SubResource("BoxMesh_hcycw")
 
-[node name="Sword" type="MeshInstance3D" parent="Visuals" unique_id=1708571657]
+[node name="Weapon" type="MeshInstance3D" parent="Visuals" unique_id=1708571657]
 transform = Transform3D(0.342813, 0.025763124, 0, -0.206105, 0.042851623, 0, 0, 0, 0.05, -0.17742218, 0.34181982, -0.20163363)
 mesh = SubResource("BoxMesh_pfo53")
 surface_material_override/0 = SubResource("StandardMaterial3D_hcycw")
@@ -67,3 +90,6 @@ mesh = SubResource("BoxMesh_7qt50")
 [node name="HealthBarFill" type="MeshInstance3D" parent="HealthBarRoot" unique_id=1834092928]
 transform = Transform3D(0.8, 0, 0, 0, 0.08, 0, 0, 0, 0.05, 0, 0, 0)
 mesh = SubResource("BoxMesh_5pi0x")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1083248575]
+replication_config = SubResource("SceneReplicationConfig_3hm6q")

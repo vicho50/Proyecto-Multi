@@ -3,5 +3,17 @@
 [ext_resource type="PackedScene" uid="uid://b3ppsl5j3eeke" path="res://Scenes/UnitBase.tscn" id="1_huogh"]
 [ext_resource type="Script" uid="uid://cbrl4ii37ybyc" path="res://scripts/roman_warrior.gd" id="2_r8mty"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_r8mty"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cql8s"]
+
 [node name="RomanWarrior" unique_id=1174531821 instance=ExtResource("1_huogh")]
 script = ExtResource("2_r8mty")
+
+[node name="Helmet" type="MeshInstance3D" parent="Visuals" parent_id_path=PackedInt32Array(59750531) index="3" unique_id=1286566607]
+transform = Transform3D(0.15, 0, 0, 0, 0.1, 0, 0, 0, 0.16, 0.0016619563, 0.44909656, 0)
+mesh = SubResource("BoxMesh_r8mty")
+
+[node name="Crest" type="MeshInstance3D" parent="Visuals" parent_id_path=PackedInt32Array(59750531) index="4" unique_id=1327997558]
+transform = Transform3D(0.145, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.0030676648, 0.5060073, 0)
+mesh = SubResource("BoxMesh_cql8s")
