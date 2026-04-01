@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://0yrheqra57f5"]
+
+[ext_resource type="PackedScene" uid="uid://5uvobsg8d32s" path="res://Scenes/base_castle.tscn" id="1_fi513"]
+[ext_resource type="ArrayMesh" uid="uid://c03tgvjr0oslr" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/buildings/red/building_castle_red.obj" id="2_17ox0"]
+
+[node name="BaseCastle" unique_id=222457813 instance=ExtResource("1_fi513")]
+
+[node name="MeshInstance3D" parent="." index="0" unique_id=726218056]
+mesh = ExtResource("2_17ox0")
