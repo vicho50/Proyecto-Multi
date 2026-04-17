@@ -72,7 +72,7 @@ transform = Transform3D(0.14, 0, 0, 0, 0.1, 0, 0, 0, 0.05, 0, 0.70037305, 0)
 material_override = SubResource("StandardMaterial3D_3hm6q")
 mesh = SubResource("BoxMesh_ekbak")
 
-[node name="Sword" type="MeshInstance3D" parent="Visuals" unique_id=1708571657]
+[node name="Weapon" type="MeshInstance3D" parent="Visuals" unique_id=1708571657]
 transform = Transform3D(0.51421946, 0.025763124, 0, -0.3091575, 0.042851623, 0, 0, 0, 0.08, -0.24110256, 0.34181982, -0.3258213)
 mesh = SubResource("BoxMesh_pfo53")
 surface_material_override/0 = SubResource("StandardMaterial3D_hcycw")

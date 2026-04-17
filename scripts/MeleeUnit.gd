@@ -60,6 +60,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if is_dead:
+		update_visuals(delta)
 		return
 	
 	if multiplayer.is_server():
@@ -309,6 +310,10 @@ func take_damage(amount: int) -> void:
 		current_health = 0
 		is_dead = true
 		update_state(UnitState.DEAD)
+		velocity = Vector3.ZERO
+		remove_from_group("units")
+		$CollisionShape3D.set_deferred("disabled", true)
+		$DetectionArea/CollisionShape3D.set_deferred("disabled", true)
 
 func get_visual_rotation_degrees() -> float:
 	return 90.0

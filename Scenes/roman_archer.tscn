@@ -1,0 +1,115 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/roman_archer.gd" id="1_archer"]
+[ext_resource type="Resource" path="res://stats/roman_archer_stats.tres" id="2_archer"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_archer"]
+size = Vector3(0.25402832, 0.47802734, 0.25495148)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_archer"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_body"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_head"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_helmet"]
+albedo_color = Color(0.5, 0.4, 0.05, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_helmet"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bow"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bow"]
+albedo_color = Color(0.45, 0.3, 0.15, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_quiver"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_quiver"]
+albedo_color = Color(0.35, 0.22, 0.1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hbar_bg"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_hbar_fill"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_archer"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:current_health")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:current_state")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:is_dead")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:team_id")
+properties/5/spawn = true
+properties/5/replication_mode = 0
+properties/6/path = NodePath(".:advance_direction")
+properties/6/spawn = true
+properties/6/replication_mode = 0
+
+[node name="RomanArcher" type="CharacterBody3D"]
+script = ExtResource("1_archer")
+stats = ExtResource("2_archer")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00032922626, 0.2543559, -0.0011884868)
+shape = SubResource("BoxShape3D_archer")
+
+[node name="DetectionArea" type="Area3D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0.38766152, 0)
+shape = SubResource("SphereShape3D_archer")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.5
+
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(0.2, 0, 0, 0, 0.32, 0, 0, 0, 0.2, 0, 0.18643412, 0)
+mesh = SubResource("BoxMesh_body")
+
+[node name="Head" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(0.14, 0, 0, 0, 0.14, 0, 0, 0, 0.14, 0, 0.41142452, 0)
+mesh = SubResource("BoxMesh_head")
+
+[node name="Helmet" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(0.145, 0, 0, 0, 0.08, 0, 0, 0, 0.15, 0.003, 0.45, 0)
+material_override = SubResource("StandardMaterial3D_helmet")
+mesh = SubResource("BoxMesh_helmet")
+
+[node name="Weapon" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(0.04, 0, 0, 0, 0.4, 0, 0, 0, 0.04, -0.16, 0.3, -0.12)
+material_override = SubResource("StandardMaterial3D_bow")
+mesh = SubResource("BoxMesh_bow")
+
+[node name="Quiver" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(0.06, 0, 0, 0, 0.25, 0, 0, 0, 0.06, 0.1, 0.28, 0.12)
+material_override = SubResource("StandardMaterial3D_quiver")
+mesh = SubResource("BoxMesh_quiver")
+
+[node name="HealthBarRoot" type="Node3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1.5, 0)
+
+[node name="HealthBarBg" type="MeshInstance3D" parent="HealthBarRoot"]
+transform = Transform3D(0.8, 0, 0, 0, 0.08, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("BoxMesh_hbar_bg")
+
+[node name="HealthBarFill" type="MeshInstance3D" parent="HealthBarRoot"]
+transform = Transform3D(0.8, 0, 0, 0, 0.08, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("BoxMesh_hbar_fill")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_archer")

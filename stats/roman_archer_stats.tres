@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UnitStats" format=3]
+
+[ext_resource type="Script" uid="uid://df13edy1thx33" path="res://scripts/UnitStats.gd" id="1_archer"]
+
+[resource]
+script = ExtResource("1_archer")
+unit_name = "Roman Archer"
+max_health = 60
+damage = 15
+move_speed = 1.25
+attack_range = 3.0
+attack_cooldown = 1.5
+cost = 18
+metadata/_custom_type_script = "uid://df13edy1thx33"

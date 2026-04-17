@@ -1,0 +1,37 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/arrow.gd" id="1_arrow"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_shaft"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_shaft"]
+albedo_color = Color(0.45, 0.3, 0.15, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tip"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tip"]
+albedo_color = Color(0.5, 0.5, 0.55, 1)
+metallic = 0.8
+roughness = 0.2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_arrow"]
+size = Vector3(0.06, 0.06, 0.5)
+
+[node name="Arrow" type="Area3D"]
+collision_layer = 4
+collision_mask = 1
+monitorable = false
+script = ExtResource("1_arrow")
+
+[node name="Shaft" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.35, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_shaft")
+mesh = SubResource("BoxMesh_shaft")
+
+[node name="Tip" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.06, 0, 0, -0.2)
+material_override = SubResource("StandardMaterial3D_tip")
+mesh = SubResource("BoxMesh_tip")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_arrow")
