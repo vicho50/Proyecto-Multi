@@ -21,6 +21,8 @@ func _ready():
 func _spawns_units_for_all_players():
 	for player in Game.players:
 		var scene = UNIT_SCENES.get(player.role, UNIT_SCENES[Statics.Role.ROLE_A])
+		if not TEAM_SPAWN_X.has(player.index):
+			push_warning("game_manager: unexpected player.index %d; defaulting spawn position to origin" % player.index)
 		var spawn_x: float = TEAM_SPAWN_X.get(player.index, 0.0)
 		var advance_dir: Vector3 = TEAM_ADVANCE_DIR.get(player.index, Vector3.RIGHT)
 
