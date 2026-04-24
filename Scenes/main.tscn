@@ -1,13 +1,10 @@
 [gd_scene format=3 uid="uid://cq0v2esf2blvk"]
 
-[ext_resource type="PackedScene" uid="uid://b3ppsl5j3eeke" path="res://Scenes/UnitBase.tscn" id="1_bo1nx"]
 [ext_resource type="Script" uid="uid://cg1xwohoy5kgf" path="res://scripts/camera_rig.gd" id="2_bo1nx"]
-[ext_resource type="PackedScene" uid="uid://hrpxwu8a20yf" path="res://Scenes/roman_heavy.tscn" id="3_8gbba"]
 [ext_resource type="MeshLibrary" uid="uid://cohi6cvf8js0c" path="res://MeshLibs/.meshlib" id="4_21xkr"]
 [ext_resource type="PackedScene" uid="uid://5uvobsg8d32s" path="res://Scenes/base_castle.tscn" id="5_21xkr"]
 [ext_resource type="PackedScene" uid="uid://0yrheqra57f5" path="res://Scenes/red_castle.tscn" id="6_6bp64"]
 [ext_resource type="Script" uid="uid://27e1ijv776qj" path="res://Scenes/game_manager.gd" id="7_6bp64"]
-[ext_resource type="PackedScene" path="res://Scenes/roman_archer.tscn" id="8_344ge"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jjgbg"]
 size = Vector3(19.444641, 0.47558594, 19.537903)
@@ -27,14 +24,6 @@ shape = SubResource("BoxShape3D_jjgbg")
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=779683127]
 navigation_mesh = SubResource("NavigationMesh_bo1nx")
 
-[node name="UnitBase" parent="." unique_id=1174531821 instance=ExtResource("1_bo1nx")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -9.084725, 0.031998992, 0.30060387)
-
-[node name="UnitBase2" parent="." unique_id=321755954 instance=ExtResource("1_bo1nx")]
-transform = Transform3D(0.9653361, 0, -0.26101, 0, 1, 0, 0.26101, 0, 0.9653361, 8.301834, -0.020311356, 0.34625506)
-team_id = 1
-advance_direction = Vector3(-1, 0, 0)
-
 [node name="CameraRig" type="Node3D" parent="." unique_id=48742980]
 script = ExtResource("2_bo1nx")
 
@@ -43,14 +32,6 @@ transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig/CameraPivot" unique_id=268650126]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
-
-[node name="RomanHeavy" parent="." unique_id=1624337721 instance=ExtResource("3_8gbba")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.293463, 0, -1.5397576)
-team_id = 1
-advance_direction = Vector3(-1, 0, 0)
-
-[node name="RomanHeavy2" parent="." unique_id=549145367 instance=ExtResource("3_8gbba")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -9.046101, 0.16747236, -1.6331793)
 
 [node name="GridMap" type="GridMap" parent="." unique_id=101734567]
 mesh_library = ExtResource("4_21xkr")
@@ -74,5 +55,4 @@ script = ExtResource("7_6bp64")
 _spawnable_scenes = PackedStringArray("uid://b3ppsl5j3eeke", "uid://cjistf0ptqdlf", "uid://hrpxwu8a20yf", "res://Scenes/roman_archer.tscn", "res://Scenes/arrow.tscn")
 spawn_path = NodePath("..")
 
-[node name="RomanArcher" parent="." unique_id=1849034940 instance=ExtResource("8_344ge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.016968, 0.114239365, 4.020235)
+

@@ -28,8 +28,10 @@ func _spawn_arrow() -> void:
 	arrow.damage = stats.damage
 	arrow.target = target
 	arrow.team_id = team_id
+	var units_node = get_tree().current_scene.get_node_or_null("Units")
+	var spawn_parent = units_node if units_node else get_tree().current_scene
+	spawn_parent.add_child(arrow, true)
 	arrow.global_position = weapon_mesh.global_position
-	get_tree().current_scene.add_child(arrow, true)
 
 func apply_roman_visuals() -> void:
 	var helmet_material := StandardMaterial3D.new()

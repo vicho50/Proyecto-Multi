@@ -8,6 +8,29 @@ size = Vector3(0.25402832, 0.47802734, 0.25495148)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ekbak"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_heavy"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:current_health")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:current_state")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:is_dead")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:team_id")
+properties/5/spawn = true
+properties/5/replication_mode = 0
+properties/6/path = NodePath(".:advance_direction")
+properties/6/spawn = true
+properties/6/replication_mode = 0
+
 [sub_resource type="BoxMesh" id="BoxMesh_3hm6q"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_hcycw"]
@@ -87,3 +110,6 @@ mesh = SubResource("BoxMesh_7qt50")
 [node name="HealthBarFill" type="MeshInstance3D" parent="HealthBarRoot" unique_id=1834092928]
 transform = Transform3D(0.8, 0, 0, 0, 0.08, 0, 0, 0, 0.05, 0, 0, 0)
 mesh = SubResource("BoxMesh_5pi0x")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_heavy")
