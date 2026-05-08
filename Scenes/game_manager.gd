@@ -77,3 +77,41 @@ func _get_team_spawn_position(team_id: int) -> Vector3:
 		return team_0_spawn_position
 	return team_1_spawn_position
 		
+#Codigo para spawnear manualmente las unidades
+var _manual_spawn_count := 0
+
+func manual_unit_spawn(role: Statics.Role, team_id: int):
+	# Solo el servidor puede ejecutar el spawner.spawn
+	if not multiplayer.is_server():
+		return
+
+	_manual_spawn_count += 1
+	
+	var unique_id = 5000 + _manual_spawn_count
+	
+	var data = {
+	"id": unique_id,
+	"team_id": team_id,
+	"role": role,
+	"slot": randi() % 5, # Slot aleatorio para que no salgan todas en la misma linea
+	"units_per_team": 5   # Valor base para el calculo de formacion
+	}
+	spawner.spawn(data)
+	
+#Inputs para spawn manual
+func _input(_event):
+	#Equipo Azul
+	if Input.is_key_pressed(KEY_1):
+		manual_unit_spawn(Statics.Role.ROLE_A, 0)
+	if Input.is_key_pressed(KEY_2):
+		manual_unit_spawn(Statics.Role.ROLE_B, 0)
+	if Input.is_key_pressed(KEY_3):
+		manual_unit_spawn(Statics.Role.ROLE_C, 0)
+	#Equipo Rojo
+	if Input.is_key_pressed(KEY_4):
+		manual_unit_spawn(Statics.Role.ROLE_A, 1)
+	if Input.is_key_pressed(KEY_5):
+		manual_unit_spawn(Statics.Role.ROLE_B, 1)
+	if Input.is_key_pressed(KEY_6):
+		manual_unit_spawn(Statics.Role.ROLE_C, 1)
+	return
