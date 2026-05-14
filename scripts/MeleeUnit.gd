@@ -93,7 +93,7 @@ func update_logic(delta: float) -> void:
 		return
 
 	var distance_to_target = global_position.distance_to(target.global_position)
-
+		
 	if distance_to_target <= stats.attack_range:
 		velocity = Vector3.ZERO
 		face_target(delta)

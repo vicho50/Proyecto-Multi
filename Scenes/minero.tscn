@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://cj4ti8j2wkyoh"]
+
+[ext_resource type="Script" uid="uid://bwgb1sci2064c" path="res://minero.gd" id="1_7m6lf"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_g2dfj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ptlvo"]
+
+[node name="Minero" type="CharacterBody3D" unique_id=530977269]
+script = ExtResource("1_7m6lf")
+
+[node name="Visuals" type="Node3D" parent="." unique_id=858736479]
+
+[node name="Cuerpo" type="MeshInstance3D" parent="Visuals" unique_id=1572523905]
+mesh = SubResource("BoxMesh_g2dfj")
+
+[node name="Pico" type="MeshInstance3D" parent="Visuals" unique_id=1409871473]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1411851189]
+shape = SubResource("BoxShape3D_ptlvo")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2033908250]
+
+[node name="MiningTimer" type="Timer" parent="." unique_id=148327252]

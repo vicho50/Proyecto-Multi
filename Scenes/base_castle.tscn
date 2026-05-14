@@ -5,7 +5,7 @@
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_e2s23"]
 height = 3.9091797
-radius = 1.1386719
+radius = 1.0107422
 
 [node name="BaseCastle" type="StaticBody3D" unique_id=222457813]
 script = ExtResource("1_qdffw")
