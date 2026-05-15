@@ -15,3 +15,9 @@ data_*/
 mono_crash.*.json
 
 builds/
+
+# Executables
+*.exe
+*.pck
+*.apk
+*.aab
