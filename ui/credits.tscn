@@ -7,7 +7,7 @@
 script = ExtResource("2_hvxmk")
 
 [node name="Label" parent="MarginContainer2/VBoxContainer/Panel" index="0"]
-text = "Credits"
+text = "Scroll of Credits"
 
 [node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control" index="0"]
 theme_type_variation = &"Zero"

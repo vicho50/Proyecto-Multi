@@ -14,6 +14,15 @@ grow_vertical = 2
 theme = ExtResource("1_3qnx1")
 script = ExtResource("2_p6ygj")
 
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.078, 0.059, 0.039, 1)
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -36,22 +45,22 @@ size_flags_horizontal = 4
 [node name="Host" type="Button" parent="MarginContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Host"
+text = "⚔  Forge Battle"
 
 [node name="Join" type="Button" parent="MarginContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Join"
+text = "🛡  Join Battle"
 
 [node name="Credits" type="Button" parent="MarginContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Credits"
+text = "📜  Scroll of Credits"
 
 [node name="Quit" type="Button" parent="MarginContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Quit"
+text = "🏃  Flee in Cowardice"
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -70,7 +79,11 @@ grow_vertical = 2
 [node name="TextureRect" type="TextureRect" parent="MarginContainer2"]
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 texture = ExtResource("2_xllby")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="MarginContainer3" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -89,4 +102,5 @@ grow_vertical = 2
 [node name="Label" type="Label" parent="MarginContainer3"]
 layout_mode = 2
 theme_type_variation = &"Title"
-text = "Multiplayer Example"
+text = "⚔  CUBE WARS  ⚔"
+horizontal_alignment = 1

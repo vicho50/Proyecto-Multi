@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://brmws016hnle0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_6a7v8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_t378n"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kj3b0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_c4l63"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_u0dyb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_qwu0u"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3v0kv"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:current_health")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:current_state")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:is_dead")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:team_id")
+properties/5/spawn = true
+properties/5/replication_mode = 0
+properties/6/path = NodePath(".:advance_direction")
+properties/6/spawn = true
+properties/6/replication_mode = 0
+
+[node name="MinerUnit" type="Node3D" unique_id=1145689932]
+
+[node name="Visuals" type="Node3D" parent="." unique_id=2004015210]
+
+[node name="Body" type="MeshInstance3D" parent="Visuals" unique_id=329837646]
+transform = Transform3D(0.25, 0, 0, 0, 0.35, 0, 0, 0, 0.25, 0, 0.18643412, 0)
+mesh = SubResource("BoxMesh_6a7v8")
+
+[node name="Head" type="MeshInstance3D" parent="Visuals" unique_id=1405916028]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.41142452, 0)
+mesh = SubResource("BoxMesh_t378n")
+
+[node name="Pickaxe" type="Node3D" parent="Visuals" unique_id=465429811]
+
+[node name="Handle" type="MeshInstance3D" parent="Visuals/Pickaxe" unique_id=1547993005]
+transform = Transform3D(0.04, 0, 0, 0, 0.026063893, 0.21334675, 0, -0.042669352, 0.13031946, 0.17190653, 0.3511764, 0.079104245)
+mesh = SubResource("BoxMesh_kj3b0")
+
+[node name="Head1" type="MeshInstance3D" parent="Visuals/Pickaxe" unique_id=677905525]
+transform = Transform3D(0.05, 0, 0, 0, 0.04068651, -0.087186426, 0, 0.02906214, 0.12205953, 0.17057508, 0.45249492, 0.1450462)
+mesh = SubResource("BoxMesh_c4l63")
+
+[node name="Head2" type="MeshInstance3D" parent="Visuals/Pickaxe" unique_id=1923468122]
+transform = Transform3D(0.05, 0, 0, 0, 0.014646123, -0.06692954, 0, 0.047806814, 0.020504571, 0.17057508, 0.38648257, 0.20898393)
+mesh = SubResource("BoxMesh_c4l63")
+
+[node name="Head3" type="MeshInstance3D" parent="Visuals/Pickaxe" unique_id=981607639]
+transform = Transform3D(0.05, 0, 0, 0, 0.048852097, 0.014913322, 0, -0.010652376, 0.06839293, 0.17057508, 0.48419538, 0.06986882)
+mesh = SubResource("BoxMesh_c4l63")
+
+[node name="HealthBarRoot" type="Node3D" parent="." unique_id=1771186510]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1.5, 0)
+
+[node name="HealthBarBg" type="MeshInstance3D" parent="HealthBarRoot" unique_id=1149682227]
+transform = Transform3D(0.8, 0, 0, 0, 0.08, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("BoxMesh_u0dyb")
+
+[node name="HealthBarFill" type="MeshInstance3D" parent="HealthBarRoot" unique_id=1636834568]
+transform = Transform3D(0.8, 0, 0, 0, 0.08, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("BoxMesh_qwu0u")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=252758100]
+replication_config = SubResource("SceneReplicationConfig_3v0kv")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1404089459]
+path_desired_distance = 0.5

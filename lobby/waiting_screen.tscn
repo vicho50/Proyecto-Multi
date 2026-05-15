@@ -9,7 +9,7 @@
 script = ExtResource("2_a2sqk")
 
 [node name="Label" parent="MarginContainer2/VBoxContainer/Panel" index="0"]
-text = "Lobby"
+text = "The Keep"
 
 [node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control" index="0"]
 clip_contents = true
@@ -56,7 +56,7 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Wating for players ..."
+text = "Awaiting warriors..."
 horizontal_alignment = 1
 
 [node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer2" type="PanelContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control" index="1"]
@@ -86,9 +86,11 @@ theme_type_variation = &"Zero"
 [node name="PlayerTexture" type="TextureRect" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer2/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer" index="0"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 3
+size_flags_vertical = 3
 texture = ExtResource("3_0nkhr")
-stretch_mode = 2
+expand_mode = 1
+stretch_mode = 5
 
 [node name="PlayerName" type="Label" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer2/Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel_MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer#MarginContainer/VBoxContainer" index="1"]
 unique_name_in_owner = true

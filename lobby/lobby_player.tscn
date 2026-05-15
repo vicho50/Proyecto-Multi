@@ -23,7 +23,9 @@ text = "Role"
 
 [node name="ReadyIcon" type="TextureRect" parent="."]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 8
 texture = ExtResource("1_dxmoh")
-expand_mode = 3
+expand_mode = 1
+stretch_mode = 5
