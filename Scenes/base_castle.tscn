@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://5uvobsg8d32s"]
 
-[ext_resource type="Script" uid="uid://thund78fe87b" path="res://base_castle.gd" id="1_qdffw"]
+[ext_resource type="Script" uid="uid://thund78fe87b" path="res://scripts/base_castle.gd" id="1_qdffw"]
 [ext_resource type="ArrayMesh" uid="uid://btb0govxwt31w" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/buildings/blue/building_castle_blue.obj" id="2_r71f8"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_e2s23"]

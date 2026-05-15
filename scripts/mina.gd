@@ -5,7 +5,7 @@ extends StaticBody3D
 @export var is_infinite: bool = false
 
 @onready var mining_spot = $MiningSpot
-@onready var label = $Label3D # Si decidiste ponerlo
+@onready var label = $Label3D 
 
 func _ready():
 	add_to_group("minas")
@@ -31,6 +31,5 @@ func _update_label():
 		label.text = "Oro: " + str(gold_remaining) if not is_infinite else "Oro: Infinito"
 
 func _deplete():
-	# Aquí podrías cambiar el color de la malla o eliminar la mina
 	print("Mina agotada")
 	queue_free()

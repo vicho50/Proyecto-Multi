@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cj4ti8j2wkyoh"]
 
-[ext_resource type="Script" uid="uid://bwgb1sci2064c" path="res://minero.gd" id="1_7m6lf"]
+[ext_resource type="Script" uid="uid://bwgb1sci2064c" path="res://scripts/minero.gd" id="1_7m6lf"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_g2dfj"]
 
