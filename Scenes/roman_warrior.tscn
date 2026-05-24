@@ -15,5 +15,5 @@ transform = Transform3D(0.15, 0, 0, 0, 0.1, 0, 0, 0, 0.16, 0.0016619563, 0.44909
 mesh = SubResource("BoxMesh_r8mty")
 
 [node name="Crest" type="MeshInstance3D" parent="Visuals" parent_id_path=PackedInt32Array(59750531) index="4" unique_id=1327997558]
-transform = Transform3D(0.145, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.0030676648, 0.5060073, 0)
+transform = Transform3D(0.145, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.00028640032, 0.5038688, -0.0003376603)
 mesh = SubResource("BoxMesh_cql8s")

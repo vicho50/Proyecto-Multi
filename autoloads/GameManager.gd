@@ -6,6 +6,7 @@ func _ready():
 	setup_player(0, "Jugador Azul")
 	setup_player(1, "Jugador Rojo")
 	
+	
 	# Configuración del temporizador de ingreso pasivo
 	var timer = Timer.new()
 	add_child(timer)
@@ -31,6 +32,14 @@ func _on_passive_income():
 func add_gold(id: int, amount: int):
 	var p = get_player(id)
 	if p: p.gold += amount
+	
+func sub_gold(id: int, amount: int):
+	var p = get_player(id)
+	if p: p.gold -= amount
+
+func read_gold(id: int):
+	var p = get_player(id)
+	return p.gold
 
 # Clase de datos del jugador
 class PlayerData:

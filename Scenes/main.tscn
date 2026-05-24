@@ -3,39 +3,33 @@
 [ext_resource type="Script" uid="uid://cg1xwohoy5kgf" path="res://scripts/camera_rig.gd" id="2_bo1nx"]
 [ext_resource type="MeshLibrary" uid="uid://cohi6cvf8js0c" path="res://MeshLibs/.meshlib" id="4_21xkr"]
 [ext_resource type="PackedScene" uid="uid://5uvobsg8d32s" path="res://Scenes/base_castle.tscn" id="5_21xkr"]
+[ext_resource type="Texture2D" uid="uid://chu5hxjaagber" path="res://Assets/UI/Ladrillos_Largos_v2.png" id="5_hptm8"]
 [ext_resource type="Script" uid="uid://e3s8xs6jnarq" path="res://Scenes/ui.gd" id="6_344ge"]
 [ext_resource type="Script" uid="uid://27e1ijv776qj" path="res://Scenes/game_manager.gd" id="7_6bp64"]
 [ext_resource type="ArrayMesh" uid="uid://c03tgvjr0oslr" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/buildings/red/building_castle_red.obj" id="7_344ge"]
+[ext_resource type="Texture2D" uid="uid://lesitpbnow85" path="res://Assets/UI/Iconos_Tropas/Marco_V1.png" id="7_hptm8"]
 [ext_resource type="Texture2D" uid="uid://dhtciucerahjx" path="res://Assets/UI/3309977.png" id="7_ynf5e"]
+[ext_resource type="Texture2D" uid="uid://blp32w8akrnln" path="res://Assets/UI/Iconos_Tropas/Archer.png" id="8_6iyac"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jjgbg"]
 size = Vector3(19.444641, 0.47558594, 19.537903)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_bo1nx"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kry3j"]
-bg_color = Color(0.79607844, 0, 0, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+[sub_resource type="Gradient" id="Gradient_d1ilt"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21xkr"]
-bg_color = Color(0, 0.80784315, 0, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6iyac"]
+gradient = SubResource("Gradient_d1ilt")
+width = 32
+height = 32
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ynf5e"]
+load_path = "res://.godot/imported/Warrior.png-c90b50263d41d8f55a5c8d5eb7620fb1.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_d1ilt"]
+load_path = "res://.godot/imported/Heavy.png-54ed2d46859a32d5389e9c7170d5cfcb.ctex"
 
 [node name="Main" type="Node3D" unique_id=1683675]
 
@@ -85,6 +79,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/HUD" unique_id=715624035]
 layout_mode = 1
@@ -98,26 +93,205 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/HUD/MarginContainer" unique_id=1562565546]
+[node name="HealthBar" type="TextureProgressBar" parent="UI/HUD/MarginContainer" unique_id=6045747]
+layout_mode = 2
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture2D_6iyac")
+texture_over = ExtResource("5_hptm8")
+texture_progress = SubResource("GradientTexture2D_6iyac")
+tint_under = Color(1, 0, 0, 1)
+tint_over = Color(0, 0, 0, 1)
+tint_progress = Color(0, 1, 0, 1)
+
+[node name="Label" type="Label" parent="UI/HUD/MarginContainer/HealthBar" unique_id=1587929223]
+custom_minimum_size = Vector2(26.795, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -11.5
+offset_right = 21.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "100%"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/HUD" unique_id=1562565546]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 510.03
+offset_right = 720.0
+offset_bottom = 734.03
+scale = Vector2(0.9, 0.9)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer" unique_id=672625417]
+custom_minimum_size = Vector2(700, 70)
 layout_mode = 2
 
-[node name="HealthBar" type="ProgressBar" parent="UI/HUD/MarginContainer/VBoxContainer" unique_id=388157212]
-layout_mode = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_kry3j")
-theme_override_styles/fill = SubResource("StyleBoxFlat_21xkr")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/MarginContainer/VBoxContainer" unique_id=672625417]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="UI/HUD/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2146441253]
+[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer/HBoxContainer" unique_id=2146441253]
 layout_mode = 2
 texture = ExtResource("7_ynf5e")
 expand_mode = 2
 
-[node name="ResourceLabel" type="Label" parent="UI/HUD/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1113581444]
+[node name="ResourceLabel" type="Label" parent="UI/HUD/VBoxContainer/HBoxContainer" unique_id=1113581444]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 25
 text = "Oro:"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/HUD/VBoxContainer" unique_id=1347280276]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Roman_Warrior_Button" type="TextureButton" parent="UI/HUD/VBoxContainer/HBoxContainer2" unique_id=1466191398]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 1)
+custom_minimum_size = Vector2(130, 140)
+layout_mode = 2
+texture_normal = SubResource("CompressedTexture2D_ynf5e")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button" unique_id=568895459]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.865
+offset_top = -10.0
+offset_right = 25.134995
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_hptm8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button" unique_id=945573869]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 0
+offset_left = 88.09
+offset_right = 191.09
+offset_bottom = 50.0
+scale = Vector2(0.7, 0.7)
+
+[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button/HBoxContainer" unique_id=1251921579]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("7_ynf5e")
+expand_mode = 1
+
+[node name="Precio_Warrior" type="Label" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button/HBoxContainer" unique_id=570167773]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "5"
+
+[node name="Roman_Archer_Button" type="TextureButton" parent="UI/HUD/VBoxContainer/HBoxContainer2" unique_id=340738754]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 1)
+custom_minimum_size = Vector2(154.065, 150)
+layout_mode = 2
+texture_normal = ExtResource("8_6iyac")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button" unique_id=989315795]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.215
+offset_top = -10.0
+offset_right = 24.709991
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_hptm8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button" unique_id=1990973162]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 0
+offset_left = 96.235
+offset_right = 199.23492
+offset_bottom = 50.0
+scale = Vector2(0.7, 0.7)
+
+[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button/HBoxContainer" unique_id=683092934]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("7_ynf5e")
+expand_mode = 1
+
+[node name="Precio_Archer" type="Label" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button/HBoxContainer" unique_id=894197535]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "10"
+
+[node name="Roman_Heavy_Button" type="TextureButton" parent="UI/HUD/VBoxContainer/HBoxContainer2" unique_id=825177779]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 1)
+custom_minimum_size = Vector2(160, 146.04)
+layout_mode = 2
+texture_normal = SubResource("CompressedTexture2D_d1ilt")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button" unique_id=1410866662]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -10.0
+offset_right = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_hptm8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button" unique_id=2034577003]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 0
+offset_left = 94.94
+offset_right = 197.93991
+offset_bottom = 50.0
+scale = Vector2(0.7, 0.7)
+
+[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button/HBoxContainer" unique_id=182635594]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("7_ynf5e")
+expand_mode = 1
+
+[node name="Precio_Heavy" type="Label" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button/HBoxContainer" unique_id=1078577567]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "15"
 
 [node name="BlueCastle" parent="." unique_id=222457813 instance=ExtResource("5_21xkr")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10.822423, -9.536743e-07, 1.4998264)
@@ -126,3 +300,19 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10.
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9.943407, 0, 1.5218534)
 team_id = 1
 custom_mesh = ExtResource("7_344ge")
+
+[connection signal="button_down" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button" to="UI" method="_on_roman_warrior_button_button_down"]
+[connection signal="button_up" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button" to="UI" method="_on_roman_warrior_button_button_up"]
+[connection signal="mouse_entered" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button" to="UI" method="_on_roman_warrior_button_mouse_entered"]
+[connection signal="mouse_exited" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button" to="UI" method="_on_roman_warrior_button_mouse_exited"]
+[connection signal="pressed" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button" to="UI" method="_on_roman_warrior_button_pressed"]
+[connection signal="button_down" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button" to="UI" method="_on_roman_archer_button_button_down"]
+[connection signal="button_up" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button" to="UI" method="_on_roman_archer_button_button_up"]
+[connection signal="mouse_entered" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button" to="UI" method="_on_roman_archer_button_mouse_entered"]
+[connection signal="mouse_exited" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button" to="UI" method="_on_roman_archer_button_mouse_exited"]
+[connection signal="pressed" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button" to="UI" method="_on_roman_archer_button_pressed"]
+[connection signal="button_down" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button" to="UI" method="_on_roman_heavy_button_button_down"]
+[connection signal="button_up" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button" to="UI" method="_on_roman_heavy_button_button_up"]
+[connection signal="mouse_entered" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button" to="UI" method="_on_roman_heavy_button_mouse_entered"]
+[connection signal="mouse_exited" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button" to="UI" method="_on_roman_heavy_button_mouse_exited"]
+[connection signal="pressed" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button" to="UI" method="_on_roman_heavy_button_pressed"]

@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://drbctew0ybbwn"]
+
+[ext_resource type="Script" uid="uid://dy443o6os3tnq" path="res://Scenes/generador_iconos.gd" id="1_cwpg3"]
+[ext_resource type="PackedScene" uid="uid://cjistf0ptqdlf" path="res://Scenes/roman_warrior.tscn" id="2_pyevm"]
+[ext_resource type="PackedScene" path="res://Scenes/roman_archer.tscn" id="3_yfcpr"]
+[ext_resource type="PackedScene" uid="uid://hrpxwu8a20yf" path="res://Scenes/roman_heavy.tscn" id="4_rqtvl"]
+
+[node name="generador_iconos" type="Node" unique_id=125676503]
+script = ExtResource("1_cwpg3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=956870472]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1173011401]
+offset_left = 195.0
+offset_top = 96.0
+offset_right = 707.0
+offset_bottom = 608.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=646794416]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=1568062063]
+transform = Transform3D(0.7765305, 0, -0.6300797, 0, 1, 0, 0.6300797, 0, 0.7765305, -0.44311494, 0.24019599, -0.093964756)
+fov = 42.1523
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport" unique_id=1656258041]
+transform = Transform3D(0.98869103, 0.120987855, -0.08861135, 0, 0.5908733, 0.8067644, 0.14996676, -0.7976408, 0.5841911, 0.4140284, 1.3926282, 0.9114735)
+
+[node name="Node3D" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=845887725]
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport" unique_id=926322908]
+transform = Transform3D(-0.31710517, -0.4701654, -0.8236437, 0.48454204, 0.6662444, -0.56686634, 0.8152689, -0.5788462, 0.016545353, -4.0359764, -2.9683888, -2.0994349)
+light_color = Color(0, 0, 0, 1)
+light_energy = 0.0
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_specular = 3.624
+
+[node name="RomanHeavy" parent="SubViewportContainer/SubViewport" unique_id=1014381671 instance=ExtResource("4_rqtvl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13429153, -0.031011045, -0.78687525)
+visible = false
+script = null
+
+[node name="RomanWarrior2" parent="SubViewportContainer/SubViewport" unique_id=1248783216 instance=ExtResource("2_pyevm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.52448106, -0.35618392, -1.309196)
+visible = false
+script = null
+
+[node name="RomanArcher" parent="SubViewportContainer/SubViewport" unique_id=1421117065 instance=ExtResource("3_yfcpr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13429153, -0.031011045, -0.78687525)
+script = null
