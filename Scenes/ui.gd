@@ -11,6 +11,11 @@ const game_manager = preload("res://Scenes/game_manager.gd")
 @onready var Archer_Cost = $HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button/HBoxContainer/Precio_Archer
 @onready var Miner_Cost = $HUD/VBoxContainer/HBoxContainer2/Roman_Miner_Button/HBoxContainer/Precio_Miner
 
+@onready var game_over_screen: Control = $GameOverScreen
+@onready var result_label: Label = $GameOverScreen/ResultLabel
+
+var _game_over := false
+
 #Mouses
 var Heavy_Mouse=load("res://Assets/UI/Mouses/Mouse_Heavy.png")
 var Warrior_Mouse=load("res://Assets/UI/Mouses/Mouse_Warrior.png")
@@ -38,6 +43,29 @@ func _ready():
 		# Registra la UI en un grupo para acceder facilmente desde el mundo 3D
 		add_to_group("UI_Nodes")
 	Set_Prices()
+	_setup_game_over_watch()
+
+# Escucha la destrucción de ambos castillos para mostrar victoria/derrota.
+func _setup_game_over_watch():
+	game_over_screen.visible = false
+	for tid in [0, 1]:
+		for castle in get_tree().get_nodes_in_group("castillo_jugador_" + str(tid)):
+			if castle.has_signal("castle_destroyed"):
+				castle.castle_destroyed.connect(_on_castle_destroyed.bind(tid))
+
+# El primer parámetro es el player_id emitido por la señal (no se usa);
+# el segundo es el team_id que enlazamos al conectar (equipo perdedor).
+func _on_castle_destroyed(_emitted_id, losing_team_id: int) -> void:
+	if _game_over:
+		return
+	_game_over = true
+	if player_id == losing_team_id:
+		result_label.text = "DERROTA"
+		result_label.modulate = Color(1.0, 0.35, 0.35)
+	else:
+		result_label.text = "VICTORIA"
+		result_label.modulate = Color(0.4, 1.0, 0.4)
+	game_over_screen.visible = true
 
 func _setup_castle_link():
 	var castle_group = "castillo_jugador_" + str(player_id)

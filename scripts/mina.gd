@@ -4,8 +4,10 @@ extends StaticBody3D
 @export var gold_remaining: int = 1000
 @export var is_infinite: bool = false
 
-@onready var mining_spot = $MiningSpot
-@onready var label = $Label3D 
+# Punto donde el minero se coloca a picar (Marker3D en la escena) y etiqueta de oro.
+# Se usan get_node_or_null para que la mina funcione aunque falten estos nodos.
+@onready var mining_spot = get_node_or_null("Marker3D")
+@onready var label = get_node_or_null("Label3D")
 
 func _ready():
 	add_to_group("minas")
@@ -27,7 +29,7 @@ func extract_gold(amount: int) -> int:
 	return actual_amount
 
 func _update_label():
-	if has_node("Label3D"):
+	if label:
 		label.text = "Oro: " + str(gold_remaining) if not is_infinite else "Oro: Infinito"
 
 func _deplete():

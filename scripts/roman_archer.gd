@@ -16,7 +16,9 @@ func try_attack() -> void:
 		return
 	if not is_instance_valid(target):
 		return
-	if global_position.distance_to(target.global_position) > stats.attack_range:
+	# Usa distancia al borde del objetivo (descuenta el radio de castillos)
+	# para coincidir con el rango usado en update_logic.
+	if effective_distance_to(target) > stats.attack_range:
 		return
 
 	attack_timer.start()

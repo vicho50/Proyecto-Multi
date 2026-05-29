@@ -16,6 +16,7 @@ var COMBAT_UNIT_TYPES = [
 	Statics.UnitType.ARCHER,
 ]
 
+@export var spawn_initial_wave: bool = false # Si es false, la partida empieza sin unidades.
 @export var min_initial_units_per_team: int = 3
 @export var max_initial_units_per_team: int = 6
 @export var unit_spacing_z: float = 1.4
@@ -38,7 +39,7 @@ func _ready():
 	spawner.spawn_function = _custom_spawn
 	# Reinicia la economía al comenzar el combate (10 de oro por equipo + ingreso pasivo).
 	GameManager.start_match()
-	if multiplayer.is_server():
+	if multiplayer.is_server() and spawn_initial_wave:
 		await get_tree().create_timer(0.5).timeout
 		_spawn_initial_symmetric_wave()
 

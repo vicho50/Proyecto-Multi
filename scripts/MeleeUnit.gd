@@ -12,6 +12,11 @@ enum UnitState {
 @export var team_id: int = 0
 @export var advance_direction: Vector3 = Vector3.RIGHT
 
+# Separación: empuja a las unidades del mismo equipo para que no se apilen en
+# fila y rodeen al objetivo en vez de quedarse atascadas detrás de un aliado.
+@export var separation_radius: float = 1.2
+@export var separation_weight: float = 1.5
+
 @onready var detection_area: Area3D = $DetectionArea
 @onready var attack_timer: Timer = $AttackTimer
 
@@ -169,23 +174,47 @@ func update_dead_visual(delta: float) -> void:
 	visuals.position.y = lerp(visuals.position.y, visual_base_y - 0.3, 6.0 * delta)
 
 func move_towards_position(pos: Vector3) -> void:
-	var direction = pos - global_position
-	direction.y = 0.0
-
-	if direction.length() > 0.01:
-		velocity = direction.normalized() * stats.move_speed
-	else:
-		velocity = Vector3.ZERO
+	_steer_velocity(pos - global_position)
 
 func move_forward(dir: Vector3) -> void:
-	var flat_dir = dir
-	flat_dir.y = 0.0
+	_steer_velocity(dir)
 
-	if flat_dir.length() <= 0.001:
+# Combina la dirección deseada con una fuerza de separación de aliados, para
+# que las unidades se dispersen lateralmente en vez de quedarse en fila.
+func _steer_velocity(desired_dir: Vector3) -> void:
+	var flat := desired_dir
+	flat.y = 0.0
+
+	if flat.length() <= 0.01:
 		velocity = Vector3.ZERO
 		return
 
-	velocity = flat_dir.normalized() * stats.move_speed
+	var desired := flat.normalized()
+	var steer := desired + _get_separation() * separation_weight
+	steer.y = 0.0
+
+	if steer.length() > 0.001:
+		velocity = steer.normalized() * stats.move_speed
+	else:
+		velocity = desired * stats.move_speed
+
+# Vector que apunta lejos de los aliados cercanos (boids separation).
+func _get_separation() -> Vector3:
+	var push := Vector3.ZERO
+	for body in detection_area.get_overlapping_bodies():
+		if body == self:
+			continue
+		if not (body is MeleeUnit):
+			continue
+		if body.team_id != team_id or body.is_dead:
+			continue
+		var offset := global_position - body.global_position
+		offset.y = 0.0
+		var dist := offset.length()
+		if dist > 0.001 and dist < separation_radius:
+			# Más empuje cuanto más cerca está el aliado.
+			push += offset.normalized() * (1.0 - dist / separation_radius)
+	return push
 
 func face_target(delta: float) -> void:
 	if target == null:

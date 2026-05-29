@@ -49,17 +49,30 @@ func _ready():
 
 # Cambiado a int para coincidir con stats.damage de la unidad
 func take_damage(amount: int) -> void:
-	if is_dead or not multiplayer.is_server(): 
+	if is_dead or not multiplayer.is_server():
 		return
-	
-	current_health -= amount
-	current_health = max(0, current_health)
-	
+
+	var new_health = max(0, current_health - amount)
+	# El servidor difunde la nueva vida a todos los peers para que el HUD de
+	# cada equipo (servidor y clientes) se actualice y el castillo muera igual.
+	if _is_networked():
+		_apply_health.rpc(new_health)
+	else:
+		_apply_health(new_health)
+
+
+@rpc("authority", "call_local", "reliable")
+func _apply_health(value: int) -> void:
+	current_health = value
 	health_changed.emit(current_health, max_health)
 	flash_damage()
-	
 	if current_health <= 0:
 		die()
+
+
+func _is_networked() -> bool:
+	var peer = multiplayer.multiplayer_peer
+	return peer != null and not (peer is OfflineMultiplayerPeer)
 
 func flash_damage():
 	if not material_propio: return
