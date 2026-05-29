@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cq0v2esf2blvk"]
 
+[ext_resource type="MeshLibrary" uid="uid://b7pwfiltuuapq" path="res://MeshLibs/tiles.tres" id="2_1w6v2"]
 [ext_resource type="Script" uid="uid://cg1xwohoy5kgf" path="res://scripts/camera_rig.gd" id="2_bo1nx"]
-[ext_resource type="MeshLibrary" uid="uid://cohi6cvf8js0c" path="res://MeshLibs/.meshlib" id="4_21xkr"]
 [ext_resource type="PackedScene" uid="uid://5uvobsg8d32s" path="res://Scenes/base_castle.tscn" id="5_21xkr"]
 [ext_resource type="Texture2D" uid="uid://chu5hxjaagber" path="res://Assets/UI/Ladrillos_Largos_v2.png" id="5_hptm8"]
 [ext_resource type="Script" uid="uid://e3s8xs6jnarq" path="res://Scenes/ui.gd" id="6_344ge"]
@@ -10,6 +10,23 @@
 [ext_resource type="Texture2D" uid="uid://lesitpbnow85" path="res://Assets/UI/Iconos_Tropas/Marco_V1.png" id="7_hptm8"]
 [ext_resource type="Texture2D" uid="uid://dhtciucerahjx" path="res://Assets/UI/3309977.png" id="7_ynf5e"]
 [ext_resource type="Texture2D" uid="uid://blp32w8akrnln" path="res://Assets/UI/Iconos_Tropas/Archer.png" id="8_6iyac"]
+[ext_resource type="ArrayMesh" uid="uid://b7mk0pv510gvo" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/trees_A_large.obj" id="11_ueoa1"]
+[ext_resource type="ArrayMesh" uid="uid://draqqjy1h2got" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/trees_A_medium.obj" id="12_6vcvc"]
+[ext_resource type="ArrayMesh" uid="uid://bqlobjxtmwomo" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/trees_A_small.obj" id="13_7k868"]
+[ext_resource type="ArrayMesh" uid="uid://h5r12qgdlka0" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/mountain_C_grass.obj" id="14_hpc6h"]
+[ext_resource type="ArrayMesh" uid="uid://dpds3cy6xf50g" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/mountain_C.obj" id="15_kltya"]
+[ext_resource type="ArrayMesh" uid="uid://fjktlmunvvby" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/mountain_B.obj" id="16_e08e2"]
+[ext_resource type="ArrayMesh" uid="uid://bua4o3usddyky" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/mountain_A_grass.obj" id="17_neg2b"]
+[ext_resource type="ArrayMesh" uid="uid://fl61och3wslw" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/mountain_A_grass_trees.obj" id="18_r33sp"]
+[ext_resource type="ArrayMesh" uid="uid://dyf8my506gony" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/hill_single_B.obj" id="19_hdf80"]
+[ext_resource type="ArrayMesh" uid="uid://b341wjrjt2ylc" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/hill_single_A.obj" id="20_jwpg7"]
+[ext_resource type="ArrayMesh" uid="uid://xay6ey7mcsvd" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/hills_C_trees.obj" id="21_k2e45"]
+[ext_resource type="ArrayMesh" uid="uid://b5106k2diw4yc" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/hills_B_trees.obj" id="22_536cc"]
+[ext_resource type="ArrayMesh" uid="uid://e7ighgyr6qyh" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/hills_B.obj" id="23_aqgau"]
+[ext_resource type="ArrayMesh" uid="uid://by3gntn1w47sf" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/hills_A_trees.obj" id="24_8cuat"]
+[ext_resource type="ArrayMesh" uid="uid://cw0ytg3i4fdqm" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/hills_A.obj" id="25_o1aky"]
+[ext_resource type="ArrayMesh" uid="uid://do3n1hsys0ccg" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/mountain_C_grass_trees.obj" id="26_kwxat"]
+[ext_resource type="ArrayMesh" uid="uid://hmutjs28p26u" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/mountain_B_grass.obj" id="27_aa8k8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jjgbg"]
 size = Vector3(19.444641, 0.47558594, 19.537903)
@@ -34,6 +51,7 @@ load_path = "res://.godot/imported/Heavy.png-54ed2d46859a32d5389e9c7170d5cfcb.ct
 [node name="Main" type="Node3D" unique_id=1683675]
 
 [node name="GroundBody" type="StaticBody3D" parent="." unique_id=960797228]
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GroundBody" unique_id=1062358500]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11349487, -0.26220703, 0.068573)
@@ -42,9 +60,11 @@ shape = SubResource("BoxShape3D_jjgbg")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2111205552]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=779683127]
+visible = false
 navigation_mesh = SubResource("NavigationMesh_bo1nx")
 
 [node name="CameraRig" type="Node3D" parent="." unique_id=48742980]
+visible = false
 script = ExtResource("2_bo1nx")
 
 [node name="CameraPivot" type="Node3D" parent="CameraRig" unique_id=1591615504]
@@ -54,15 +74,16 @@ transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
 
 [node name="GridMap" type="GridMap" parent="." unique_id=101734567]
-mesh_library = ExtResource("4_21xkr")
+mesh_library = ExtResource("2_1w6v2")
 cell_size = Vector3(0.866, 1, 1)
 cell_center_y = false
 data = {
-"cells": PackedInt32Array(65525, 0, 1441792, 65527, 65535, 1048576, 65529, 65534, 1048576, 65529, 0, 1048576, 65527, 1, 1048576, 65525, 2, 1048576, 65523, 1, 1048576, 65523, 65535, 1048576, 65525, 65534, 1048576, 65527, 65533, 1048576, 65523, 65533, 1048576, 65525, 65532, 1048576, 65527, 65531, 1048576, 65529, 65532, 1048576, 65531, 65533, 1048576, 65531, 65535, 1048576, 65531, 1, 1048576, 65529, 2, 1048576, 65527, 3, 1048576, 65525, 4, 1048576, 65523, 3, 1048576, 65527, 5, 1048576, 65529, 4, 1048576, 65531, 3, 1048576, 65533, 2, 1048576, 65533, 0, 1048576, 65533, 65534, 1048576, 65533, 65532, 1048576, 65531, 65531, 1048576, 65529, 65530, 1048576, 65525, 65530, 1048576, 65523, 65531, 1048576, 65527, 65529, 1048576, 65531, 65529, 1048576, 65533, 65530, 1048576, 65535, 65531, 1048576, 65535, 65533, 1048576, 65535, 65535, 1048576, 65535, 1, 1048576, 65535, 3, 1048576, 65533, 4, 1048576, 65531, 5, 1048576, 65529, 6, 1048576, 65527, 7, 1048576, 65525, 6, 1048576, 65523, 5, 1048576, 65533, 6, 1048576, 65535, 5, 1048576, 65531, 7, 1048576, 65529, 8, 1048576, 65525, 8, 1048576, 65523, 7, 1048576, 65523, 65529, 1048576, 65525, 65528, 1048576, 65529, 65528, 1048576, 65527, 65527, 1048576, 65531, 65527, 1048576, 65533, 65528, 1048576, 65535, 65527, 1048576, 65535, 65529, 1048576, 1, 65528, 1048576, 3, 65527, 1048576, 3, 65529, 1048576, 5, 65528, 1048576, 7, 65527, 1048576, 7, 65529, 1048576, 9, 65528, 1048576, 11, 65527, 1048576, 11, 65529, 1048576, 1, 65530, 1048576, 1, 65532, 1048576, 3, 65531, 1048576, 5, 65530, 1048576, 5, 65532, 1048576, 3, 65533, 1048576, 1, 65534, 1048576, 1, 0, 1048576, 3, 65535, 1048576, 5, 65534, 1048576, 5, 0, 1048576, 3, 1, 1048576, 1, 2, 1048576, 1, 4, 1048576, 3, 3, 1048576, 5, 2, 1048576, 7, 1, 1048576, 7, 65535, 1048576, 7, 65533, 1048576, 7, 65531, 1048576, 9, 65530, 1048576, 9, 65532, 1048576, 9, 65534, 1048576, 11, 65533, 1048576, 11, 65531, 1048576, 9, 0, 1048576, 11, 65535, 1048576, 11, 1, 1048576, 9, 2, 1048576, 7, 3, 1048576, 9, 4, 1048576, 11, 3, 1048576, 11, 5, 1048576, 9, 6, 1048576, 7, 5, 1048576, 5, 4, 1048576, 3, 5, 1048576, 5, 6, 1048576, 7, 7, 1048576, 9, 8, 1048576, 11, 7, 1048576, 7, 9, 1048576, 5, 8, 1048576, 3, 7, 1048576, 1, 6, 1048576, 65535, 7, 1048576, 1, 8, 1048576, 3, 9, 1048576, 65535, 9, 1048576, 65533, 8, 1048576, 65531, 9, 1048576, 65527, 9, 1048576, 65523, 9, 1048576, 65523, 65527, 1048576, 11, 9, 1048576, 65525, 10, 1048580, 65529, 10, 1048580, 65533, 10, 1048580, 1, 10, 1048580, 5, 10, 1048580, 9, 10, 1048580, 13, 8, 1048580, 13, 6, 1048580, 13, 4, 1048580, 13, 2, 1048580, 13, 65534, 1048580, 13, 65532, 1048580, 13, 65530, 1048580, 13, 65528, 1048580, 65521, 8, 1048580, 65521, 10, 1048580, 65523, 11, 1048580, 65527, 11, 1048580, 65531, 11, 1048580, 65535, 11, 1048580, 3, 11, 1048580, 7, 11, 1048580, 11, 11, 1048580, 13, 10, 1048580, 65521, 6, 1048580, 65521, 4, 1048580, 65521, 2, 1048580, 65521, 0, 1048580, 65521, 65534, 1048580, 65521, 65532, 1048580, 65521, 65530, 1048580, 65521, 65528, 1048580, 65521, 65526, 1048580, 65525, 65526, 1048580, 65523, 65525, 1048580, 65527, 65525, 1048580, 65529, 65526, 1048580, 65531, 65525, 1048580, 65533, 65526, 1048580, 65535, 65525, 1048580, 1, 65526, 1048580, 3, 65525, 1048580, 5, 65526, 1048580, 7, 65525, 1048580, 9, 65526, 1048580, 11, 65525, 1048580, 13, 65526, 1048580, 13, 0, 1441796)
+"cells": PackedInt32Array(65521, 8, 1441793, 65521, 6, 1441793, 65521, 4, 1441793, 65521, 2, 1441793, 65521, 0, 1441793, 65521, 65534, 1441793, 65521, 65532, 1441793, 65521, 65530, 1441793, 65521, 65528, 1441793, 65521, 65526, 1441793, 65521, 10, 1441793, 65519, 9, 1441801, 65519, 7, 1441801, 65519, 5, 1441801, 65519, 3, 1441801, 65519, 1, 1441801, 65519, 65535, 1441801, 65519, 65533, 1441801, 65519, 65531, 1441801, 65519, 65529, 1441801, 65519, 65527, 1441801, 65519, 65525, 1441801, 65523, 65527, 1441797, 65523, 65529, 1441797, 65523, 65531, 1441797, 65523, 65533, 1441797, 65523, 65535, 1441797, 65523, 1, 1441797, 65523, 3, 1441797, 65523, 5, 1441797, 65523, 7, 1441797, 65523, 9, 1441797, 65523, 11, 1441797, 65523, 65525, 1441797, 65521, 65524, 1441793, 65519, 11, 1441801, 65521, 12, 1441793, 65525, 10, 1441797, 65525, 8, 1441797, 65525, 6, 1441797, 65525, 4, 1441797, 65525, 2, 1441797, 65525, 0, 1441797, 65525, 65534, 1441797, 65525, 65532, 1441797, 65525, 65530, 1441797, 65525, 65528, 1441797, 65525, 65526, 1441797, 65525, 65524, 1441797, 65527, 65525, 1441797, 65527, 65527, 1441797, 65527, 65529, 1441797, 65527, 65531, 1441797, 65527, 65533, 1441797, 65527, 65535, 1441797, 65527, 1, 1441797, 65527, 3, 1441797, 65527, 5, 1441797, 65527, 7, 1441797, 65527, 9, 1441797, 65527, 11, 1441797, 65525, 12, 1441797, 65529, 12, 1441797, 65529, 10, 1441797, 65529, 8, 1441797, 65529, 6, 1441797, 65529, 4, 1441797, 65529, 2, 1441797, 65529, 0, 1441797, 65529, 65534, 1441797, 65529, 65532, 1441797, 65529, 65530, 1441797, 65529, 65528, 1441797, 65529, 65526, 1441797, 65529, 65524, 1441797, 65531, 65525, 1441797, 65531, 65527, 1441797, 65531, 65529, 1441797, 65531, 65531, 1441797, 65531, 65533, 1441797, 65531, 65535, 1441797, 65531, 1, 1441797, 65533, 0, 1441797, 65535, 65535, 1441797, 1, 0, 1441797, 3, 65535, 1441797, 5, 0, 1441797, 7, 65535, 1441797, 9, 0, 1441797, 11, 65535, 1441797, 13, 65534, 1048577, 13, 0, 1048577, 13, 2, 1048577, 13, 4, 1048577, 13, 6, 1048577, 13, 8, 1048577, 13, 10, 1048577, 13, 65532, 1048577, 13, 65530, 1048577, 13, 65528, 1048577, 13, 65526, 1048577, 13, 65524, 1048577, 15, 9, 1048585, 15, 7, 1048585, 15, 5, 1048585, 15, 3, 1048585, 15, 1, 1048585, 15, 65535, 1048585, 15, 65533, 1048585, 15, 65531, 1048585, 15, 65529, 1048585, 15, 65527, 1048585, 15, 65525, 1048585, 65531, 11, 1048581, 65531, 9, 1048581, 65531, 7, 1048581, 65531, 5, 1048581, 65531, 3, 1048581, 65533, 65524, 1048581, 65533, 65526, 1048581, 65533, 65528, 1048581, 65533, 65530, 1048581, 65533, 65532, 1048581, 65533, 65534, 1048581, 65533, 2, 1048581, 65533, 4, 1048581, 65533, 6, 1048581, 65533, 8, 1048581, 65533, 10, 1048581, 65533, 12, 1048581, 65535, 11, 1048581, 65535, 9, 1048581, 65535, 7, 1048581, 65535, 5, 1048581, 65535, 3, 1048581, 65535, 1, 1048581, 1, 2, 1048581, 3, 1, 1048581, 1, 4, 1048581, 3, 3, 1048581, 7, 1, 1048581, 5, 2, 1048581, 9, 2, 1048581, 11, 1, 1048581, 11, 3, 1048581, 11, 5, 1048581, 11, 7, 1048581, 11, 9, 1048581, 11, 11, 1048581, 9, 10, 1048581, 9, 8, 1048581, 9, 6, 1048581, 9, 4, 1048581, 7, 3, 1048581, 5, 4, 1048581, 7, 5, 1048581, 3, 5, 1048581, 1, 6, 1048581, 5, 6, 1048581, 3, 7, 1048581, 7, 7, 1048581, 5, 8, 1048581, 7, 9, 1048581, 5, 10, 1048581, 3, 9, 1048581, 1, 8, 1048581, 1, 10, 1048581, 1, 12, 1048581, 3, 11, 1048581, 5, 12, 1048581, 7, 11, 1048581, 9, 12, 1048581, 13, 12, 1048577, 15, 11, 1048585, 1, 65534, 1048581, 65535, 65533, 1048581, 65535, 65531, 1048581, 65535, 65529, 1048581, 65535, 65527, 1048581, 65535, 65525, 1048581, 1, 65526, 1048581, 1, 65528, 1048581, 1, 65530, 1048581, 1, 65532, 1048581, 3, 65533, 1048581, 3, 65531, 1048581, 3, 65529, 1048581, 3, 65527, 1048581, 1, 65524, 1048581, 3, 65525, 1048581, 5, 65524, 1048581, 5, 65526, 1048581, 7, 65525, 1048581, 9, 65524, 1048581, 11, 65525, 1048581, 9, 65526, 1048581, 7, 65527, 1048581, 5, 65528, 1048581, 5, 65530, 1048581, 5, 65532, 1048581, 5, 65534, 1048581, 7, 65533, 1048581, 7, 65531, 1048581, 7, 65529, 1048581, 9, 65528, 1048581, 9, 65530, 1048581, 9, 65532, 1048581, 9, 65534, 1048581, 11, 65533, 1048581, 11, 65531, 1048581, 11, 65529, 1048581, 11, 65527, 1048581, 7, 65523, 1048584, 11, 65523, 1048584, 9, 65522, 1048584, 3, 65523, 1048584, 5, 65522, 1048584, 1, 65522, 1048584, 65535, 65523, 1048584, 65533, 65522, 1048584, 65531, 65523, 1048584, 65529, 65522, 1048584, 65527, 65523, 1048584, 65525, 65522, 1048584, 65523, 65523, 1048584, 3, 65521, 1048583, 7, 65521, 1048583, 11, 65521, 1048583, 65535, 65521, 1048583, 65531, 65521, 1048583, 65527, 65521, 1048583, 65523, 65521, 1048583, 9, 65520, 1048583, 5, 65520, 1048583, 1, 65520, 1048583, 65533, 65520, 1048583, 65529, 65520, 1048583, 65525, 65520, 1048583, 15, 65523, 1048585, 13, 65522, 1048577, 65521, 65522, 1441792, 65519, 65523, 1441801)
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="Units" type="Node3D" parent="." unique_id=1216676082]
+visible = false
 script = ExtResource("7_6bp64")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Units" unique_id=1506278100]
@@ -70,6 +91,7 @@ _spawnable_scenes = PackedStringArray("uid://b3ppsl5j3eeke", "uid://cjistf0ptqdl
 spawn_path = NodePath("..")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1322595150]
+visible = false
 script = ExtResource("6_344ge")
 
 [node name="HUD" type="Control" parent="UI" unique_id=534879307]
@@ -353,6 +375,123 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10.
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9.943407, 0, 1.5218534)
 team_id = 1
 custom_mesh = ExtResource("7_344ge")
+
+[node name="Decorations" type="Node3D" parent="." unique_id=1442642533]
+
+[node name="TreesALarge" type="MeshInstance3D" parent="Decorations" unique_id=367130191]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.16744, 0, -9.561488)
+mesh = ExtResource("11_ueoa1")
+skeleton = NodePath("../..")
+
+[node name="TreesAMedium" type="MeshInstance3D" parent="Decorations" unique_id=729275476]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.240959, 0, -9.550088)
+mesh = ExtResource("12_6vcvc")
+skeleton = NodePath("../..")
+
+[node name="TreesASmall" type="MeshInstance3D" parent="Decorations" unique_id=1109200248]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.624182, 0, -6.6405005)
+mesh = ExtResource("13_7k868")
+skeleton = NodePath("../..")
+
+[node name="MountainCGrass" type="MeshInstance3D" parent="Decorations" unique_id=984586671]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.839709, 0, -3.4586878)
+mesh = ExtResource("14_hpc6h")
+skeleton = NodePath("../..")
+
+[node name="MountainC" type="MeshInstance3D" parent="Decorations" unique_id=876800203]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.611645, 0, -7.4954996)
+mesh = ExtResource("15_kltya")
+skeleton = NodePath("../..")
+
+[node name="MountainB" type="MeshInstance3D" parent="Decorations" unique_id=767115366]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5716834, 0, -11.453042)
+mesh = ExtResource("16_e08e2")
+skeleton = NodePath("../..")
+
+[node name="MountainAGrass" type="MeshInstance3D" parent="Decorations" unique_id=1490352392]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.947247, -0.024291992, -4.464055)
+mesh = ExtResource("17_neg2b")
+skeleton = NodePath("../..")
+
+[node name="MountainAGrassTrees" type="MeshInstance3D" parent="Decorations" unique_id=2114216917]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39617205, 0, -10.400812)
+mesh = ExtResource("18_r33sp")
+skeleton = NodePath("../..")
+
+[node name="HillSingleB" type="MeshInstance3D" parent="Decorations" unique_id=952877499]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5982175, -0.024291992, 4.587165)
+mesh = ExtResource("19_hdf80")
+skeleton = NodePath("../..")
+
+[node name="HillSingleA" type="MeshInstance3D" parent="Decorations" unique_id=1973609127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.850128, -0.024291992, 1.2269468)
+mesh = ExtResource("20_jwpg7")
+skeleton = NodePath("../..")
+
+[node name="HillsCTrees" type="MeshInstance3D" parent="Decorations" unique_id=1469194164]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.38495, -0.0038079917, 9.361778)
+mesh = ExtResource("21_k2e45")
+skeleton = NodePath("../..")
+
+[node name="HillsCTrees2" type="MeshInstance3D" parent="Decorations" unique_id=2109436903]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9595532, -0.0038079917, 9.524435)
+mesh = ExtResource("21_k2e45")
+skeleton = NodePath("../..")
+
+[node name="HillsBTrees" type="MeshInstance3D" parent="Decorations" unique_id=1183544469]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1603081, -0.024197992, 4.490049)
+mesh = ExtResource("22_536cc")
+skeleton = NodePath("../..")
+
+[node name="HillsB" type="MeshInstance3D" parent="Decorations" unique_id=2008504371]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2880387, -0.024197992, -2.6188512)
+mesh = ExtResource("23_aqgau")
+skeleton = NodePath("../..")
+
+[node name="HillsB2" type="MeshInstance3D" parent="Decorations" unique_id=190080024]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.524494, -0.024197992, 7.471268)
+mesh = ExtResource("23_aqgau")
+skeleton = NodePath("../..")
+
+[node name="HillsATrees" type="MeshInstance3D" parent="Decorations" unique_id=1035072515]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.0256405, -0.024291992, 6.2508354)
+mesh = ExtResource("24_8cuat")
+skeleton = NodePath("../..")
+
+[node name="HillsA" type="MeshInstance3D" parent="Decorations" unique_id=1898101352]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3941388, -0.024291992, -7.5135026)
+mesh = ExtResource("25_o1aky")
+skeleton = NodePath("../..")
+
+[node name="HillsA2" type="MeshInstance3D" parent="Decorations" unique_id=1472204436]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4510646, -0.024291992, -2.618852)
+mesh = ExtResource("25_o1aky")
+skeleton = NodePath("../..")
+
+[node name="HillsCTrees3" type="MeshInstance3D" parent="Decorations" unique_id=34246069]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.910286, 0, -4.49397)
+mesh = ExtResource("21_k2e45")
+skeleton = NodePath("../..")
+
+[node name="MountainAGrassTrees2" type="MeshInstance3D" parent="Decorations" unique_id=319824630]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.42361784, -0.024291992, 7.488518)
+mesh = ExtResource("18_r33sp")
+skeleton = NodePath("../..")
+
+[node name="MountainCGrass2" type="MeshInstance3D" parent="Decorations" unique_id=15469094]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.78422, -0.024291992, -4.541751)
+mesh = ExtResource("14_hpc6h")
+skeleton = NodePath("../..")
+
+[node name="MountainCGrassTrees" type="MeshInstance3D" parent="Decorations" unique_id=1784776269]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6572385, -0.024291992, -7.49408)
+mesh = ExtResource("26_kwxat")
+skeleton = NodePath("../..")
+
+[node name="MountainBGrass" type="MeshInstance3D" parent="Decorations" unique_id=406100821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9868455, -0.024291992, 3.42177)
+mesh = ExtResource("27_aa8k8")
+skeleton = NodePath("../..")
 
 [connection signal="button_down" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button" to="UI" method="_on_roman_warrior_button_button_down"]
 [connection signal="button_up" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button" to="UI" method="_on_roman_warrior_button_button_up"]
