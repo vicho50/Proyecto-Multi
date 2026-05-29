@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(findstr /N /I \"role\" \"c:\\\\Users\\\\vicen\\\\OneDrive\\\\Escritorio\\\\GODOT\\\\Proyecto-Multi\\\\lobby\\\\waiting_screen.tscn\")"
+    ]
+  }
+}

@@ -8,23 +8,39 @@ const PORT = 5409 # Number between 1024 and 65535.
 
 enum Role {
 	NONE,
-	ROLE_A,
-	ROLE_B,
-	ROLE_C,
+	TEAM_1,
+	TEAM_2,
+}
+
+
+# Tipos de unidad disponibles en la partida (independiente del equipo del jugador)
+enum UnitType {
+	HEAVY,
+	WARRIOR,
+	ARCHER,
+	MINER,
 }
 
 
 static func get_role_name(role: Role) -> String:
 	match role:
 		Role.NONE:
-			return "None"
-		Role.ROLE_A:
-			return "Role A"
-		Role.ROLE_B:
-			return "Role B"
-		Role.ROLE_C:
-			return "Role C"
+			return "Sin equipo"
+		Role.TEAM_1:
+			return "Equipo 1"
+		Role.TEAM_2:
+			return "Equipo 2"
 	return "Unknown"
+
+
+# Convierte el rol del lobby al team_id (0 azul, 1 rojo) usado en la escena de juego.
+static func role_to_team_id(role: Role) -> int:
+	match role:
+		Role.TEAM_1:
+			return 0
+		Role.TEAM_2:
+			return 1
+	return 0
 
 
 class PlayerData:

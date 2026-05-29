@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://brmws016hnle0"]
 
+[ext_resource type="Script" uid="uid://b6xvqyqlmxy3v" path="res://scripts/miner_unit.gd" id="1_miner"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_6a7v8"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_t378n"]
@@ -36,6 +38,7 @@ properties/6/spawn = true
 properties/6/replication_mode = 0
 
 [node name="MinerUnit" type="Node3D" unique_id=1145689932]
+script = ExtResource("1_miner")
 
 [node name="Visuals" type="Node3D" parent="." unique_id=2004015210]
 

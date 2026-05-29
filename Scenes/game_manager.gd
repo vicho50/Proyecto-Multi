@@ -3,10 +3,18 @@ extends Node3D
 @onready var spawner: MultiplayerSpawner = $MultiplayerSpawner
 
 var UNIT_SCENES = {
-	Statics.Role.ROLE_A: preload("res://Scenes/roman_heavy.tscn"),
-	Statics.Role.ROLE_B: preload("res://Scenes/roman_warrior.tscn"),
-	Statics.Role.ROLE_C: preload("res://Scenes/roman_archer.tscn")
+	Statics.UnitType.HEAVY: preload("res://Scenes/roman_heavy.tscn"),
+	Statics.UnitType.WARRIOR: preload("res://Scenes/roman_warrior.tscn"),
+	Statics.UnitType.ARCHER: preload("res://Scenes/roman_archer.tscn"),
+	Statics.UnitType.MINER: preload("res://Scenes/miner_unit.tscn")
 }
+
+# Unidades de combate elegibles para la oleada inicial aleatoria (el minero se excluye).
+var COMBAT_UNIT_TYPES = [
+	Statics.UnitType.HEAVY,
+	Statics.UnitType.WARRIOR,
+	Statics.UnitType.ARCHER,
+]
 
 @export var min_initial_units_per_team: int = 3
 @export var max_initial_units_per_team: int = 6
@@ -19,6 +27,7 @@ var _manual_spawn_count := 0
 const warrior_price: int = 5
 const archer_price: int = 10
 const heavy_price: int = 15
+const miner_price: int = 20
 
 var SPAWN_DIRECTIONS = [
 	Vector3.RIGHT,
@@ -27,6 +36,8 @@ var SPAWN_DIRECTIONS = [
 
 func _ready():
 	spawner.spawn_function = _custom_spawn
+	# Reinicia la economía al comenzar el combate (10 de oro por equipo + ingreso pasivo).
+	GameManager.start_match()
 	if multiplayer.is_server():
 		await get_tree().create_timer(0.5).timeout
 		_spawn_initial_symmetric_wave()
@@ -41,28 +52,27 @@ func _spawn_initial_symmetric_wave() -> void:
 	var units_per_team := randi_range(min_units, max_units)
 
 	for slot in units_per_team:
-		var random_role := _get_random_spawn_role()
+		var random_unit := _get_random_spawn_unit_type()
 		for team_id in SPAWN_DIRECTIONS.size():
 			var data = {
 				"id": (team_id * 1000) + slot,
 				"team_id": team_id,
 				"slot": slot,
 				"units_per_team": units_per_team,
-				"role": random_role,
+				"unit_type": random_unit,
 			}
 			spawner.spawn(data)
 
-func _get_random_spawn_role() -> Statics.Role:
-	var available_roles: Array = UNIT_SCENES.keys()
-	if available_roles.is_empty():
-		return Statics.Role.ROLE_A
-	return available_roles[randi_range(0, available_roles.size() - 1)]
+func _get_random_spawn_unit_type() -> Statics.UnitType:
+	if COMBAT_UNIT_TYPES.is_empty():
+		return Statics.UnitType.HEAVY
+	return COMBAT_UNIT_TYPES[randi_range(0, COMBAT_UNIT_TYPES.size() - 1)]
 
 func _custom_spawn(data: Variant) -> Node:
-	var role = data["role"]
+	var unit_type = data["unit_type"]
 	var team_id = int(data.get("team_id", 0))
 	var id = data["id"]
-	var scene = UNIT_SCENES.get(role, UNIT_SCENES[Statics.Role.ROLE_A])
+	var scene = UNIT_SCENES.get(unit_type, UNIT_SCENES[Statics.UnitType.HEAVY])
 	var unit = scene.instantiate()
 	unit.name = "Unit_%d" % id
 	unit.team_id = team_id
@@ -87,54 +97,58 @@ func _get_team_spawn_position(team_id: int) -> Vector3:
 
 # RPC para que los clientes soliciten spawnear en una coordenada
 @rpc("any_peer", "call_local")
-func request_custom_spawn(role: Statics.Role, team_id: int, target_pos: Vector3):
+func request_custom_spawn(unit_type: Statics.UnitType, team_id: int, target_pos: Vector3):
 	if not multiplayer.is_server():
 		return
 	_manual_spawn_count += 1
 	var unique_id = 5000 + _manual_spawn_count
-	
+
 	var data = {
 		"id": unique_id,
 		"team_id": team_id,
-		"role": role,
+		"unit_type": unit_type,
 		"custom_position": target_pos,
 		"use_custom_pos": true
 	}
-	if role==Statics.Role.ROLE_A:
-		if GameManager.read_gold(0)>=heavy_price:
-			GameManager.sub_gold(0,heavy_price)
+	if unit_type == Statics.UnitType.HEAVY:
+		if GameManager.read_gold(team_id) >= heavy_price:
+			GameManager.sub_gold(team_id, heavy_price)
 			spawner.spawn(data)
-	if role==Statics.Role.ROLE_C:
-		if GameManager.read_gold(0)>=archer_price:
-			GameManager.sub_gold(0,archer_price)
+	if unit_type == Statics.UnitType.ARCHER:
+		if GameManager.read_gold(team_id) >= archer_price:
+			GameManager.sub_gold(team_id, archer_price)
 			spawner.spawn(data)
-	if role==Statics.Role.ROLE_B:
-		if GameManager.read_gold(0)>=warrior_price:
-			GameManager.sub_gold(0,warrior_price)
+	if unit_type == Statics.UnitType.WARRIOR:
+		if GameManager.read_gold(team_id) >= warrior_price:
+			GameManager.sub_gold(team_id, warrior_price)
 			spawner.spawn(data)
-	
+	if unit_type == Statics.UnitType.MINER:
+		if GameManager.read_gold(team_id) >= miner_price:
+			GameManager.sub_gold(team_id, miner_price)
+			spawner.spawn(data)
+
 
 func _unhandled_input(event):
 	# Procesa clics del mouse no manejados por la UI
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		var ui_nodes = get_tree().get_nodes_in_group("UI_Nodes")
 		if ui_nodes.is_empty(): return
-		
+
 		var ui_layer = ui_nodes[0]
-		if ui_layer.selected_role != null:
+		if ui_layer.selected_unit_type != null:
 			var clicked_position = _get_mouse_3d_position()
 			if clicked_position != Vector3.INF:
-				request_custom_spawn.rpc(ui_layer.selected_role, ui_layer.player_id, clicked_position)
+				request_custom_spawn.rpc(ui_layer.selected_unit_type, ui_layer.player_id, clicked_position)
 				return
 
-	if Input.is_key_pressed(KEY_1): manual_unit_spawn(Statics.Role.ROLE_A, 0)
-	if Input.is_key_pressed(KEY_2): manual_unit_spawn(Statics.Role.ROLE_B, 0)
-	if Input.is_key_pressed(KEY_3): manual_unit_spawn(Statics.Role.ROLE_C, 0)
-	if Input.is_key_pressed(KEY_4): manual_unit_spawn(Statics.Role.ROLE_A, 1)
-	if Input.is_key_pressed(KEY_5): manual_unit_spawn(Statics.Role.ROLE_B, 1)
-	if Input.is_key_pressed(KEY_6): manual_unit_spawn(Statics.Role.ROLE_C, 1)
+	if Input.is_key_pressed(KEY_1): manual_unit_spawn(Statics.UnitType.HEAVY, 0)
+	if Input.is_key_pressed(KEY_2): manual_unit_spawn(Statics.UnitType.WARRIOR, 0)
+	if Input.is_key_pressed(KEY_3): manual_unit_spawn(Statics.UnitType.ARCHER, 0)
+	if Input.is_key_pressed(KEY_4): manual_unit_spawn(Statics.UnitType.HEAVY, 1)
+	if Input.is_key_pressed(KEY_5): manual_unit_spawn(Statics.UnitType.WARRIOR, 1)
+	if Input.is_key_pressed(KEY_6): manual_unit_spawn(Statics.UnitType.ARCHER, 1)
 
-func manual_unit_spawn(role: Statics.Role, team_id: int):
+func manual_unit_spawn(unit_type: Statics.UnitType, team_id: int):
 	if not multiplayer.is_server():
 		return
 	_manual_spawn_count += 1
@@ -142,7 +156,7 @@ func manual_unit_spawn(role: Statics.Role, team_id: int):
 	var data = {
 		"id": unique_id,
 		"team_id": team_id,
-		"role": role,
+		"unit_type": unit_type,
 		"slot": randi() % 5,
 		"units_per_team": 5
 	}

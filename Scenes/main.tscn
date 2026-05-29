@@ -66,7 +66,7 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 script = ExtResource("7_6bp64")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Units" unique_id=1506278100]
-_spawnable_scenes = PackedStringArray("uid://b3ppsl5j3eeke", "uid://cjistf0ptqdlf", "uid://hrpxwu8a20yf", "res://Scenes/roman_archer.tscn", "res://Scenes/arrow.tscn")
+_spawnable_scenes = PackedStringArray("uid://b3ppsl5j3eeke", "uid://cjistf0ptqdlf", "uid://hrpxwu8a20yf", "res://Scenes/roman_archer.tscn", "res://Scenes/arrow.tscn", "res://Scenes/miner_unit.tscn")
 spawn_path = NodePath("..")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1322595150]
@@ -293,6 +293,59 @@ theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 30
 text = "15"
 
+[node name="Roman_Miner_Button" type="TextureButton" parent="UI/HUD/VBoxContainer/HBoxContainer2"]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 1)
+custom_minimum_size = Vector2(150, 146)
+layout_mode = 2
+texture_normal = ExtResource("7_hptm8")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="MinerLabel" type="Label" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Miner_Button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = -35.0
+offset_right = 65.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 28
+text = "Minero"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Miner_Button"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 0
+offset_left = 90.0
+offset_right = 193.0
+offset_bottom = 50.0
+scale = Vector2(0.7, 0.7)
+
+[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Miner_Button/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("7_ynf5e")
+expand_mode = 1
+
+[node name="Precio_Miner" type="Label" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Miner_Button/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "20"
+
 [node name="BlueCastle" parent="." unique_id=222457813 instance=ExtResource("5_21xkr")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10.822423, -9.536743e-07, 1.4998264)
 
@@ -316,3 +369,6 @@ custom_mesh = ExtResource("7_344ge")
 [connection signal="mouse_entered" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button" to="UI" method="_on_roman_heavy_button_mouse_entered"]
 [connection signal="mouse_exited" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button" to="UI" method="_on_roman_heavy_button_mouse_exited"]
 [connection signal="pressed" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button" to="UI" method="_on_roman_heavy_button_pressed"]
+[connection signal="mouse_entered" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Miner_Button" to="UI" method="_on_roman_miner_button_mouse_entered"]
+[connection signal="mouse_exited" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Miner_Button" to="UI" method="_on_roman_miner_button_mouse_exited"]
+[connection signal="pressed" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Miner_Button" to="UI" method="_on_roman_miner_button_pressed"]

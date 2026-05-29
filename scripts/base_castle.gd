@@ -20,6 +20,12 @@ var is_dead: bool = false # Requerido por el find_closest_enemy() de la unidad
 var material_propio: StandardMaterial3D
 var original_color: Color
 
+func get_attack_radius() -> float:
+	# Radio del cilindro de colisión del castillo, usado por las unidades melee
+	# para calcular su distancia efectiva al borde del castillo (no al centro).
+	return 1.1
+
+
 func _ready():
 	current_health = max_health
 	

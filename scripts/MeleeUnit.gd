@@ -92,8 +92,8 @@ func update_logic(delta: float) -> void:
 		move_forward(advance_direction)
 		return
 
-	var distance_to_target = global_position.distance_to(target.global_position)
-		
+	var distance_to_target = effective_distance_to(target)
+
 	if distance_to_target <= stats.attack_range:
 		velocity = Vector3.ZERO
 		face_target(delta)
@@ -103,6 +103,15 @@ func update_logic(delta: float) -> void:
 		update_state(UnitState.CHASE)
 		face_target(delta)
 		move_towards_position(target.global_position)
+
+
+# Distancia hasta el borde del objetivo: descuenta el radio de objetivos
+# grandes (ej. castillos) para que el melee pueda atacarlos sin atravesar el coller.
+func effective_distance_to(node: Node3D) -> float:
+	var dist = global_position.distance_to(node.global_position)
+	if node.has_method("get_attack_radius"):
+		dist -= node.get_attack_radius()
+	return max(0.0, dist)
 
 func update_visuals(delta: float) -> void:
 	match current_state:
@@ -210,7 +219,7 @@ func try_attack() -> void:
 		return
 
 	if attack_timer.is_stopped() and is_instance_valid(target):
-		if global_position.distance_to(target.global_position) <= stats.attack_range:
+		if effective_distance_to(target) <= stats.attack_range:
 			target.take_damage(stats.damage)
 			attack_timer.start()
 			start_attack_animation()
