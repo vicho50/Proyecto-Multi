@@ -1,0 +1,204 @@
+[gd_scene format=3 uid="uid://umjnobbb4o7t"]
+
+[ext_resource type="ArrayMesh" uid="uid://cibduonrvd5yg" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/coast/hex_coast_A.obj" id="1_t0jjp"]
+[ext_resource type="ArrayMesh" uid="uid://b5d8jkqf8q83l" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/coast/hex_coast_B.obj" id="2_olqbd"]
+[ext_resource type="ArrayMesh" uid="uid://cvd3xu71de1ef" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/coast/hex_coast_C.obj" id="3_u8daw"]
+[ext_resource type="ArrayMesh" uid="uid://tiy65q7dd0q1" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/coast/hex_coast_D.obj" id="4_3bhuh"]
+[ext_resource type="ArrayMesh" uid="uid://duif0e85tjovb" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/coast/hex_coast_E.obj" id="5_38ibb"]
+[ext_resource type="ArrayMesh" uid="uid://4nj2n02fwuab" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/base/hex_grass.obj" id="6_ptrsj"]
+[ext_resource type="ArrayMesh" uid="uid://dw7w06ewl6o4q" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/base/hex_grass_bottom.obj" id="7_2e30u"]
+[ext_resource type="ArrayMesh" uid="uid://rg0hd1n2e0us" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/base/hex_grass_sloped_high.obj" id="8_rv6cv"]
+[ext_resource type="ArrayMesh" uid="uid://bv035lhoe2xlq" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/base/hex_grass_sloped_low.obj" id="9_16nx1"]
+[ext_resource type="ArrayMesh" uid="uid://cdlocccp85nxt" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/base/hex_water.obj" id="10_5fc5v"]
+[ext_resource type="ArrayMesh" uid="uid://cclc5sxacxc7" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/rivers/hex_river_A.obj" id="11_wwq7j"]
+[ext_resource type="ArrayMesh" uid="uid://cp4ylmg0a2wj3" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/rivers/hex_river_A_curvy.obj" id="12_k4lug"]
+[ext_resource type="ArrayMesh" uid="uid://gac6fsijg4v" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/rivers/hex_river_B.obj" id="13_tb862"]
+[ext_resource type="ArrayMesh" uid="uid://5tt5cwuor54g" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/rivers/hex_river_C.obj" id="14_pxj5n"]
+[ext_resource type="ArrayMesh" uid="uid://dlg4r1s452tix" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/rivers/hex_river_crossing_A.obj" id="15_ncooh"]
+[ext_resource type="ArrayMesh" uid="uid://b8bwgi07k0nqy" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/rivers/hex_river_crossing_B.obj" id="16_2w1t4"]
+[ext_resource type="ArrayMesh" uid="uid://cobe2vi3kjh6" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/rivers/hex_river_D.obj" id="17_aq8yj"]
+[ext_resource type="ArrayMesh" uid="uid://dkybt5506es2v" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/rivers/hex_river_E.obj" id="18_l4plp"]
+[ext_resource type="ArrayMesh" uid="uid://d1hmm6pr24cj2" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/rivers/hex_river_F.obj" id="19_42kmb"]
+[ext_resource type="ArrayMesh" uid="uid://c083epjmppylc" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/rivers/hex_river_G.obj" id="20_xjfma"]
+[ext_resource type="ArrayMesh" uid="uid://n0l5l6u05nlv" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/rivers/hex_river_H.obj" id="21_wol6w"]
+[ext_resource type="ArrayMesh" uid="uid://d0iwmyr8qtuyw" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/rivers/hex_river_I.obj" id="22_p3rjk"]
+[ext_resource type="ArrayMesh" uid="uid://d1iy5geoa44u1" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/rivers/hex_river_J.obj" id="23_yob3g"]
+[ext_resource type="ArrayMesh" uid="uid://wpueypcuh3fk" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/rivers/hex_river_K.obj" id="24_vsdgl"]
+[ext_resource type="ArrayMesh" uid="uid://brqi7vmmhsw78" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/rivers/hex_river_L.obj" id="25_7yxtv"]
+[ext_resource type="ArrayMesh" uid="uid://7n084v411xqv" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/roads/hex_road_A.obj" id="26_a7j36"]
+[ext_resource type="ArrayMesh" uid="uid://bspsxmcgrkelw" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/roads/hex_road_A_sloped_high.obj" id="27_80ww3"]
+[ext_resource type="ArrayMesh" uid="uid://570gkqx7abkp" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/roads/hex_road_A_sloped_low.obj" id="28_gt6i0"]
+[ext_resource type="ArrayMesh" uid="uid://cxmfqly00vkkc" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/roads/hex_road_B.obj" id="29_71r0r"]
+[ext_resource type="ArrayMesh" uid="uid://c6x7go388hxhp" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/roads/hex_road_C.obj" id="30_ogg2k"]
+[ext_resource type="ArrayMesh" uid="uid://3j6j05bl3rmf" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/roads/hex_road_D.obj" id="31_2s783"]
+[ext_resource type="ArrayMesh" uid="uid://bsfwsrq03lh0s" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/roads/hex_road_E.obj" id="32_ll8so"]
+[ext_resource type="ArrayMesh" uid="uid://pgpg8ffv5g5e" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/roads/hex_road_F.obj" id="33_vow4y"]
+[ext_resource type="ArrayMesh" uid="uid://h8njy6w0f3xp" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/roads/hex_road_G.obj" id="34_kbllb"]
+[ext_resource type="ArrayMesh" uid="uid://cqucwqa0pm6gc" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/roads/hex_road_H.obj" id="35_wgjwi"]
+[ext_resource type="ArrayMesh" uid="uid://cg1c7l6wiw4jw" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/roads/hex_road_I.obj" id="36_okw2t"]
+[ext_resource type="ArrayMesh" uid="uid://wfwb8bpakkdh" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/roads/hex_road_J.obj" id="37_lqei7"]
+[ext_resource type="ArrayMesh" uid="uid://bi45ya3d3oxr3" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/roads/hex_road_K.obj" id="38_ul1nk"]
+[ext_resource type="ArrayMesh" uid="uid://j6sgffwpu02" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/roads/hex_road_L.obj" id="39_6gpam"]
+[ext_resource type="ArrayMesh" uid="uid://cripix2fc857i" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/tiles/roads/hex_road_M.obj" id="40_uqnri"]
+
+[node name="Node3D" type="Node3D" unique_id=351192210]
+
+[node name="HexCoastA" type="MeshInstance3D" parent="." unique_id=700214553]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.53436077, 0, -0.9439802)
+mesh = ExtResource("1_t0jjp")
+
+[node name="HexCoastB" type="MeshInstance3D" parent="." unique_id=1157731953]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.53436077, 0, -0.9439802)
+mesh = ExtResource("2_olqbd")
+
+[node name="HexCoastC" type="MeshInstance3D" parent="." unique_id=1634740979]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.53436077, 0, -0.9439802)
+mesh = ExtResource("3_u8daw")
+
+[node name="HexCoastD" type="MeshInstance3D" parent="." unique_id=1810138383]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.53436077, 0, -0.9439802)
+mesh = ExtResource("4_3bhuh")
+
+[node name="HexCoastE" type="MeshInstance3D" parent="." unique_id=1515957044]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.53436077, 0, -0.9439802)
+mesh = ExtResource("5_38ibb")
+
+[node name="HexGrass" type="MeshInstance3D" parent="." unique_id=2067287378]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.537377, 1.1920929e-07, -0.9665179)
+mesh = ExtResource("6_ptrsj")
+
+[node name="HexGrassBottom" type="MeshInstance3D" parent="." unique_id=887126334]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.537377, 1.1920929e-07, -0.9665179)
+mesh = ExtResource("7_2e30u")
+
+[node name="HexGrassSlopedHigh" type="MeshInstance3D" parent="." unique_id=682257624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.537377, 1.1920929e-07, -0.9665179)
+mesh = ExtResource("8_rv6cv")
+
+[node name="HexGrassSlopedLow" type="MeshInstance3D" parent="." unique_id=423663101]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.537377, 1.1920929e-07, -0.9665179)
+mesh = ExtResource("9_16nx1")
+
+[node name="HexWater" type="MeshInstance3D" parent="." unique_id=1195963542]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.537377, 1.1920929e-07, -0.9665179)
+mesh = ExtResource("10_5fc5v")
+
+[node name="HexRiverA" type="MeshInstance3D" parent="." unique_id=1670187832]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6887809, 1.1920929e-07, -1.0840392)
+mesh = ExtResource("11_wwq7j")
+
+[node name="HexRiverACurvy" type="MeshInstance3D" parent="." unique_id=1650441156]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6887809, 1.1920929e-07, -1.0840392)
+mesh = ExtResource("12_k4lug")
+
+[node name="HexRiverB" type="MeshInstance3D" parent="." unique_id=699530129]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6887809, 1.1920929e-07, -1.0840392)
+mesh = ExtResource("13_tb862")
+
+[node name="HexRiverC" type="MeshInstance3D" parent="." unique_id=1845067766]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6887809, 1.1920929e-07, -1.0840392)
+mesh = ExtResource("14_pxj5n")
+
+[node name="HexRiverCrossingA" type="MeshInstance3D" parent="." unique_id=1698984066]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6887809, 1.1920929e-07, -1.0840392)
+mesh = ExtResource("15_ncooh")
+
+[node name="HexRiverCrossingB" type="MeshInstance3D" parent="." unique_id=728839488]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6887809, 1.1920929e-07, -1.0840392)
+mesh = ExtResource("16_2w1t4")
+
+[node name="HexRiverD" type="MeshInstance3D" parent="." unique_id=783185613]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6887809, 1.1920929e-07, -1.0840392)
+mesh = ExtResource("17_aq8yj")
+
+[node name="HexRiverE" type="MeshInstance3D" parent="." unique_id=1396766509]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6887809, 1.1920929e-07, -1.0840392)
+mesh = ExtResource("18_l4plp")
+
+[node name="HexRiverF" type="MeshInstance3D" parent="." unique_id=1460597708]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6887809, 1.1920929e-07, -1.0840392)
+mesh = ExtResource("19_42kmb")
+
+[node name="HexRiverG" type="MeshInstance3D" parent="." unique_id=773994029]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6887809, 1.1920929e-07, -1.0840392)
+mesh = ExtResource("20_xjfma")
+
+[node name="HexRiverH" type="MeshInstance3D" parent="." unique_id=390105559]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6887809, 1.1920929e-07, -1.0840392)
+mesh = ExtResource("21_wol6w")
+
+[node name="HexRiverI" type="MeshInstance3D" parent="." unique_id=2109295492]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6887809, 1.1920929e-07, -1.0840392)
+mesh = ExtResource("22_p3rjk")
+
+[node name="HexRiverJ" type="MeshInstance3D" parent="." unique_id=1859296108]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6887809, 1.1920929e-07, -1.0840392)
+mesh = ExtResource("23_yob3g")
+
+[node name="HexRiverK" type="MeshInstance3D" parent="." unique_id=1843226469]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6887809, 1.1920929e-07, -1.0840392)
+mesh = ExtResource("24_vsdgl")
+
+[node name="HexRiverL" type="MeshInstance3D" parent="." unique_id=248316625]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6887809, 1.1920929e-07, -1.0840392)
+mesh = ExtResource("25_7yxtv")
+
+[node name="HexRoadA" type="MeshInstance3D" parent="." unique_id=1661987991]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6277834, 0, -0.89294386)
+mesh = ExtResource("26_a7j36")
+
+[node name="HexRoadASlopedHigh" type="MeshInstance3D" parent="." unique_id=892339283]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6277834, 0, -0.89294386)
+mesh = ExtResource("27_80ww3")
+
+[node name="HexRoadASlopedLow" type="MeshInstance3D" parent="." unique_id=30188390]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6277834, 0, -0.89294386)
+mesh = ExtResource("28_gt6i0")
+
+[node name="HexRoadB" type="MeshInstance3D" parent="." unique_id=1935336209]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6277834, 0, -0.89294386)
+mesh = ExtResource("29_71r0r")
+
+[node name="HexRoadC" type="MeshInstance3D" parent="." unique_id=210881830]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6277834, 0, -0.89294386)
+mesh = ExtResource("30_ogg2k")
+
+[node name="HexRoadD" type="MeshInstance3D" parent="." unique_id=1584695564]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6277834, 0, -0.89294386)
+mesh = ExtResource("31_2s783")
+
+[node name="HexRoadE" type="MeshInstance3D" parent="." unique_id=1453533579]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6277834, 0, -0.89294386)
+mesh = ExtResource("32_ll8so")
+
+[node name="HexRoadF" type="MeshInstance3D" parent="." unique_id=672472373]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6277834, 0, -0.89294386)
+mesh = ExtResource("33_vow4y")
+
+[node name="HexRoadG" type="MeshInstance3D" parent="." unique_id=286771943]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6277834, 0, -0.89294386)
+mesh = ExtResource("34_kbllb")
+
+[node name="HexRoadH" type="MeshInstance3D" parent="." unique_id=1516288505]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6277834, 0, -0.89294386)
+mesh = ExtResource("35_wgjwi")
+
+[node name="HexRoadI" type="MeshInstance3D" parent="." unique_id=1148048735]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6277834, 0, -0.89294386)
+mesh = ExtResource("36_okw2t")
+
+[node name="HexRoadJ" type="MeshInstance3D" parent="." unique_id=1008136879]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6277834, 0, -0.89294386)
+mesh = ExtResource("37_lqei7")
+
+[node name="HexRoadK" type="MeshInstance3D" parent="." unique_id=1892067182]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6277834, 0, -0.89294386)
+mesh = ExtResource("38_ul1nk")
+
+[node name="HexRoadL" type="MeshInstance3D" parent="." unique_id=207369455]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6277834, 0, -0.89294386)
+mesh = ExtResource("39_6gpam")
+
+[node name="HexRoadM" type="MeshInstance3D" parent="." unique_id=960482444]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6277834, 0, -0.89294386)
+mesh = ExtResource("40_uqnri")
