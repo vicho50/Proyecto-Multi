@@ -142,12 +142,12 @@ func _unhandled_input(event):
 				request_custom_spawn.rpc(ui_layer.selected_unit_type, ui_layer.player_id, clicked_position)
 				return
 
-	if Input.is_key_pressed(KEY_1): manual_unit_spawn(Statics.UnitType.HEAVY, 0)
-	if Input.is_key_pressed(KEY_2): manual_unit_spawn(Statics.UnitType.WARRIOR, 0)
-	if Input.is_key_pressed(KEY_3): manual_unit_spawn(Statics.UnitType.ARCHER, 0)
-	if Input.is_key_pressed(KEY_4): manual_unit_spawn(Statics.UnitType.HEAVY, 1)
-	if Input.is_key_pressed(KEY_5): manual_unit_spawn(Statics.UnitType.WARRIOR, 1)
-	if Input.is_key_pressed(KEY_6): manual_unit_spawn(Statics.UnitType.ARCHER, 1)
+	if Input.is_key_pressed(KEY_T): manual_unit_spawn(Statics.UnitType.HEAVY, 0)
+	if Input.is_key_pressed(KEY_Y): manual_unit_spawn(Statics.UnitType.WARRIOR, 0)
+	if Input.is_key_pressed(KEY_U): manual_unit_spawn(Statics.UnitType.ARCHER, 0)
+	if Input.is_key_pressed(KEY_G): manual_unit_spawn(Statics.UnitType.HEAVY, 1)
+	if Input.is_key_pressed(KEY_H): manual_unit_spawn(Statics.UnitType.WARRIOR, 1)
+	if Input.is_key_pressed(KEY_J): manual_unit_spawn(Statics.UnitType.ARCHER, 1)
 
 func manual_unit_spawn(unit_type: Statics.UnitType, team_id: int):
 	if not multiplayer.is_server():

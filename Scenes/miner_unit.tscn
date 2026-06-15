@@ -6,9 +6,25 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_t378n"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_3v0kv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t378n"]
+albedo_color = Color(0.6255971, 0.6255971, 0.6255971, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_t378n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kj3b0"]
+albedo_color = Color(0.8782944, 0.9432593, 7.70092e-07, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_kj3b0"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kjpmy"]
+albedo_color = Color(0.6278121, 0.416652, 0.07150317, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_c4l63"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p8fni"]
+albedo_color = Color(0.44755095, 0.44755095, 0.44755095, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_u0dyb"]
 
@@ -50,23 +66,49 @@ mesh = SubResource("BoxMesh_6a7v8")
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.41142452, 0)
 mesh = SubResource("BoxMesh_t378n")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visuals/Head" unique_id=425511718]
+transform = Transform3D(1.0999999, 0, 0, 0, 0.35499996, 0, 0, 0, 1.0999999, 0, 0.43346763, -0.052717112)
+mesh = SubResource("BoxMesh_3v0kv")
+surface_material_override/0 = SubResource("StandardMaterial3D_t378n")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Visuals/Head" unique_id=1441464751]
+transform = Transform3D(0.8634999, 0, 0, 0, 0.26447496, 0, 0, 0, 1.2099998, 0, 0.57262754, -0.11101711)
+mesh = SubResource("BoxMesh_3v0kv")
+skeleton = NodePath("../MeshInstance3D")
+surface_material_override/0 = SubResource("StandardMaterial3D_t378n")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Visuals/Head" unique_id=1092228214]
+transform = Transform3D(0.39289245, 0, 0, 0, 0.21554708, 0, 0, 0, 1.3309997, 0, 0.7001047, -0.17514709)
+mesh = SubResource("BoxMesh_3v0kv")
+skeleton = NodePath("../MeshInstance3D2")
+surface_material_override/0 = SubResource("StandardMaterial3D_t378n")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Visuals/Head" unique_id=754081322]
+transform = Transform3D(0.19999996, 0, 0, 0, -8.742275e-09, -0.19999996, 0, 0.19999996, -8.742275e-09, -0.016441619, 0.6525068, 0.30644315)
+mesh = SubResource("CylinderMesh_t378n")
+surface_material_override/0 = SubResource("StandardMaterial3D_kj3b0")
+
 [node name="Pickaxe" type="Node3D" parent="Visuals" unique_id=465429811]
 
 [node name="Handle" type="MeshInstance3D" parent="Visuals/Pickaxe" unique_id=1547993005]
 transform = Transform3D(0.04, 0, 0, 0, 0.026063893, 0.21334675, 0, -0.042669352, 0.13031946, 0.17190653, 0.3511764, 0.079104245)
 mesh = SubResource("BoxMesh_kj3b0")
+surface_material_override/0 = SubResource("StandardMaterial3D_kjpmy")
 
 [node name="Head1" type="MeshInstance3D" parent="Visuals/Pickaxe" unique_id=677905525]
 transform = Transform3D(0.05, 0, 0, 0, 0.04068651, -0.087186426, 0, 0.02906214, 0.12205953, 0.17057508, 0.45249492, 0.1450462)
 mesh = SubResource("BoxMesh_c4l63")
+surface_material_override/0 = SubResource("StandardMaterial3D_p8fni")
 
 [node name="Head2" type="MeshInstance3D" parent="Visuals/Pickaxe" unique_id=1923468122]
 transform = Transform3D(0.05, 0, 0, 0, 0.014646123, -0.06692954, 0, 0.047806814, 0.020504571, 0.17057508, 0.38648257, 0.20898393)
 mesh = SubResource("BoxMesh_c4l63")
+surface_material_override/0 = SubResource("StandardMaterial3D_p8fni")
 
 [node name="Head3" type="MeshInstance3D" parent="Visuals/Pickaxe" unique_id=981607639]
 transform = Transform3D(0.05, 0, 0, 0, 0.048852097, 0.014913322, 0, -0.010652376, 0.06839293, 0.17057508, 0.48419538, 0.06986882)
 mesh = SubResource("BoxMesh_c4l63")
+surface_material_override/0 = SubResource("StandardMaterial3D_p8fni")
 
 [node name="HealthBarRoot" type="Node3D" parent="." unique_id=1771186510]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1.5, 0)

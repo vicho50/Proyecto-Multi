@@ -7,9 +7,13 @@
 [ext_resource type="Script" uid="uid://e3s8xs6jnarq" path="res://Scenes/ui.gd" id="6_344ge"]
 [ext_resource type="Script" uid="uid://27e1ijv776qj" path="res://Scenes/game_manager.gd" id="7_6bp64"]
 [ext_resource type="ArrayMesh" uid="uid://c03tgvjr0oslr" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/buildings/red/building_castle_red.obj" id="7_344ge"]
+[ext_resource type="Texture2D" uid="uid://dxyaqdue3l3q5" path="res://Assets/UI/Recoger.png" id="7_hpc6h"]
 [ext_resource type="Texture2D" uid="uid://lesitpbnow85" path="res://Assets/UI/Iconos_Tropas/Marco_V1.png" id="7_hptm8"]
 [ext_resource type="Texture2D" uid="uid://dhtciucerahjx" path="res://Assets/UI/3309977.png" id="7_ynf5e"]
 [ext_resource type="Texture2D" uid="uid://blp32w8akrnln" path="res://Assets/UI/Iconos_Tropas/Archer.png" id="8_6iyac"]
+[ext_resource type="Shader" uid="uid://by6l55te3lt8g" path="res://Scenes/main.gdshader" id="8_kltya"]
+[ext_resource type="Texture2D" uid="uid://wlegpnx6q4p7" path="res://Assets/UI/Iconos_Tropas/Miner.png" id="9_6vcvc"]
+[ext_resource type="Texture2D" uid="uid://bjc2dkk8xywt2" path="res://Assets/UI/Cadena_3.png" id="9_kltya"]
 [ext_resource type="ArrayMesh" uid="uid://b7mk0pv510gvo" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/trees_A_large.obj" id="11_ueoa1"]
 [ext_resource type="ArrayMesh" uid="uid://draqqjy1h2got" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/trees_A_medium.obj" id="12_6vcvc"]
 [ext_resource type="ArrayMesh" uid="uid://bqlobjxtmwomo" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/trees_A_small.obj" id="13_7k868"]
@@ -48,6 +52,35 @@ load_path = "res://.godot/imported/Warrior.png-c90b50263d41d8f55a5c8d5eb7620fb1.
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_d1ilt"]
 load_path = "res://.godot/imported/Heavy.png-54ed2d46859a32d5389e9c7170d5cfcb.ctex"
+
+[sub_resource type="Shader" id="Shader_hpc6h"]
+code = "shader_type canvas_item;
+
+uniform vec4 shine_color : source_color = vec4(1.0);
+uniform float shine_speed : hint_range(0.0, 10.0, 0.1) = 1.0;
+uniform float shine_size : hint_range(0.01, 1.0, 0.01) = 0.1;
+
+void fragment() {
+    vec4 tex = texture(TEXTURE, UV);
+    float val = sin(UV.x - UV.y + TIME * shine_speed);
+    
+    float shine = smoothstep(1.0 - shine_size, 1.0, val);
+    
+    COLOR.rgb = mix(tex.rgb, shine_color.rgb, shine * shine_color.a);
+    COLOR.a = tex.a;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e08e2"]
+shader = SubResource("Shader_hpc6h")
+shader_parameter/shine_color = Color(1, 1, 1, 0.5)
+shader_parameter/shine_speed = 1.0000000149012
+shader_parameter/shine_size = 0.0999999977648
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hpc6h"]
+shader = ExtResource("8_kltya")
+shader_parameter/shine_color = Color(0.641934, 0.641934, 0.641934, 1)
+shader_parameter/shine_speed = 1.0
+shader_parameter/shine_size = 0.1
 
 [node name="Main" type="Node3D" unique_id=1683675]
 
@@ -141,24 +174,20 @@ theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 26
 text = "100%"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/HUD" unique_id=1562565546]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 510.03
-offset_right = 720.0
-offset_bottom = 734.03
-scale = Vector2(0.9, 0.9)
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer" unique_id=672625417]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD" unique_id=672625417]
 custom_minimum_size = Vector2(700, 70)
-layout_mode = 2
+layout_mode = 0
+offset_left = 22.52
+offset_top = 497.82
+offset_right = 722.52
+offset_bottom = 567.8202
 
-[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer/HBoxContainer" unique_id=2146441253]
+[node name="Oro_Png" type="TextureRect" parent="UI/HUD/HBoxContainer" unique_id=2146441253]
 layout_mode = 2
 texture = ExtResource("7_ynf5e")
 expand_mode = 2
 
-[node name="ResourceLabel" type="Label" parent="UI/HUD/VBoxContainer/HBoxContainer" unique_id=1113581444]
+[node name="ResourceLabel" type="Label" parent="UI/HUD/HBoxContainer" unique_id=1113581444]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -166,11 +195,41 @@ theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 25
 text = "Oro:"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="UI/HUD/VBoxContainer" unique_id=1347280276]
-layout_mode = 2
-theme_override_constants/separation = 24
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/HUD" unique_id=1562565546]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 568.52
+offset_right = 720.0
+offset_bottom = 802.32465
+scale = Vector2(0.9, 0.9)
 
-[node name="Roman_Warrior_Button" type="TextureButton" parent="UI/HUD/VBoxContainer/HBoxContainer2" unique_id=1466191398]
+[node name="Control" type="Control" parent="UI/HUD/VBoxContainer" unique_id=570024852]
+custom_minimum_size = Vector2(834.675, 40.675)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureButton" type="TextureButton" parent="UI/HUD/VBoxContainer/Control" unique_id=2047196949]
+layout_mode = 0
+offset_left = 724.444
+offset_top = -252.475
+offset_right = 1011.444
+offset_bottom = 399.525
+scale = Vector2(0.24, 0.24)
+pivot_offset = Vector2(143.43, 321.39)
+texture_normal = ExtResource("7_hpc6h")
+stretch_mode = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/HUD/VBoxContainer/Control" unique_id=1347280276]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.95800006
+anchor_bottom = 3.6880002
+offset_right = 0.38134766
+offset_bottom = -0.009399414
+theme_override_constants/separation = 63
+alignment = 1
+
+[node name="Roman_Warrior_Button" type="TextureButton" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2" unique_id=1466191398]
 self_modulate = Color(1.353256, 1.353256, 1.353256, 1)
 custom_minimum_size = Vector2(130, 140)
 layout_mode = 2
@@ -178,7 +237,7 @@ texture_normal = SubResource("CompressedTexture2D_ynf5e")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button" unique_id=568895459]
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button" unique_id=568895459]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = -1
@@ -189,11 +248,12 @@ offset_top = -10.0
 offset_right = 25.134995
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(79.615, 76.82)
 texture = ExtResource("7_hptm8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button" unique_id=945573869]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button" unique_id=945573869]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 0
 offset_left = 88.09
@@ -201,13 +261,13 @@ offset_right = 191.09
 offset_bottom = 50.0
 scale = Vector2(0.7, 0.7)
 
-[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button/HBoxContainer" unique_id=1251921579]
+[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button/HBoxContainer" unique_id=1251921579]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("7_ynf5e")
 expand_mode = 1
 
-[node name="Precio_Warrior" type="Label" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button/HBoxContainer" unique_id=570167773]
+[node name="Precio_Warrior" type="Label" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button/HBoxContainer" unique_id=570167773]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -217,15 +277,15 @@ theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 30
 text = "5"
 
-[node name="Roman_Archer_Button" type="TextureButton" parent="UI/HUD/VBoxContainer/HBoxContainer2" unique_id=340738754]
+[node name="Roman_Archer_Button" type="TextureButton" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2" unique_id=340738754]
 self_modulate = Color(1.353256, 1.353256, 1.353256, 1)
-custom_minimum_size = Vector2(154.065, 150)
+custom_minimum_size = Vector2(150, 117.605)
 layout_mode = 2
 texture_normal = ExtResource("8_6iyac")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button" unique_id=989315795]
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button" unique_id=989315795]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -236,11 +296,12 @@ offset_top = -10.0
 offset_right = 24.709991
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(81.675, 78.02)
 texture = ExtResource("7_hptm8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button" unique_id=1990973162]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button" unique_id=1990973162]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 0
 offset_left = 96.235
@@ -248,13 +309,13 @@ offset_right = 199.23492
 offset_bottom = 50.0
 scale = Vector2(0.7, 0.7)
 
-[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button/HBoxContainer" unique_id=683092934]
+[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button/HBoxContainer" unique_id=683092934]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("7_ynf5e")
 expand_mode = 1
 
-[node name="Precio_Archer" type="Label" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button/HBoxContainer" unique_id=894197535]
+[node name="Precio_Archer" type="Label" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button/HBoxContainer" unique_id=894197535]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -264,15 +325,15 @@ theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 30
 text = "10"
 
-[node name="Roman_Heavy_Button" type="TextureButton" parent="UI/HUD/VBoxContainer/HBoxContainer2" unique_id=825177779]
+[node name="Roman_Heavy_Button" type="TextureButton" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2" unique_id=825177779]
 self_modulate = Color(1.353256, 1.353256, 1.353256, 1)
-custom_minimum_size = Vector2(160, 146.04)
+custom_minimum_size = Vector2(160, 108.27)
 layout_mode = 2
 texture_normal = SubResource("CompressedTexture2D_d1ilt")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button" unique_id=1410866662]
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button" unique_id=1410866662]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -283,11 +344,12 @@ offset_top = -10.0
 offset_right = 12.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(79.475, 78.005)
 texture = ExtResource("7_hptm8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button" unique_id=2034577003]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button" unique_id=2034577003]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 0
 offset_left = 94.94
@@ -295,13 +357,13 @@ offset_right = 197.93991
 offset_bottom = 50.0
 scale = Vector2(0.7, 0.7)
 
-[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button/HBoxContainer" unique_id=182635594]
+[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button/HBoxContainer" unique_id=182635594]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("7_ynf5e")
 expand_mode = 1
 
-[node name="Precio_Heavy" type="Label" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button/HBoxContainer" unique_id=1078577567]
+[node name="Precio_Heavy" type="Label" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button/HBoxContainer" unique_id=1078577567]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -311,36 +373,32 @@ theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 30
 text = "15"
 
-[node name="Roman_Miner_Button" type="TextureButton" parent="UI/HUD/VBoxContainer/HBoxContainer2" unique_id=383444074]
+[node name="Roman_Miner_Button" type="TextureButton" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2" unique_id=383444074]
 self_modulate = Color(1.353256, 1.353256, 1.353256, 1)
-custom_minimum_size = Vector2(150, 146)
+custom_minimum_size = Vector2(145.3, 131.175)
 layout_mode = 2
-texture_normal = ExtResource("7_hptm8")
+texture_normal = ExtResource("9_6vcvc")
 ignore_texture_size = true
-stretch_mode = 5
+stretch_mode = 4
 
-[node name="MinerLabel" type="Label" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Miner_Button" unique_id=1024966430]
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button" unique_id=1036442894]
+show_behind_parent = true
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -65.0
-offset_top = -35.0
-offset_right = 65.0
-offset_bottom = 5.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.333313
+offset_top = -9.588928
+offset_right = 21.828293
+offset_bottom = 0.41107178
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 28
-text = "Minero"
-horizontal_alignment = 1
-vertical_alignment = 1
+pivot_offset = Vector2(79.325, 76.955)
+texture = ExtResource("7_hptm8")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Miner_Button" unique_id=2127245490]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button" unique_id=2127245490]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 0
 offset_left = 90.0
@@ -348,13 +406,13 @@ offset_right = 193.0
 offset_bottom = 50.0
 scale = Vector2(0.7, 0.7)
 
-[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Miner_Button/HBoxContainer" unique_id=1395769432]
+[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button/HBoxContainer" unique_id=1395769432]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("7_ynf5e")
 expand_mode = 1
 
-[node name="Precio_Miner" type="Label" parent="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Miner_Button/HBoxContainer" unique_id=2130540357]
+[node name="Precio_Miner" type="Label" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button/HBoxContainer" unique_id=2130540357]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -364,7 +422,33 @@ theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 30
 text = "20"
 
-[node name="GameOverScreen" type="Control" parent="UI"]
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer/Control" unique_id=1700207363]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_e08e2")
+clip_contents = true
+layout_mode = 0
+offset_left = -634.992
+offset_top = 16.088867
+offset_right = 5334.008
+offset_bottom = 138.08887
+scale = Vector2(0.25, 0.25)
+mouse_filter = 2
+texture = ExtResource("9_kltya")
+
+[node name="TextureRect2" type="TextureRect" parent="UI/HUD/VBoxContainer/Control" unique_id=2058353257]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_hpc6h")
+clip_contents = true
+layout_mode = 0
+offset_left = -634.992
+offset_top = 86.52643
+offset_right = 5334.008
+offset_bottom = 208.52643
+scale = Vector2(0.25, 0.25)
+mouse_filter = 2
+texture = ExtResource("9_kltya")
+
+[node name="GameOverScreen" type="Control" parent="UI" unique_id=290535804]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -373,7 +457,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="ColorRect" parent="UI/GameOverScreen"]
+[node name="Background" type="ColorRect" parent="UI/GameOverScreen" unique_id=1194228499]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -382,7 +466,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.6)
 
-[node name="ResultLabel" type="Label" parent="UI/GameOverScreen"]
+[node name="ResultLabel" type="Label" parent="UI/GameOverScreen" unique_id=729264382]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -534,21 +618,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.7729464, -0.024289062, 2.4
 [node name="Mina2" parent="." unique_id=908816620 instance=ExtResource("28_ueoa1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.866435, -0.024289062, 3.7150164)
 
-[connection signal="button_down" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button" to="UI" method="_on_roman_warrior_button_button_down"]
-[connection signal="button_up" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button" to="UI" method="_on_roman_warrior_button_button_up"]
-[connection signal="mouse_entered" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button" to="UI" method="_on_roman_warrior_button_mouse_entered"]
-[connection signal="mouse_exited" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button" to="UI" method="_on_roman_warrior_button_mouse_exited"]
-[connection signal="pressed" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button" to="UI" method="_on_roman_warrior_button_pressed"]
-[connection signal="button_down" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button" to="UI" method="_on_roman_archer_button_button_down"]
-[connection signal="button_up" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button" to="UI" method="_on_roman_archer_button_button_up"]
-[connection signal="mouse_entered" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button" to="UI" method="_on_roman_archer_button_mouse_entered"]
-[connection signal="mouse_exited" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button" to="UI" method="_on_roman_archer_button_mouse_exited"]
-[connection signal="pressed" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button" to="UI" method="_on_roman_archer_button_pressed"]
-[connection signal="button_down" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button" to="UI" method="_on_roman_heavy_button_button_down"]
-[connection signal="button_up" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button" to="UI" method="_on_roman_heavy_button_button_up"]
-[connection signal="mouse_entered" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button" to="UI" method="_on_roman_heavy_button_mouse_entered"]
-[connection signal="mouse_exited" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button" to="UI" method="_on_roman_heavy_button_mouse_exited"]
-[connection signal="pressed" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button" to="UI" method="_on_roman_heavy_button_pressed"]
-[connection signal="mouse_entered" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Miner_Button" to="UI" method="_on_roman_miner_button_mouse_entered"]
-[connection signal="mouse_exited" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Miner_Button" to="UI" method="_on_roman_miner_button_mouse_exited"]
-[connection signal="pressed" from="UI/HUD/VBoxContainer/HBoxContainer2/Roman_Miner_Button" to="UI" method="_on_roman_miner_button_pressed"]
+[connection signal="button_down" from="UI/HUD/VBoxContainer/Control/TextureButton" to="UI" method="_on_texture_button_button_down"]
+[connection signal="button_up" from="UI/HUD/VBoxContainer/Control/TextureButton" to="UI" method="_on_texture_button_button_up"]
+[connection signal="mouse_entered" from="UI/HUD/VBoxContainer/Control/TextureButton" to="UI" method="_on_texture_button_mouse_entered"]
+[connection signal="mouse_exited" from="UI/HUD/VBoxContainer/Control/TextureButton" to="UI" method="_on_texture_button_mouse_exited"]
+[connection signal="button_down" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button" to="UI" method="_on_roman_warrior_button_button_down"]
+[connection signal="button_up" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button" to="UI" method="_on_roman_warrior_button_button_up"]
+[connection signal="mouse_entered" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button" to="UI" method="_on_roman_warrior_button_mouse_entered"]
+[connection signal="mouse_exited" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button" to="UI" method="_on_roman_warrior_button_mouse_exited"]
+[connection signal="pressed" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button" to="UI" method="_on_roman_warrior_button_pressed"]
+[connection signal="button_down" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button" to="UI" method="_on_roman_archer_button_button_down"]
+[connection signal="button_up" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button" to="UI" method="_on_roman_archer_button_button_up"]
+[connection signal="mouse_entered" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button" to="UI" method="_on_roman_archer_button_mouse_entered"]
+[connection signal="mouse_exited" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button" to="UI" method="_on_roman_archer_button_mouse_exited"]
+[connection signal="pressed" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button" to="UI" method="_on_roman_archer_button_pressed"]
+[connection signal="button_down" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button" to="UI" method="_on_roman_heavy_button_button_down"]
+[connection signal="button_up" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button" to="UI" method="_on_roman_heavy_button_button_up"]
+[connection signal="mouse_entered" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button" to="UI" method="_on_roman_heavy_button_mouse_entered"]
+[connection signal="mouse_exited" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button" to="UI" method="_on_roman_heavy_button_mouse_exited"]
+[connection signal="pressed" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button" to="UI" method="_on_roman_heavy_button_pressed"]
+[connection signal="button_down" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button" to="UI" method="_on_roman_miner_button_button_down"]
+[connection signal="button_up" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button" to="UI" method="_on_roman_miner_button_button_up"]
+[connection signal="mouse_entered" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button" to="UI" method="_on_roman_miner_button_mouse_entered"]
+[connection signal="mouse_exited" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button" to="UI" method="_on_roman_miner_button_mouse_exited"]
+[connection signal="pressed" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button" to="UI" method="_on_roman_miner_button_pressed"]
