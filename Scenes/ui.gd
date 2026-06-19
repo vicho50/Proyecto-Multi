@@ -3,16 +3,20 @@ extends CanvasLayer
 const game_manager = preload("res://Scenes/game_manager.gd")
 @export var player_id: int = 0
 
-@onready var resource_label = $HUD/VBoxContainer/HBoxContainer/ResourceLabel
+@onready var resource_label = $HUD/HBoxContainer/ResourceLabel
 @onready var health_bar = $HUD/MarginContainer/HealthBar
 @onready var health_percentage_label = $HUD/MarginContainer/HealthBar/Label
-@onready var Heavy_Cost = $HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button/HBoxContainer/Precio_Heavy
-@onready var Warrior_Cost = $HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button/HBoxContainer/Precio_Warrior
-@onready var Archer_Cost = $HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button/HBoxContainer/Precio_Archer
-@onready var Miner_Cost = $HUD/VBoxContainer/HBoxContainer2/Roman_Miner_Button/HBoxContainer/Precio_Miner
+@onready var Heavy_Cost = $HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button/HBoxContainer/Precio_Heavy
+@onready var Warrior_Cost = $HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button/HBoxContainer/Precio_Warrior
+@onready var Archer_Cost = $HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button/HBoxContainer/Precio_Archer
+@onready var Miner_Cost = $HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button/HBoxContainer/Precio_Miner
 
 @onready var game_over_screen: Control = $GameOverScreen
 @onready var result_label: Label = $GameOverScreen/ResultLabel
+
+@onready var Puller = $HUD/VBoxContainer/Control
+@onready var Puller_Button = $HUD/VBoxContainer/Control/TextureButton
+var is_collapsed := false
 
 var _game_over := false
 
@@ -20,6 +24,7 @@ var _game_over := false
 var Heavy_Mouse=load("res://Assets/UI/Mouses/Mouse_Heavy.png")
 var Warrior_Mouse=load("res://Assets/UI/Mouses/Mouse_Warrior.png")
 var Archer_Mouse=load("res://Assets/UI/Mouses/Mouse_Archer.png")
+var Miner_Mouse=load("res://Assets/UI/Mouses/Mouse_Miner.png")
 var Default_Mouse=load("res://Assets/UI/Mouses/Mouse_Default.png")
 
 var player_data
@@ -103,6 +108,18 @@ func _input(_event):
 	if Input.is_key_pressed(KEY_KP_SUBTRACT):
 		var castles = get_tree().get_nodes_in_group("castillo_jugador_" + str(player_id))
 		if castles.size() > 0: castles[0].take_damage(10)
+	if Input.is_key_pressed(KEY_1):
+		select_unit_to_spawn(Statics.UnitType.WARRIOR)
+		Input.set_custom_mouse_cursor(Warrior_Mouse)
+	if Input.is_key_pressed(KEY_2):
+		select_unit_to_spawn(Statics.UnitType.ARCHER)
+		Input.set_custom_mouse_cursor(Archer_Mouse)
+	if Input.is_key_pressed(KEY_3):
+		select_unit_to_spawn(Statics.UnitType.HEAVY)
+		Input.set_custom_mouse_cursor(Heavy_Mouse)
+	if Input.is_key_pressed(KEY_4):
+		select_unit_to_spawn(Statics.UnitType.MINER)
+		Input.set_custom_mouse_cursor(Miner_Mouse)
 
 # Conecta la senal pressed los botones al tipo de unidad seleccionado
 func select_unit_to_spawn(unit_type: Statics.UnitType):
@@ -112,81 +129,160 @@ func select_unit_to_spawn(unit_type: Statics.UnitType):
 func _on_roman_heavy_button_pressed() -> void:
 	select_unit_to_spawn(Statics.UnitType.HEAVY)
 	Input.set_custom_mouse_cursor(Heavy_Mouse)
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button.self_modulate = Color(0.8, 0.8, 0.8)
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button/TextureRect.self_modulate = Color(0.7, 0.7, 0.7)
-
+	
 func _on_roman_heavy_button_mouse_entered():
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button.self_modulate = Color(0.8, 0.8, 0.8)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button.self_modulate = Color(1.1, 1.1, 1.1)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button/TextureRect.self_modulate = Color(0.9, 0.9, 0.9)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button.scale = Vector2(1.05, 1.05)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button.position -= $HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button.size * 0.025
 	
 func _on_roman_heavy_button_mouse_exited():
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button.self_modulate = Color(1.353, 1.353, 1.353)
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button/TextureRect.self_modulate = Color(1.0, 1.0, 1.0)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button.self_modulate = Color(1.353, 1.353, 1.353)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button/TextureRect.self_modulate = Color(1.0, 1.0, 1.0)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button.scale = Vector2(1.0, 1.0)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button.position += $HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button.size * 0.025
 	
 func _on_roman_heavy_button_button_down() -> void:
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button.self_modulate = Color(0.8, 0.8, 0.8)
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button/TextureRect.self_modulate = Color(0.7, 0.7, 0.7)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button.self_modulate = Color(0.8, 0.8, 0.8)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button/TextureRect.self_modulate = Color(0.8, 0.8, 0.8)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button/TextureRect.scale = Vector2(0.98, 0.98)
+	
 	
 func _on_roman_heavy_button_button_up() -> void:
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button.self_modulate = Color(1.353, 1.353, 1.353)
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Heavy_Button/TextureRect.self_modulate = Color(0.8, 0.8, 0.8)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button.self_modulate = Color(1.1, 1.1, 1.1)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button/TextureRect.self_modulate = Color(0.9, 0.9, 0.9)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button/TextureRect.scale = Vector2(1.0, 1.0)
 	
 
 #Warrior
+# Roman Warrior
 func _on_roman_warrior_button_pressed() -> void:
 	select_unit_to_spawn(Statics.UnitType.WARRIOR)
 	Input.set_custom_mouse_cursor(Warrior_Mouse)
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button.self_modulate = Color(0.8, 0.8, 0.8)
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button/TextureRect.self_modulate = Color(0.7, 0.7, 0.7)
-	
+
 func _on_roman_warrior_button_mouse_entered() -> void:
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button/TextureRect.self_modulate = Color(0.9, 0.9, 0.9)
-	
+	# Set hover colors
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button.self_modulate = Color(1.1, 1.1, 1.1)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button/TextureRect.self_modulate = Color(0.9, 0.9, 0.9)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button.scale = Vector2(1.05, 1.05)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button.position -= $HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button.size * 0.025
 func _on_roman_warrior_button_mouse_exited() -> void:
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button.self_modulate = Color(1.353, 1.353, 1.353)
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button/TextureRect.self_modulate = Color(1.0, 1.0, 1.0)
+	# Reset colors
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button.self_modulate = Color(1.353, 1.353, 1.353)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button/TextureRect.self_modulate = Color(1.0, 1.0, 1.0)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button.scale = Vector2(1.0, 1.0)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button.position += $HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button.size * 0.025
 
 func _on_roman_warrior_button_button_down() -> void:
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button.self_modulate = Color(0.8, 0.8, 0.8)
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button/TextureRect.self_modulate = Color(0.7, 0.7, 0.7)
-
+	# Set pressed colors
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button.self_modulate = Color(0.8, 0.8, 0.8)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button/TextureRect.self_modulate = Color(0.8, 0.8, 0.8)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button/TextureRect.scale = Vector2(0.98, 0.98)
 
 func _on_roman_warrior_button_button_up() -> void:
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button.self_modulate = Color(1.353, 1.353, 1.353)
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Warrior_Button/TextureRect.self_modulate = Color(0.8, 0.8, 0.8)
-	
-#Archer
+	# Revert to hover colors
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button.self_modulate = Color(1.1, 1.1, 1.1)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button/TextureRect.self_modulate = Color(0.9, 0.9, 0.9)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button/TextureRect.scale = Vector2(1.0, 1.0)
+# Roman Archer
 func _on_roman_archer_button_pressed() -> void:
 	select_unit_to_spawn(Statics.UnitType.ARCHER)
 	Input.set_custom_mouse_cursor(Archer_Mouse)
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button.self_modulate = Color(0.8, 0.8, 0.8)
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button/TextureRect.self_modulate = Color(0.7, 0.7, 0.7)
 
 func _on_roman_archer_button_mouse_entered() -> void:
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button/TextureRect.self_modulate = Color(0.9, 0.9, 0.9)
-
-
+	# Set hover colors
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button.self_modulate = Color(1.1, 1.1, 1.1)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button/TextureRect.self_modulate = Color(0.9, 0.9, 0.9)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button.scale = Vector2(1.05, 1.05)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button.position -= $HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button.size * 0.025
 func _on_roman_archer_button_mouse_exited() -> void:
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button.self_modulate = Color(1.353, 1.353, 1.353)
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button/TextureRect.self_modulate = Color(1.0, 1.0, 1.0)
-
+	# Reset colors
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button.self_modulate = Color(1.353, 1.353, 1.353)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button/TextureRect.self_modulate = Color(1.0, 1.0, 1.0)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button.scale = Vector2(1.0, 1.0)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button.position += $HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button.size * 0.025
 
 func _on_roman_archer_button_button_down() -> void:
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button.self_modulate = Color(0.8, 0.8, 0.8)
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button/TextureRect.self_modulate = Color(0.7, 0.7, 0.7)
+	# Set pressed colors
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button.self_modulate = Color(0.8, 0.8, 0.8)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button/TextureRect.self_modulate = Color(0.8, 0.8, 0.8)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button/TextureRect.scale = Vector2(0.98, 0.98)
 
 func _on_roman_archer_button_button_up() -> void:
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button.self_modulate = Color(1.353, 1.353, 1.353)
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Archer_Button/TextureRect.self_modulate = Color(0.8, 0.8, 0.8)
+	# Revert to hover colors
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button.self_modulate = Color(1.1, 1.1, 1.1)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button/TextureRect.self_modulate = Color(0.9, 0.9, 0.9)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button/TextureRect.scale = Vector2(1.0, 1.0)
 
-#Minero
+# Roman Miner
 func _on_roman_miner_button_pressed() -> void:
 	select_unit_to_spawn(Statics.UnitType.MINER)
-	# No hay cursor propio para el minero; se usa el cursor por defecto.
-	Input.set_custom_mouse_cursor(Default_Mouse)
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Miner_Button.self_modulate = Color(0.8, 0.8, 0.8)
+	Input.set_custom_mouse_cursor(Miner_Mouse)
 
 func _on_roman_miner_button_mouse_entered() -> void:
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Miner_Button.self_modulate = Color(0.8, 0.8, 0.8)
+	# Set hover colors
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button.self_modulate = Color(1.1, 1.1, 1.1)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button/TextureRect.self_modulate = Color(0.9, 0.9, 0.9)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button.scale = Vector2(1.05, 1.05)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button.position -= $HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button.size * 0.025
 
 func _on_roman_miner_button_mouse_exited() -> void:
-	$HUD/VBoxContainer/HBoxContainer2/Roman_Miner_Button.self_modulate = Color(1.353, 1.353, 1.353)
+	# Reset colors
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button.self_modulate = Color(1.353, 1.353, 1.353)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button/TextureRect.self_modulate = Color(1.0, 1.0, 1.0)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button.scale = Vector2(1.0, 1.0)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button.position += $HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button.size * 0.025
+
+func _on_roman_miner_button_button_down() -> void:
+	# Set pressed colors
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button.self_modulate = Color(0.8, 0.8, 0.8)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button/TextureRect.self_modulate = Color(0.8, 0.8, 0.8)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button/TextureRect.scale = Vector2(0.98, 0.98)
+
+func _on_roman_miner_button_button_up() -> void:
+	# Revert to hover colors
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button.self_modulate = Color(1.1, 1.1, 1.1)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button/TextureRect.self_modulate = Color(0.9, 0.9, 0.9)
+	$HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button/TextureRect.scale = Vector2(1.0, 1.0)
+
+
+# Recogedor
+func _on_toggle_units_button_pressed():
+	var tween = create_tween()
+	# Get current width
+	var target_offset = -Puller.size.x
+	
+	if is_collapsed:
+		# Move back to origin
+		tween.tween_property(Puller, "position:x", 0.0, 0.5).set_trans(Tween.TRANS_CUBIC)
+		Puller_Button.rotation_degrees = 0
+		
+	else:
+		# Move to edge based on width
+		tween.tween_property(Puller, "position:x", target_offset, 0.5).set_trans(Tween.TRANS_CUBIC)
+		Puller_Button.rotation_degrees = 180
+		
+	is_collapsed = !is_collapsed
+	
+func _on_texture_button_mouse_entered() -> void:
+	$HUD/VBoxContainer/Control/TextureButton.self_modulate = Color(0.8, 0.8, 0.8)
+	$HUD/VBoxContainer/Control/TextureButton.scale = Vector2(0.25, 0.25)
+	$HUD/VBoxContainer/Control/TextureButton.position -= $HUD/VBoxContainer/Control/TextureButton.size * 0.002
+
+
+func _on_texture_button_mouse_exited() -> void:
+	$HUD/VBoxContainer/Control/TextureButton.self_modulate = Color(1.0, 1.0, 1.0)
+	$HUD/VBoxContainer/Control/TextureButton.scale = Vector2(0.24, 0.24)
+	$HUD/VBoxContainer/Control/TextureButton.position += $HUD/VBoxContainer/Control/TextureButton.size * 0.002
+
+func _on_texture_button_button_down() -> void:
+	$HUD/VBoxContainer/Control/TextureButton.self_modulate = Color(0.7, 0.7, 0.7)
+	$HUD/VBoxContainer/Control/TextureButton.scale = Vector2(0.23, 0.23)
+	$HUD/VBoxContainer/Control/TextureButton.position += $HUD/VBoxContainer/Control/TextureButton.size * 0.003
+
+
+func _on_texture_button_button_up() -> void:
+	_on_toggle_units_button_pressed()
+	$HUD/VBoxContainer/Control/TextureButton.self_modulate = Color(0.8, 0.8, 0.8)
+	$HUD/VBoxContainer/Control/TextureButton.scale = Vector2(0.25, 0.25)
+	$HUD/VBoxContainer/Control/TextureButton.position -= $HUD/VBoxContainer/Control/TextureButton.size * 0.003

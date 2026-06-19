@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cjistf0ptqdlf" path="res://Scenes/roman_warrior.tscn" id="2_pyevm"]
 [ext_resource type="PackedScene" path="res://Scenes/roman_archer.tscn" id="3_yfcpr"]
 [ext_resource type="PackedScene" uid="uid://hrpxwu8a20yf" path="res://Scenes/roman_heavy.tscn" id="4_rqtvl"]
+[ext_resource type="PackedScene" uid="uid://brmws016hnle0" path="res://Scenes/miner_unit.tscn" id="5_awoeq"]
 
 [node name="generador_iconos" type="Node" unique_id=125676503]
 script = ExtResource("1_cwpg3")
@@ -23,11 +24,11 @@ handle_input_locally = false
 render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=1568062063]
-transform = Transform3D(0.7765305, 0, -0.6300797, 0, 1, 0, 0.6300797, 0, 0.7765305, -0.44311494, 0.24019599, -0.093964756)
+transform = Transform3D(0.510993, 0, -0.8595849, 0, 1, 0, 0.8595849, 0, 0.510993, -0.7443727, 0.27007473, -0.26097468)
 fov = 42.1523
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport" unique_id=1656258041]
-transform = Transform3D(0.98869103, 0.120987855, -0.08861135, 0, 0.5908733, 0.8067644, 0.14996676, -0.7976408, 0.5841911, 0.4140284, 1.3926282, 0.9114735)
+transform = Transform3D(0.98869103, 0.120987855, -0.08861135, 0, 0.5908733, 0.8067644, 0.14996676, -0.7976408, 0.5841911, 0.0032866, 1.3926282, 0.9114735)
 
 [node name="Node3D" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=845887725]
 
@@ -51,4 +52,9 @@ script = null
 
 [node name="RomanArcher" parent="SubViewportContainer/SubViewport" unique_id=1421117065 instance=ExtResource("3_yfcpr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13429153, -0.031011045, -0.78687525)
+visible = false
+script = null
+
+[node name="MinerUnit" parent="SubViewportContainer/SubViewport" unique_id=1145689932 instance=ExtResource("5_awoeq")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.065894365, 0, -0.72310805)
 script = null
