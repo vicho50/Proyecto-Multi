@@ -36,15 +36,36 @@ func _spawn_arrow() -> void:
 	arrow.global_position = weapon_mesh.global_position
 
 func apply_roman_visuals() -> void:
-	var helmet_material := StandardMaterial3D.new()
-	helmet_material.albedo_color = get_helmet_color()
-	helmet_material.metallic = 0.4
-	helmet_material.roughness = 0.45
-	helmet_mesh.material_override = helmet_material
+	if helmet_mesh:
+		var helmet_material := StandardMaterial3D.new()
+		helmet_material.albedo_color = get_helmet_color()
+		helmet_material.metallic = 0.4
+		helmet_material.roughness = 0.45
+		helmet_mesh.material_override = helmet_material
 
-	var quiver_material := StandardMaterial3D.new()
-	quiver_material.albedo_color = Color(0.35, 0.22, 0.1)
-	quiver_mesh.material_override = quiver_material
+	if quiver_mesh:
+		var quiver_material := StandardMaterial3D.new()
+		quiver_material.albedo_color = Color(0.35, 0.22, 0.1)
+		quiver_mesh.material_override = quiver_material
+
+	# Alas germanas: si la unidad las tiene, se tiñen del color del equipo.
+	_paint_wings_team_color()
+
+
+func _paint_wings_team_color() -> void:
+	var helmet := get_node_or_null("Visuals/Helmet")
+	if not helmet:
+		return
+	var team_color := get_team_color()
+	for wing_name in ["Wing1", "Wing2"]:
+		var wing = helmet.get_node_or_null(wing_name)
+		if not wing:
+			continue
+		for child in wing.get_children():
+			if child is MeshInstance3D:
+				var mat := StandardMaterial3D.new()
+				mat.albedo_color = team_color
+				child.material_override = mat
 
 func get_helmet_color() -> Color:
 	return Color(0.5, 0.4, 0.05, 1.0)

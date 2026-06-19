@@ -2,11 +2,20 @@ extends Node3D
 
 @onready var spawner: MultiplayerSpawner = $MultiplayerSpawner
 
-var UNIT_SCENES = {
+# Cada facción tiene su propio set de escenas. El team_id 0 (Romanos) usa las
+# escenas roman_*, el team_id 1 (Germanos) usa las german_*. El minero es común.
+var ROMAN_UNIT_SCENES = {
 	Statics.UnitType.HEAVY: preload("res://Scenes/roman_heavy.tscn"),
 	Statics.UnitType.WARRIOR: preload("res://Scenes/roman_warrior.tscn"),
 	Statics.UnitType.ARCHER: preload("res://Scenes/roman_archer.tscn"),
-	Statics.UnitType.MINER: preload("res://Scenes/miner_unit.tscn")
+	Statics.UnitType.MINER: preload("res://Scenes/miner_unit.tscn"),
+}
+
+var GERMAN_UNIT_SCENES = {
+	Statics.UnitType.HEAVY: preload("res://Scenes/german_heavy.tscn"),
+	Statics.UnitType.WARRIOR: preload("res://Scenes/german_warrior.tscn"),
+	Statics.UnitType.ARCHER: preload("res://Scenes/german_archer.tscn"),
+	Statics.UnitType.MINER: preload("res://Scenes/miner_unit.tscn"),
 }
 
 # Unidades de combate elegibles para la oleada inicial aleatoria (el minero se excluye).
@@ -69,11 +78,17 @@ func _get_random_spawn_unit_type() -> Statics.UnitType:
 		return Statics.UnitType.HEAVY
 	return COMBAT_UNIT_TYPES[randi_range(0, COMBAT_UNIT_TYPES.size() - 1)]
 
+
+# Devuelve la escena de la unidad para la facción correspondiente al team_id.
+func _get_unit_scene_for_team(unit_type: Statics.UnitType, team_id: int) -> PackedScene:
+	var scenes = ROMAN_UNIT_SCENES if team_id == 0 else GERMAN_UNIT_SCENES
+	return scenes.get(unit_type, scenes[Statics.UnitType.HEAVY])
+
 func _custom_spawn(data: Variant) -> Node:
 	var unit_type = data["unit_type"]
 	var team_id = int(data.get("team_id", 0))
 	var id = data["id"]
-	var scene = UNIT_SCENES.get(unit_type, UNIT_SCENES[Statics.UnitType.HEAVY])
+	var scene = _get_unit_scene_for_team(unit_type, team_id)
 	var unit = scene.instantiate()
 	unit.name = "Unit_%d" % id
 	unit.team_id = team_id
