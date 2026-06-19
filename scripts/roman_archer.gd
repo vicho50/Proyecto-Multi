@@ -53,19 +53,24 @@ func apply_roman_visuals() -> void:
 
 
 func _paint_wings_team_color() -> void:
-	var helmet := get_node_or_null("Visuals/Helmet")
-	if not helmet:
-		return
 	var team_color := get_team_color()
-	for wing_name in ["Wing1", "Wing2"]:
-		var wing = helmet.get_node_or_null(wing_name)
-		if not wing:
-			continue
-		for child in wing.get_children():
-			if child is MeshInstance3D:
-				var mat := StandardMaterial3D.new()
-				mat.albedo_color = team_color
-				child.material_override = mat
+	var helmet := get_node_or_null("Visuals/Helmet")
+	if helmet:
+		for wing_name in ["Wing1", "Wing2"]:
+			var wing = helmet.get_node_or_null(wing_name)
+			if wing:
+				_apply_team_color_to_children(wing, team_color)
+	var skirt := get_node_or_null("Visuals/Skirt")
+	if skirt:
+		_apply_team_color_to_children(skirt, team_color)
+
+
+func _apply_team_color_to_children(parent: Node, color: Color) -> void:
+	for child in parent.get_children():
+		if child is MeshInstance3D:
+			var mat := StandardMaterial3D.new()
+			mat.albedo_color = color
+			child.material_override = mat
 
 func get_helmet_color() -> Color:
 	return Color(0.5, 0.4, 0.05, 1.0)

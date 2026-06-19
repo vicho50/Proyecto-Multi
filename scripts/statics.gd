@@ -33,14 +33,12 @@ static func get_role_name(role: Role) -> String:
 	return "Unknown"
 
 
-# Convierte la facción elegida en el lobby al team_id (0 azul / Romanos, 1 rojo / Germanos).
-static func role_to_team_id(role: Role) -> int:
-	match role:
-		Role.ROMANS:
-			return 0
-		Role.GERMANS:
-			return 1
-	return 0
+# El team_id (0 o 1) se asigna por orden de entrada al lobby, no por facción,
+# para que dos jugadores con la misma facción acaben en bandos opuestos.
+static func player_team_id(player: PlayerData) -> int:
+	if player == null or player.index < 0:
+		return 0
+	return player.index % 2
 
 
 class PlayerData:

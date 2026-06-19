@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://c6r3igkuevhke" path="res://stats/roman_heavy_stats.tres" id="2_ltoo7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r1p7q"]
-size = Vector3(0.25402832, 0.47802734, 0.25495148)
+size = Vector3(0.25402832, 0.758667, 0.5111127)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ekbak"]
 
@@ -22,6 +22,8 @@ albedo_color = Color(0.39728877, 0.37815684, 0.344512, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_ojham"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ndxe6"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_vdurq"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_7qt50"]
 
@@ -55,7 +57,7 @@ script = ExtResource("1_vdurq")
 stats = ExtResource("2_ltoo7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1547892109]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00032922626, 0.2543559, -0.0011884868)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00032922626, 0.26816255, -0.0028471649)
 shape = SubResource("BoxShape3D_r1p7q")
 
 [node name="DetectionArea" type="Area3D" parent="." unique_id=1989561081]
@@ -127,6 +129,28 @@ mesh = SubResource("BoxMesh_ndxe6")
 [node name="WingFlap3" type="MeshInstance3D" parent="Visuals/Helmet/Wing1" unique_id=2036820946]
 transform = Transform3D(0.07, 0, 0, 0, 0.02, 0, 0, 0, 0.01, 0.06803033, 0.5321247, 0.08542261)
 mesh = SubResource("BoxMesh_ndxe6")
+
+[node name="Skirt" type="Node3D" parent="Visuals" unique_id=2117748057]
+
+[node name="Skirt1" type="MeshInstance3D" parent="Visuals/Skirt" unique_id=581334784]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.5, -0.06300938, 0.09456909, 0)
+mesh = SubResource("PrismMesh_vdurq")
+skeleton = NodePath("../..")
+
+[node name="Skirt2" type="MeshInstance3D" parent="Visuals/Skirt" unique_id=301496595]
+transform = Transform3D(-1.0927847e-08, 0, 0.25, 0, 0.25, 0, -0.25, 0, -1.0927847e-08, 0, 0.07612595, 0.19928572)
+mesh = SubResource("PrismMesh_vdurq")
+skeleton = NodePath("../..")
+
+[node name="Skirt3" type="MeshInstance3D" parent="Visuals/Skirt" unique_id=1146686972]
+transform = Transform3D(-0.25, 0, -7.54979e-08, 0, 0.25, 0, 3.774895e-08, 0, -0.5, 0.079030156, 0.06684908, 0)
+mesh = SubResource("PrismMesh_vdurq")
+skeleton = NodePath("../..")
+
+[node name="Skirt4" type="MeshInstance3D" parent="Visuals/Skirt" unique_id=1728285896]
+transform = Transform3D(-1.0927847e-08, 0, -0.25, 0, 0.25, 0, 0.25, 0, -1.0927847e-08, 0, 0.07612595, -0.20080799)
+mesh = SubResource("PrismMesh_vdurq")
+skeleton = NodePath("../..")
 
 [node name="HealthBarRoot" type="Node3D" parent="." unique_id=893945190]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1.5, 0)

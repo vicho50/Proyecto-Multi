@@ -23,6 +23,8 @@ albedo_color = Color(0.39728877, 0.37815684, 0.344512, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_s8l61"]
 
+[sub_resource type="PrismMesh" id="PrismMesh_g4v7s"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_7qt50"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_5pi0x"]
@@ -127,6 +129,28 @@ mesh = SubResource("BoxMesh_s8l61")
 [node name="WingFlap3" type="MeshInstance3D" parent="Visuals/Helmet/Wing1" unique_id=561239807]
 transform = Transform3D(0.07, 0, 0, 0, 0.02, 0, 0, 0, 0.01, 0.06803033, 0.5321247, 0.08542261)
 mesh = SubResource("BoxMesh_s8l61")
+
+[node name="Skirt" type="Node3D" parent="Visuals" unique_id=993682784]
+
+[node name="Skirt1" type="MeshInstance3D" parent="Visuals/Skirt" unique_id=1153011571]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.24, -0.054253817, 0.18932682, 0)
+mesh = SubResource("PrismMesh_g4v7s")
+skeleton = NodePath("../..")
+
+[node name="Skirt2" type="MeshInstance3D" parent="Visuals/Skirt" unique_id=1990065631]
+transform = Transform3D(-1.0927847e-08, 0, 0.24, 0, 0.25, 0, -0.25, 0, -1.0490733e-08, 0, 0.18956205, 0.05439359)
+mesh = SubResource("PrismMesh_g4v7s")
+skeleton = NodePath("../..")
+
+[node name="Skirt3" type="MeshInstance3D" parent="Visuals/Skirt" unique_id=1900014865]
+transform = Transform3D(-0.25, 0, -3.623899e-08, 0, 0.25, 0, 3.774895e-08, 0, -0.24, 0.0575265, 0.18271843, 0)
+mesh = SubResource("PrismMesh_g4v7s")
+skeleton = NodePath("../..")
+
+[node name="Skirt4" type="MeshInstance3D" parent="Visuals/Skirt" unique_id=615455427]
+transform = Transform3D(-1.0927847e-08, 0, -0.24, 0, 0.25, 0, 0.25, 0, -1.0490733e-08, 0, 0.18975419, -0.05224505)
+mesh = SubResource("PrismMesh_g4v7s")
+skeleton = NodePath("../..")
 
 [node name="HealthBarRoot" type="Node3D" parent="." unique_id=893945190]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1.5, 0)

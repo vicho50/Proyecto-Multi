@@ -312,10 +312,10 @@ func update_health_bar() -> void:
 		)
 
 func apply_base_visuals() -> void:
-	var team_color := get_team_color()
-
+	# El cuerpo va en tono piel; la identidad de equipo se muestra en las decoraciones
+	# (cresta romana, alas y falda germanas) que cada facción colorea aparte.
 	var body_material := StandardMaterial3D.new()
-	body_material.albedo_color = team_color
+	body_material.albedo_color = get_body_color()
 	body_mesh.material_override = body_material
 
 	var head_material := StandardMaterial3D.new()
@@ -330,6 +330,10 @@ func apply_base_visuals() -> void:
 
 func get_team_color() -> Color:
 	return Color(0.2, 0.4, 1.0) if team_id == 0 else Color(1.0, 0.2, 0.2)
+
+func get_body_color() -> Color:
+	# Misma tonalidad piel que la cabeza.
+	return get_head_color()
 
 func get_head_color() -> Color:
 	return Color(1.0, 0.8, 0.6)

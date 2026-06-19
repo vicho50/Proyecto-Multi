@@ -34,10 +34,11 @@ var selected_unit_type = null
 func _ready():
 	await get_tree().process_frame
 
-	# Tomar el equipo del jugador local elegido en el lobby.
+	# El equipo (bando 0/1) se asigna por orden de entrada al lobby; la facción
+	# (Romanos/Germanos) solo determina qué unidades se spawnean.
 	var current = Game.get_current_player()
 	if current:
-		player_id = Statics.role_to_team_id(current.role)
+		player_id = Statics.player_team_id(current)
 
 	player_data = GameManager.get_player(player_id)
 

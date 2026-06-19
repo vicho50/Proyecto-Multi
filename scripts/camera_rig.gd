@@ -22,7 +22,7 @@ func _ready() -> void:
 func _resolve_team_id() -> int:
 	var player = Game.get_current_player()
 	if player:
-		return Statics.role_to_team_id(player.role)
+		return Statics.player_team_id(player)
 	return 0
 
 

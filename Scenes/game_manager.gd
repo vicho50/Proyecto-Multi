@@ -79,16 +79,22 @@ func _get_random_spawn_unit_type() -> Statics.UnitType:
 	return COMBAT_UNIT_TYPES[randi_range(0, COMBAT_UNIT_TYPES.size() - 1)]
 
 
-# Devuelve la escena de la unidad para la facción correspondiente al team_id.
-func _get_unit_scene_for_team(unit_type: Statics.UnitType, team_id: int) -> PackedScene:
-	var scenes = ROMAN_UNIT_SCENES if team_id == 0 else GERMAN_UNIT_SCENES
+# Devuelve la escena de la unidad para la facción dada (Romanos / Germanos).
+# El team_id (bando 0/1) es independiente: dos jugadores con la misma facción
+# acaban en bandos opuestos.
+func _get_unit_scene_for_faction(unit_type: Statics.UnitType, faction: int) -> PackedScene:
+	var scenes = ROMAN_UNIT_SCENES if faction == Statics.Role.ROMANS else GERMAN_UNIT_SCENES
 	return scenes.get(unit_type, scenes[Statics.UnitType.HEAVY])
 
 func _custom_spawn(data: Variant) -> Node:
 	var unit_type = data["unit_type"]
 	var team_id = int(data.get("team_id", 0))
+	# La facción viene en los datos cuando el jugador la elige; si no, se asume
+	# Romanos en el bando 0 y Germanos en el bando 1 (oleada inicial / debug).
+	var default_faction = Statics.Role.ROMANS if team_id == 0 else Statics.Role.GERMANS
+	var faction = int(data.get("faction", default_faction))
 	var id = data["id"]
-	var scene = _get_unit_scene_for_team(unit_type, team_id)
+	var scene = _get_unit_scene_for_faction(unit_type, faction)
 	var unit = scene.instantiate()
 	unit.name = "Unit_%d" % id
 	unit.team_id = team_id
@@ -111,9 +117,11 @@ func _get_team_spawn_position(team_id: int) -> Vector3:
 		return team_0_spawn_position
 	return team_1_spawn_position
 
-# RPC para que los clientes soliciten spawnear en una coordenada
+# RPC para que los clientes soliciten spawnear en una coordenada.
+# `faction` es la facción del solicitante (Statics.Role.ROMANS / GERMANS), que
+# decide la apariencia de la unidad; `team_id` decide a qué bando pertenece.
 @rpc("any_peer", "call_local")
-func request_custom_spawn(unit_type: Statics.UnitType, team_id: int, target_pos: Vector3):
+func request_custom_spawn(unit_type: Statics.UnitType, team_id: int, faction: int, target_pos: Vector3):
 	if not multiplayer.is_server():
 		return
 	_manual_spawn_count += 1
@@ -122,6 +130,7 @@ func request_custom_spawn(unit_type: Statics.UnitType, team_id: int, target_pos:
 	var data = {
 		"id": unique_id,
 		"team_id": team_id,
+		"faction": faction,
 		"unit_type": unit_type,
 		"custom_position": target_pos,
 		"use_custom_pos": true
@@ -154,7 +163,9 @@ func _unhandled_input(event):
 		if ui_layer.selected_unit_type != null:
 			var clicked_position = _get_mouse_3d_position()
 			if clicked_position != Vector3.INF:
-				request_custom_spawn.rpc(ui_layer.selected_unit_type, ui_layer.player_id, clicked_position)
+				var current = Game.get_current_player()
+				var faction = current.role if current else Statics.Role.ROMANS
+				request_custom_spawn.rpc(ui_layer.selected_unit_type, ui_layer.player_id, faction, clicked_position)
 				return
 
 	if Input.is_key_pressed(KEY_T): manual_unit_spawn(Statics.UnitType.HEAVY, 0)
