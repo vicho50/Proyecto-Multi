@@ -1,0 +1,177 @@
+[gd_scene format=3 uid="uid://c7eo4xfi4lgfe"]
+
+[ext_resource type="Script" uid="uid://cbrl4ii37ybyc" path="res://scripts/roman_warrior.gd" id="1_54cyk"]
+[ext_resource type="Resource" path="res://stats/germanic_special_stats.tres" id="2_yiltk"]
+[ext_resource type="ArrayMesh" uid="uid://bpirce0uxyv21" path="res://Assets/RomanShield.obj" id="3_y660q"]
+[ext_resource type="Texture2D" uid="uid://dccgpdllno7qw" path="res://Assets/germanic_shield.png" id="4_dcgif"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r1p7q"]
+size = Vector3(0.25402832, 0.47802734, 0.25495148)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ekbak"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3hm6q"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_hcycw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_pfo53"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hcycw"]
+albedo_color = Color(0.39728877, 0.37815684, 0.344512, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qjfpe"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xhxhl"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_s8l61"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_g4v7s"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_7qt50"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5pi0x"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3hm6q"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:current_health")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:current_state")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:is_dead")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:team_id")
+properties/5/spawn = true
+properties/5/replication_mode = 0
+properties/6/path = NodePath(".:advance_direction")
+properties/6/spawn = true
+properties/6/replication_mode = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fnem3"]
+albedo_texture = ExtResource("4_dcgif")
+
+[node name="german_special" type="CharacterBody3D" unique_id=1174531821]
+script = ExtResource("1_54cyk")
+stats = ExtResource("2_yiltk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1547892109]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00032922626, 0.2543559, -0.0011884868)
+shape = SubResource("BoxShape3D_r1p7q")
+
+[node name="DetectionArea" type="Area3D" parent="." unique_id=1989561081]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" unique_id=1018855715]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0.38766152, 0)
+shape = SubResource("SphereShape3D_ekbak")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=274427054]
+path_desired_distance = 0.5
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=478743375]
+one_shot = true
+
+[node name="Visuals" type="Node3D" parent="." unique_id=59750531]
+
+[node name="Body" type="MeshInstance3D" parent="Visuals" unique_id=1516072477]
+transform = Transform3D(0.25, 0, 0, 0, 0.35, 0, 0, 0, 0.25, 0, 0.18643412, 0)
+mesh = SubResource("BoxMesh_3hm6q")
+
+[node name="Head" type="MeshInstance3D" parent="Visuals" unique_id=1170542737]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.41142452, 0)
+mesh = SubResource("BoxMesh_hcycw")
+
+[node name="Weapon" type="MeshInstance3D" parent="Visuals" unique_id=1708571657]
+transform = Transform3D(0.342813, 0.025763124, 0, -0.206105, 0.042851623, 0, 0, 0, 0.05, -0.17742218, 0.34181982, -0.20163363)
+mesh = SubResource("BoxMesh_pfo53")
+surface_material_override/0 = SubResource("StandardMaterial3D_hcycw")
+
+[node name="Helmet" type="MeshInstance3D" parent="Visuals" unique_id=32791960]
+transform = Transform3D(0.15, 0, 0, 0, 0.1, 0, 0, 0, 0.155, 0.0028409772, 0.44623876, -0.000541538)
+mesh = SubResource("BoxMesh_qjfpe")
+
+[node name="Wing2" type="Node3D" parent="Visuals/Helmet" unique_id=1433366795]
+transform = Transform3D(6.6666665, 0, 0, 0, 9.999999, 0, 0, 0, 6.4516125, -0.018939847, -4.462387, -1.0938507)
+
+[node name="Wingroot" type="MeshInstance3D" parent="Visuals/Helmet/Wing2" unique_id=293612587]
+transform = Transform3D(0.027255245, 0.041786708, 0, -0.012536012, 0.09085082, 0, 0, 0, 0.03, 0.04315029, 0.52882254, 0.08522761)
+mesh = SubResource("BoxMesh_xhxhl")
+
+[node name="WingFlap1" type="MeshInstance3D" parent="Visuals/Helmet/Wing2" unique_id=940801451]
+transform = Transform3D(0.07, 0, 0, 0, 0.02, 0, 0, 0, 0.03, 0.08566274, 0.57070243, 0.08542261)
+mesh = SubResource("BoxMesh_s8l61")
+
+[node name="WingFlap2" type="MeshInstance3D" parent="Visuals/Helmet/Wing2" unique_id=1637480831]
+transform = Transform3D(0.07, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0.078134865, 0.5506827, 0.08542261)
+mesh = SubResource("BoxMesh_s8l61")
+
+[node name="WingFlap3" type="MeshInstance3D" parent="Visuals/Helmet/Wing2" unique_id=278959048]
+transform = Transform3D(0.07, 0, 0, 0, 0.02, 0, 0, 0, 0.01, 0.06803033, 0.5321247, 0.08542261)
+mesh = SubResource("BoxMesh_s8l61")
+
+[node name="Wing1" type="Node3D" parent="Visuals/Helmet" unique_id=853951162]
+transform = Transform3D(6.6666665, 0, 0, 0, 9.999999, 0, 0, 0, 6.4516125, -0.018939847, -4.462387, 0.0034937933)
+
+[node name="Wingroot" type="MeshInstance3D" parent="Visuals/Helmet/Wing1" unique_id=671392202]
+transform = Transform3D(0.027255245, 0.041786708, 0, -0.012536012, 0.09085082, 0, 0, 0, 0.03, 0.04315029, 0.52882254, 0.08522761)
+mesh = SubResource("BoxMesh_xhxhl")
+
+[node name="WingFlap1" type="MeshInstance3D" parent="Visuals/Helmet/Wing1" unique_id=1780960918]
+transform = Transform3D(0.07, 0, 0, 0, 0.02, 0, 0, 0, 0.03, 0.08566274, 0.57070243, 0.08542261)
+mesh = SubResource("BoxMesh_s8l61")
+
+[node name="WingFlap2" type="MeshInstance3D" parent="Visuals/Helmet/Wing1" unique_id=1718920917]
+transform = Transform3D(0.07, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0.078134865, 0.5506827, 0.08542261)
+mesh = SubResource("BoxMesh_s8l61")
+
+[node name="WingFlap3" type="MeshInstance3D" parent="Visuals/Helmet/Wing1" unique_id=561239807]
+transform = Transform3D(0.07, 0, 0, 0, 0.02, 0, 0, 0, 0.01, 0.06803033, 0.5321247, 0.08542261)
+mesh = SubResource("BoxMesh_s8l61")
+
+[node name="Skirt" type="Node3D" parent="Visuals" unique_id=993682784]
+
+[node name="Skirt1" type="MeshInstance3D" parent="Visuals/Skirt" unique_id=1153011571]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.24, -0.054253817, 0.18932682, 0)
+mesh = SubResource("PrismMesh_g4v7s")
+skeleton = NodePath("../..")
+
+[node name="Skirt2" type="MeshInstance3D" parent="Visuals/Skirt" unique_id=1990065631]
+transform = Transform3D(-1.0927847e-08, 0, 0.24, 0, 0.25, 0, -0.25, 0, -1.0490733e-08, 0, 0.18956205, 0.05439359)
+mesh = SubResource("PrismMesh_g4v7s")
+skeleton = NodePath("../..")
+
+[node name="Skirt3" type="MeshInstance3D" parent="Visuals/Skirt" unique_id=1900014865]
+transform = Transform3D(-0.25, 0, -3.623899e-08, 0, 0.25, 0, 3.774895e-08, 0, -0.24, 0.0575265, 0.18271843, 0)
+mesh = SubResource("PrismMesh_g4v7s")
+skeleton = NodePath("../..")
+
+[node name="Skirt4" type="MeshInstance3D" parent="Visuals/Skirt" unique_id=615455427]
+transform = Transform3D(-1.0927847e-08, 0, -0.24, 0, 0.25, 0, 0.25, 0, -1.0490733e-08, 0, 0.18975419, -0.05224505)
+mesh = SubResource("PrismMesh_g4v7s")
+skeleton = NodePath("../..")
+
+[node name="HealthBarRoot" type="Node3D" parent="." unique_id=893945190]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1.5, 0)
+
+[node name="HealthBarBg" type="MeshInstance3D" parent="HealthBarRoot" unique_id=608113209]
+transform = Transform3D(0.8, 0, 0, 0, 0.08, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("BoxMesh_7qt50")
+
+[node name="HealthBarFill" type="MeshInstance3D" parent="HealthBarRoot" unique_id=1834092928]
+transform = Transform3D(0.8, 0, 0, 0, 0.08, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("BoxMesh_5pi0x")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1083248575]
+replication_config = SubResource("SceneReplicationConfig_3hm6q")
+
+[node name="RomanShield" type="MeshInstance3D" parent="." unique_id=1865277995]
+transform = Transform3D(-5.2453664e-09, 0, 0.12, 0, 0.12, 0, -0.12, 0, -5.2453664e-09, -0.18870224, 0.20505443, 0.079788685)
+mesh = ExtResource("3_y660q")
+surface_material_override/1 = SubResource("StandardMaterial3D_fnem3")

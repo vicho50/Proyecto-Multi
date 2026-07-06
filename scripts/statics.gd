@@ -19,6 +19,7 @@ enum UnitType {
 	WARRIOR,
 	ARCHER,
 	MINER,
+	SPECIAL,
 }
 
 

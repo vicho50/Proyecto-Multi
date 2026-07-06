@@ -9,6 +9,7 @@ var ROMAN_UNIT_SCENES = {
 	Statics.UnitType.WARRIOR: preload("res://Scenes/roman_warrior.tscn"),
 	Statics.UnitType.ARCHER: preload("res://Scenes/roman_archer.tscn"),
 	Statics.UnitType.MINER: preload("res://Scenes/miner_unit.tscn"),
+	Statics.UnitType.SPECIAL: preload("res://Scenes/centurion.tscn"),
 }
 
 var GERMAN_UNIT_SCENES = {
@@ -16,6 +17,7 @@ var GERMAN_UNIT_SCENES = {
 	Statics.UnitType.WARRIOR: preload("res://Scenes/german_warrior.tscn"),
 	Statics.UnitType.ARCHER: preload("res://Scenes/german_archer.tscn"),
 	Statics.UnitType.MINER: preload("res://Scenes/miner_unit.tscn"),
+	Statics.UnitType.SPECIAL: preload("res://Scenes/german_special.tscn"),
 }
 
 # Unidades de combate elegibles para la oleada inicial aleatoria (el minero se excluye).
@@ -23,6 +25,7 @@ var COMBAT_UNIT_TYPES = [
 	Statics.UnitType.HEAVY,
 	Statics.UnitType.WARRIOR,
 	Statics.UnitType.ARCHER,
+	Statics.UnitType.SPECIAL,
 ]
 
 @export var spawn_initial_wave: bool = false # Si es false, la partida empieza sin unidades.
@@ -38,6 +41,7 @@ const warrior_price: int = 5
 const archer_price: int = 10
 const heavy_price: int = 15
 const miner_price: int = 20
+const special_price: int = 30
 
 var SPAWN_DIRECTIONS = [
 	Vector3.RIGHT,
@@ -150,6 +154,10 @@ func request_custom_spawn(unit_type: Statics.UnitType, team_id: int, faction: in
 	if unit_type == Statics.UnitType.MINER:
 		if GameManager.read_gold(team_id) >= miner_price:
 			GameManager.sub_gold(team_id, miner_price)
+			spawner.spawn(data)
+	if unit_type == Statics.UnitType.SPECIAL:
+		if GameManager.read_gold(team_id) >= special_price:
+			GameManager.sub_gold(team_id, special_price)
 			spawner.spawn(data)
 
 

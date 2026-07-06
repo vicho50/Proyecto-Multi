@@ -121,6 +121,9 @@ func _input(_event):
 	if Input.is_key_pressed(KEY_4):
 		select_unit_to_spawn(Statics.UnitType.MINER)
 		Input.set_custom_mouse_cursor(Miner_Mouse)
+	if Input.is_key_pressed(KEY_5):
+		select_unit_to_spawn(Statics.UnitType.SPECIAL)
+		Input.set_custom_mouse_cursor(Warrior_Mouse)
 
 # Conecta la senal pressed los botones al tipo de unidad seleccionado
 func select_unit_to_spawn(unit_type: Statics.UnitType):

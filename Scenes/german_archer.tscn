@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://u2qsk3hhyqu2" path="res://scripts/roman_archer.gd" id="1_y8gxf"]
 [ext_resource type="Resource" path="res://stats/roman_archer_stats.tres" id="2_fboll"]
+[ext_resource type="ArrayMesh" uid="uid://cktic0233lprg" path="res://Assets/Skirt.obj" id="3_fboll"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_archer"]
 size = Vector3(0.25402832, 0.47802734, 0.25495148)
@@ -28,7 +29,8 @@ albedo_color = Color(0.35, 0.22, 0.1, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_rxv5h"]
 
-[sub_resource type="PrismMesh" id="PrismMesh_y8gxf"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_saoqy"]
+cull_mode = 2
 
 [sub_resource type="BoxMesh" id="BoxMesh_hbar_bg"]
 
@@ -143,25 +145,10 @@ mesh = SubResource("BoxMesh_rxv5h")
 [node name="Skirt" type="Node3D" parent="Visuals" unique_id=1517296969]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.016230404, 0)
 
-[node name="Skirt1" type="MeshInstance3D" parent="Visuals/Skirt" unique_id=1923576265]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.195, -0.059285954, 0.18932682, 0)
-mesh = SubResource("PrismMesh_y8gxf")
-skeleton = NodePath("../..")
-
-[node name="Skirt2" type="MeshInstance3D" parent="Visuals/Skirt" unique_id=126083877]
-transform = Transform3D(-8.742278e-09, 0, 0.195, 0, 0.2, 0, -0.2, 0, -8.52372e-09, 0.00080895424, 0.17327592, 0.067378804)
-mesh = SubResource("PrismMesh_y8gxf")
-skeleton = NodePath("../..")
-
-[node name="Skirt3" type="MeshInstance3D" parent="Visuals/Skirt" unique_id=341645861]
-transform = Transform3D(-0.2, 0, -2.944418e-08, 0, 0.2, 0, 3.019916e-08, 0, -0.195, 0.0767732, 0.15166199, 0)
-mesh = SubResource("PrismMesh_y8gxf")
-skeleton = NodePath("../..")
-
-[node name="Skirt4" type="MeshInstance3D" parent="Visuals/Skirt" unique_id=924247252]
-transform = Transform3D(-8.742278e-09, 0, -0.195, 0, 0.2, 0, 0.2, 0, -8.52372e-09, -0.001206506, 0.16521484, -0.070516676)
-mesh = SubResource("PrismMesh_y8gxf")
-skeleton = NodePath("../..")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visuals/Skirt" unique_id=1355956228]
+transform = Transform3D(0.095, 0, 0, 0, 0.095, 0, 0, 0, 0.095, 0, 0.11581247, -3.469447e-18)
+mesh = ExtResource("3_fboll")
+surface_material_override/0 = SubResource("StandardMaterial3D_saoqy")
 
 [node name="HealthBarRoot" type="Node3D" parent="." unique_id=55478675]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1.5, 0)

@@ -1,0 +1,120 @@
+[gd_scene format=3 uid="uid://cghqwwycigdrs"]
+
+[ext_resource type="Script" path="res://scripts/centurion.gd" id="1_idh87"]
+[ext_resource type="Resource" path="res://stats/centurion_stats.tres" id="2_cdd5l"]
+[ext_resource type="ArrayMesh" uid="uid://c0hmm2vd2cwj" path="res://Assets/crest.obj" id="3_st7ir"]
+[ext_resource type="ArrayMesh" uid="uid://bn2iffpy3dg16" path="res://Assets/Roman1Shield.obj" id="4_grv0p"]
+[ext_resource type="Texture2D" uid="uid://dgwbjn8v2jx5g" path="res://Assets/WIngs.png" id="5_4puo2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r1p7q"]
+size = Vector3(0.25402832, 0.47802734, 0.25495148)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ekbak"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3hm6q"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_hcycw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_pfo53"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hcycw"]
+albedo_color = Color(0.39728877, 0.37815684, 0.344512, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_thxx1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a5jpg"]
+transparency = 1
+albedo_texture = ExtResource("5_4puo2")
+
+[sub_resource type="BoxMesh" id="BoxMesh_7qt50"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5pi0x"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3hm6q"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:current_health")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:current_state")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:is_dead")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:team_id")
+properties/5/spawn = true
+properties/5/replication_mode = 0
+properties/6/path = NodePath(".:advance_direction")
+properties/6/spawn = true
+properties/6/replication_mode = 0
+
+[node name="Centurion" type="CharacterBody3D" unique_id=1174531821]
+script = ExtResource("1_idh87")
+stats = ExtResource("2_cdd5l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1547892109]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00032922626, 0.2543559, -0.0011884868)
+shape = SubResource("BoxShape3D_r1p7q")
+
+[node name="DetectionArea" type="Area3D" parent="." unique_id=1989561081]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" unique_id=1018855715]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0.38766152, 0)
+shape = SubResource("SphereShape3D_ekbak")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=274427054]
+path_desired_distance = 0.5
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=478743375]
+one_shot = true
+
+[node name="Visuals" type="Node3D" parent="." unique_id=59750531]
+
+[node name="Body" type="MeshInstance3D" parent="Visuals" unique_id=1516072477]
+transform = Transform3D(0.25, 0, 0, 0, 0.35, 0, 0, 0, 0.25, 0, 0.18643412, 0)
+mesh = SubResource("BoxMesh_3hm6q")
+
+[node name="Head" type="MeshInstance3D" parent="Visuals" unique_id=1170542737]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.41142452, 0)
+mesh = SubResource("BoxMesh_hcycw")
+
+[node name="Weapon" type="MeshInstance3D" parent="Visuals" unique_id=1708571657]
+transform = Transform3D(0.342813, 0.025763124, 0, -0.206105, 0.042851623, 0, 0, 0, 0.05, -0.17742218, 0.34181982, -0.20163363)
+mesh = SubResource("BoxMesh_pfo53")
+surface_material_override/0 = SubResource("StandardMaterial3D_hcycw")
+
+[node name="Helmet" type="MeshInstance3D" parent="Visuals" unique_id=43160448]
+transform = Transform3D(0.15, 0, 0, 0, 0.1, 0, 0, 0, 0.16, 0.0016619563, 0.44909656, 0)
+mesh = SubResource("BoxMesh_thxx1")
+skeleton = NodePath("../..")
+
+[node name="Crest" type="MeshInstance3D" parent="Visuals/Helmet" unique_id=94865612]
+transform = Transform3D(0.048079178, 0, -1.3324662, 0, 2, 0, 1.2491871, 0, 0.04507423, -0.011079709, 0.5180659, 0)
+mesh = ExtResource("3_st7ir")
+skeleton = NodePath("../..")
+
+[node name="Shield" type="MeshInstance3D" parent="Visuals" unique_id=1912310456]
+transform = Transform3D(-0.012554571, 0, 0.14996195, 0, 0.1, 0, -0.15929106, 0, -0.008953601, -0.14057806, 0.0823203, 0.113491416)
+mesh = ExtResource("4_grv0p")
+skeleton = NodePath("../Helmet")
+surface_material_override/2 = SubResource("StandardMaterial3D_a5jpg")
+
+[node name="HealthBarRoot" type="Node3D" parent="." unique_id=893945190]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1.5, 0)
+
+[node name="HealthBarBg" type="MeshInstance3D" parent="HealthBarRoot" unique_id=608113209]
+transform = Transform3D(0.8, 0, 0, 0, 0.08, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("BoxMesh_7qt50")
+
+[node name="HealthBarFill" type="MeshInstance3D" parent="HealthBarRoot" unique_id=1834092928]
+transform = Transform3D(0.8, 0, 0, 0, 0.08, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("BoxMesh_5pi0x")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1083248575]
+replication_config = SubResource("SceneReplicationConfig_3hm6q")
