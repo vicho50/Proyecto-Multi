@@ -3,7 +3,6 @@ extends Node
 signal players_updated
 signal player_updated(id)
 signal vote_updated(id)
-signal player_index_received()
 
 @export var multiplayer_test = false
 @export var use_roles = true

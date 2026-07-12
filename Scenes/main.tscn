@@ -32,6 +32,7 @@
 [ext_resource type="ArrayMesh" uid="uid://do3n1hsys0ccg" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/mountain_C_grass_trees.obj" id="26_kwxat"]
 [ext_resource type="ArrayMesh" uid="uid://hmutjs28p26u" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/mountain_B_grass.obj" id="27_aa8k8"]
 [ext_resource type="PackedScene" uid="uid://b2dbmpgvqthtf" path="res://Scenes/mina.tscn" id="28_ueoa1"]
+[ext_resource type="Script" uid="uid://fosj4fvh1t0q" path="res://scripts/decoration_obstacles.gd" id="29_decor"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jjgbg"]
 size = Vector3(22.810135, 0.10595703, 23.87233)
@@ -550,6 +551,7 @@ size = Vector3(7, 1, 7)
 texture_albedo = SubResource("GradientTexture2D_qr0ht")
 
 [node name="Decorations" type="Node3D" parent="." unique_id=1442642533]
+script = ExtResource("29_decor")
 
 [node name="TreesALarge" type="MeshInstance3D" parent="Decorations" unique_id=367130191]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.16744, 0, -9.561488)

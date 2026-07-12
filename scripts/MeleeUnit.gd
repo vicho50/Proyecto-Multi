@@ -16,6 +16,10 @@ enum UnitState {
 # fila y rodeen al objetivo en vez de quedarse atascadas detrás de un aliado.
 @export var separation_radius: float = 1.2
 @export var separation_weight: float = 1.5
+@export var obstacle_avoidance_distance: float = 1.0
+@export var obstacle_avoidance_probe_radius: float = 0.28
+@export var castle_engage_distance: float = 12.0
+@export var obstacle_avoidance_angles: PackedFloat32Array = PackedFloat32Array([0.0, 15.0, -15.0, 30.0, -30.0, 45.0, -45.0])
 
 @onready var detection_area: Area3D = $DetectionArea
 @onready var attack_timer: Timer = $AttackTimer
@@ -87,8 +91,17 @@ func update_target() -> void:
 	elif target.is_dead:
 		target = null
 
-	if target == null:
-		target = find_closest_enemy()
+	var closest_enemy := find_closest_enemy()
+	if closest_enemy != null:
+		target = closest_enemy
+		return
+
+	var enemy_castle := find_enemy_castle()
+	if enemy_castle != null and global_position.distance_to(enemy_castle.global_position) <= castle_engage_distance:
+		target = enemy_castle
+		return
+
+	target = null
 
 func update_logic(delta: float) -> void:
 	if target == null:
@@ -189,7 +202,7 @@ func _steer_velocity(desired_dir: Vector3) -> void:
 		velocity = Vector3.ZERO
 		return
 
-	var desired := flat.normalized()
+	var desired := _find_clear_direction(flat.normalized())
 	var steer := desired + _get_separation() * separation_weight
 	steer.y = 0.0
 
@@ -197,6 +210,104 @@ func _steer_velocity(desired_dir: Vector3) -> void:
 		velocity = steer.normalized() * stats.move_speed
 	else:
 		velocity = desired * stats.move_speed
+
+
+func _find_clear_direction(desired: Vector3) -> Vector3:
+	var fallback := desired
+	if not _is_direction_blocked(desired):
+		return desired
+
+	var tangent := _get_obstacle_tangent(desired)
+	if tangent.length() > 0.001 and not _is_direction_blocked(tangent):
+		return tangent.normalized()
+
+	for angle_degrees in obstacle_avoidance_angles:
+		var rotated := desired.rotated(Vector3.UP, deg_to_rad(angle_degrees))
+		if rotated.length() <= 0.001:
+			continue
+		if not _is_direction_blocked(rotated):
+			return rotated.normalized()
+
+	return fallback
+
+
+func _get_obstacle_tangent(desired: Vector3) -> Vector3:
+	var hit: Dictionary = _probe_obstacle(desired)
+	if hit.is_empty():
+		return Vector3.ZERO
+
+	var normal: Vector3 = hit.get("normal", Vector3.ZERO)
+	if normal == Vector3.ZERO:
+		return Vector3.ZERO
+
+	var flat_normal := Vector3(normal.x, 0.0, normal.z)
+	if flat_normal.length() <= 0.001:
+		return Vector3.ZERO
+	flat_normal = flat_normal.normalized()
+
+	var tangent_a := Vector3.UP.cross(flat_normal).normalized()
+	var tangent_b := -tangent_a
+	if tangent_a.dot(desired) >= tangent_b.dot(desired):
+		return tangent_a
+	return tangent_b
+
+
+func _probe_obstacle(direction: Vector3) -> Dictionary:
+	if direction.length() <= 0.001:
+		return {}
+
+	var flat := direction.normalized()
+	var side := Vector3.UP.cross(flat)
+	if side.length() <= 0.001:
+		side = Vector3.RIGHT
+	else:
+		side = side.normalized()
+
+	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
+	for lateral in [0.0, obstacle_avoidance_probe_radius, -obstacle_avoidance_probe_radius]:
+		var from: Vector3 = global_position + Vector3.UP * 0.3 + side * lateral
+		var to: Vector3 = from + flat * obstacle_avoidance_distance
+		var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(from, to)
+		query.exclude = [self]
+		query.collide_with_areas = false
+		query.collide_with_bodies = true
+		var hit: Dictionary = space_state.intersect_ray(query)
+		if hit.is_empty():
+			continue
+		var collider: Node = hit.get("collider") as Node
+		if collider != null and collider.is_in_group("map_obstacle"):
+			return hit
+
+	return {}
+
+
+func _is_direction_blocked(direction: Vector3) -> bool:
+	if direction.length() <= 0.001:
+		return false
+
+	var flat := direction.normalized()
+	var side := Vector3.UP.cross(flat)
+	if side.length() <= 0.001:
+		side = Vector3.RIGHT
+	else:
+		side = side.normalized()
+
+	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
+	for lateral in [0.0, obstacle_avoidance_probe_radius, -obstacle_avoidance_probe_radius]:
+		var from: Vector3 = global_position + Vector3.UP * 0.3 + side * lateral
+		var to: Vector3 = from + flat * obstacle_avoidance_distance
+		var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(from, to)
+		query.exclude = [self]
+		query.collide_with_areas = false
+		query.collide_with_bodies = true
+		var hit: Dictionary = space_state.intersect_ray(query)
+		if hit.is_empty():
+			continue
+		var collider: Node = hit.get("collider") as Node
+		if collider != null and collider.is_in_group("map_obstacle"):
+			return true
+
+	return false
 
 # Vector que apunta lejos de los aliados cercanos (boids separation).
 func _get_separation() -> Vector3:
@@ -289,6 +400,20 @@ func find_closest_enemy() -> Node3D:
 			closest_enemy = body
 
 	return closest_enemy
+
+
+func find_enemy_castle() -> Node3D:
+	var enemy_team := 1 if team_id == 0 else 0
+	var castles := get_tree().get_nodes_in_group("castillo_jugador_" + str(enemy_team))
+	if castles.is_empty():
+		return null
+
+	var castle := castles[0]
+	if castle is Node3D and not castle.is_dead:
+		return castle
+
+	return null
+
 
 func setup_health_bar() -> void:
 	var bg_mat := StandardMaterial3D.new()
