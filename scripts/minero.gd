@@ -28,12 +28,12 @@ func _ready():
 func _physics_process(_delta):
 	match current_state:
 		State.GO_TO_MINE:
-			_move_logic(target_mine.global_position if target_mine else Vector3.ZERO)
+			_move_logic(target_mine.global_position if target_mine else Vector3.ZERO, true)
 			if nav_agent.is_navigation_finished():
 				update_state(State.MINING)
 				
 		State.RETURN_TO_BASE:
-			_move_logic(home_castle.global_position if home_castle else Vector3.ZERO)
+			_move_logic(home_castle.global_position if home_castle else Vector3.ZERO, false)
 			if nav_agent.is_navigation_finished():
 				_deposit_gold()
 
@@ -50,11 +50,19 @@ func update_state(new_state):
 			mining_timer.stop()
 			if home_castle: nav_agent.target_position = home_castle.global_position
 
-func _move_logic(dest):
+func _move_logic(dest, avoid_obstacles: bool):
 	if dest == Vector3.ZERO: return
 	var next_pos = nav_agent.get_next_path_position()
 	var desired_dir = global_position.direction_to(next_pos)
-	velocity = _find_clear_direction(desired_dir) * move_speed
+	if avoid_obstacles:
+		velocity = _find_clear_direction(desired_dir) * move_speed
+	else:
+		var flat := desired_dir
+		flat.y = 0.0
+		if flat.length() <= 0.001:
+			velocity = Vector3.ZERO
+		else:
+			velocity = flat.normalized() * move_speed
 	move_and_slide()
 
 
@@ -94,8 +102,17 @@ func _is_direction_blocked(direction: Vector3) -> bool:
 		query.exclude = [self]
 		query.collide_with_areas = false
 		query.collide_with_bodies = true
-		if not space_state.intersect_ray(query).is_empty():
-			return true
+		var hit: Dictionary = space_state.intersect_ray(query)
+		if hit.is_empty():
+			continue
+		var collider: Node = hit.get("collider") as Node
+		if collider == null:
+			continue
+		if collider.is_in_group("minas"):
+			continue
+			if collider.is_in_group("castillo_jugador_" + str(team_id)):
+				continue
+		return true
 
 	return false
 

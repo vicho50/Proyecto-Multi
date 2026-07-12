@@ -80,7 +80,7 @@ func _run_logic(delta: float) -> void:
 	match current_state:
 		State.GO_TO_MINE:
 			if target_mine and is_instance_valid(target_mine):
-				_move_towards(target_mine.global_position, delta)
+				_move_towards(target_mine.global_position, delta, true)
 				if global_position.distance_to(target_mine.global_position) < 1.5:
 					_update_state(State.MINING)
 			else:
@@ -90,7 +90,7 @@ func _run_logic(delta: float) -> void:
 
 		State.RETURN_TO_BASE:
 			if home_castle and is_instance_valid(home_castle):
-				_move_towards(home_castle.global_position, delta)
+				_move_towards(home_castle.global_position, delta, false)
 				if global_position.distance_to(home_castle.global_position) < 1.5:
 					_deposit_gold()
 
@@ -109,14 +109,15 @@ func _update_state(new_state: int) -> void:
 			if home_castle:
 				nav_agent.target_position = home_castle.global_position
 
-func _move_towards(dest: Vector3, delta: float) -> void:
+func _move_towards(dest: Vector3, delta: float, avoid_obstacles: bool) -> void:
 	var next_pos = nav_agent.get_next_path_position()
 
 	# Si el agente no tiene camino aún, moverse directamente al destino
 	if global_position.distance_to(next_pos) < 0.05:
 		next_pos = dest
 
-	var direction = _find_clear_direction(global_position.direction_to(next_pos))
+	var desired_direction = global_position.direction_to(next_pos)
+	var direction = _find_clear_direction(desired_direction) if avoid_obstacles else desired_direction
 	global_position = global_position.move_toward(global_position + direction * move_speed * delta, move_speed * delta)
 
 	# Rotar hacia la dirección de movimiento
@@ -162,8 +163,17 @@ func _is_direction_blocked(direction: Vector3) -> bool:
 		query.exclude = [self]
 		query.collide_with_areas = false
 		query.collide_with_bodies = true
-		if not space_state.intersect_ray(query).is_empty():
-			return true
+		var hit: Dictionary = space_state.intersect_ray(query)
+		if hit.is_empty():
+			continue
+		var collider: Node = hit.get("collider") as Node
+		if collider == null:
+			continue
+		if collider.is_in_group("minas"):
+			continue
+			if collider.is_in_group("castillo_jugador_" + str(team_id)):
+				continue
+		return true
 
 	return false
 
