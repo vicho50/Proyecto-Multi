@@ -2,9 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dy443o6os3tnq" path="res://Scenes/generador_iconos.gd" id="1_cwpg3"]
 [ext_resource type="PackedScene" uid="uid://cjistf0ptqdlf" path="res://Scenes/roman_warrior.tscn" id="2_pyevm"]
-[ext_resource type="PackedScene" path="res://Scenes/roman_archer.tscn" id="3_yfcpr"]
+[ext_resource type="PackedScene" uid="uid://dv51eapy60lml" path="res://Scenes/roman_archer.tscn" id="3_yfcpr"]
 [ext_resource type="PackedScene" uid="uid://hrpxwu8a20yf" path="res://Scenes/roman_heavy.tscn" id="4_rqtvl"]
 [ext_resource type="PackedScene" uid="uid://brmws016hnle0" path="res://Scenes/miner_unit.tscn" id="5_awoeq"]
+[ext_resource type="PackedScene" uid="uid://dx1cv4826c3qj" path="res://Scenes/german_archer.tscn" id="6_jqv6k"]
+[ext_resource type="PackedScene" uid="uid://d1dj7irxg1g7y" path="res://Scenes/german_heavy.tscn" id="7_g215k"]
+[ext_resource type="PackedScene" uid="uid://c7eo4xfi4lgfe" path="res://Scenes/german_special.tscn" id="8_lj7h2"]
+[ext_resource type="PackedScene" uid="uid://csxkiep5nyjuh" path="res://Scenes/german_warrior.tscn" id="9_lp57a"]
+[ext_resource type="PackedScene" uid="uid://cghqwwycigdrs" path="res://Scenes/centurion.tscn" id="10_wl3we"]
 
 [node name="generador_iconos" type="Node" unique_id=125676503]
 script = ExtResource("1_cwpg3")
@@ -24,11 +29,11 @@ handle_input_locally = false
 render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=1568062063]
-transform = Transform3D(0.510993, 0, -0.8595849, 0, 1, 0, 0.8595849, 0, 0.510993, -0.7443727, 0.27007473, -0.26097468)
+transform = Transform3D(-0.4416337, 0.054702308, -0.89552635, -0.045969345, -0.9982082, -0.03830449, -0.89601713, 0.024250206, 0.44335693, -0.7448308, 0.25945967, -0.26269665)
 fov = 42.1523
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport" unique_id=1656258041]
-transform = Transform3D(0.98869103, 0.120987855, -0.08861135, 0, 0.5908733, 0.8067644, 0.14996676, -0.7976408, 0.5841911, 0.0032866, 1.3926282, 0.9114735)
+transform = Transform3D(0.7472912, 0.30537966, -0.5901687, -0.0030709207, 0.8897215, 0.45649314, 0.66448957, -0.33932105, 0.665819, -1.1289341, 1.3926282, 0.9114735)
 
 [node name="Node3D" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=845887725]
 
@@ -57,4 +62,29 @@ script = null
 
 [node name="MinerUnit" parent="SubViewportContainer/SubViewport" unique_id=1145689932 instance=ExtResource("5_awoeq")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.065894365, 0, -0.72310805)
+visible = false
+script = null
+
+[node name="german_archer" parent="SubViewportContainer/SubViewport" unique_id=282562697 instance=ExtResource("6_jqv6k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21517557, 0, -0.7101016)
+visible = false
+script = null
+
+[node name="german_heavy" parent="SubViewportContainer/SubViewport" unique_id=1174531821 instance=ExtResource("7_g215k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.87583125, 0, -1.0378188)
+visible = false
+script = null
+
+[node name="german_special" parent="SubViewportContainer/SubViewport" unique_id=1478150876 instance=ExtResource("8_lj7h2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.49113297, 0, -0.9335221)
+visible = false
+script = null
+
+[node name="german_warrior" parent="SubViewportContainer/SubViewport" unique_id=1386884130 instance=ExtResource("9_lp57a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4462074, 0, -0.81117165)
+visible = false
+script = null
+
+[node name="Centurion" parent="SubViewportContainer/SubViewport" unique_id=197902502 instance=ExtResource("10_wl3we")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.379161, 0, -0.73253924)
 script = null

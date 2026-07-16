@@ -14,12 +14,17 @@
 [ext_resource type="Shader" uid="uid://by6l55te3lt8g" path="res://Scenes/main.gdshader" id="8_kltya"]
 [ext_resource type="Texture2D" uid="uid://wlegpnx6q4p7" path="res://Assets/UI/Iconos_Tropas/Miner.png" id="9_6vcvc"]
 [ext_resource type="Texture2D" uid="uid://bjc2dkk8xywt2" path="res://Assets/UI/Cadena_3.png" id="9_kltya"]
+[ext_resource type="Texture2D" uid="uid://estjih7bxr8w" path="res://Assets/UI/Iconos_Tropas/Special.png" id="11_neg2b"]
 [ext_resource type="ArrayMesh" uid="uid://b7mk0pv510gvo" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/trees_A_large.obj" id="11_ueoa1"]
 [ext_resource type="ArrayMesh" uid="uid://draqqjy1h2got" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/trees_A_medium.obj" id="12_6vcvc"]
 [ext_resource type="ArrayMesh" uid="uid://bqlobjxtmwomo" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/trees_A_small.obj" id="13_7k868"]
 [ext_resource type="ArrayMesh" uid="uid://h5r12qgdlka0" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/mountain_C_grass.obj" id="14_hpc6h"]
+[ext_resource type="Texture2D" uid="uid://ditqdpmcnjpv6" path="res://Assets/UI/Iconos_Tropas/German_Warrior.png" id="14_k2e45"]
+[ext_resource type="Texture2D" uid="uid://cpjmh8mx2poau" path="res://Assets/UI/Iconos_Tropas/German_Archer.png" id="15_536cc"]
 [ext_resource type="ArrayMesh" uid="uid://dpds3cy6xf50g" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/mountain_C.obj" id="15_kltya"]
+[ext_resource type="Texture2D" uid="uid://11t485bx7i8a" path="res://Assets/UI/Iconos_Tropas/German_Heavy.png" id="16_aqgau"]
 [ext_resource type="ArrayMesh" uid="uid://fjktlmunvvby" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/mountain_B.obj" id="16_e08e2"]
+[ext_resource type="Texture2D" uid="uid://cn4pgnen5332l" path="res://Assets/UI/Iconos_Tropas/German_Special.png" id="17_8cuat"]
 [ext_resource type="ArrayMesh" uid="uid://bua4o3usddyky" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/mountain_A_grass.obj" id="17_neg2b"]
 [ext_resource type="ArrayMesh" uid="uid://fl61och3wslw" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/mountain_A_grass_trees.obj" id="18_r33sp"]
 [ext_resource type="ArrayMesh" uid="uid://dyf8my506gony" path="res://Assets/KayKit_Medieval_Hexagon_Pack_1.0_FREE/Assets/obj/decoration/nature/hill_single_B.obj" id="19_hdf80"]
@@ -243,10 +248,11 @@ theme_override_font_sizes/font_size = 25
 text = "Oro:"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/HUD" unique_id=1562565546]
+visible = false
 layout_mode = 0
 offset_left = 20.0
 offset_top = 568.52
-offset_right = 720.0
+offset_right = 1064.4446
 offset_bottom = 802.32465
 scale = Vector2(0.9, 0.9)
 
@@ -257,10 +263,10 @@ mouse_filter = 2
 
 [node name="TextureButton" type="TextureButton" parent="UI/HUD/VBoxContainer/Control" unique_id=2047196949]
 layout_mode = 0
-offset_left = 724.444
-offset_top = -252.475
-offset_right = 1011.444
-offset_bottom = 399.525
+offset_left = 898.3248
+offset_top = -252.612
+offset_right = 1185.3248
+offset_bottom = 399.388
 scale = Vector2(0.24, 0.24)
 pivot_offset = Vector2(143.43, 321.39)
 texture_normal = ExtResource("7_hpc6h")
@@ -469,15 +475,65 @@ theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 30
 text = "20"
 
+[node name="Roman_Special_Button" type="TextureButton" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2" unique_id=1546546696]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 1)
+custom_minimum_size = Vector2(167, 164.085)
+layout_mode = 2
+texture_normal = ExtResource("11_neg2b")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Special_Button" unique_id=1118221680]
+show_behind_parent = true
+custom_minimum_size = Vector2(12.015, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.89
+offset_top = -5.77
+offset_right = -3.3699799
+offset_bottom = -6.625
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(79.615, 76.82)
+texture = ExtResource("7_hptm8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Special_Button" unique_id=706347620]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 0
+offset_left = 85.41
+offset_right = 188.41003
+offset_bottom = 50.0
+scale = Vector2(0.7, 0.7)
+
+[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Special_Button/HBoxContainer" unique_id=1576590028]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("7_ynf5e")
+expand_mode = 1
+
+[node name="Precio_Warrior" type="Label" parent="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Special_Button/HBoxContainer" unique_id=1945289903]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "30"
+
 [node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer/Control" unique_id=1700207363]
 show_behind_parent = true
 material = SubResource("ShaderMaterial_e08e2")
 clip_contents = true
 layout_mode = 0
-offset_left = -634.992
-offset_top = 16.088867
-offset_right = 5334.008
-offset_bottom = 138.08887
+offset_left = -461.11115
+offset_top = 15.951878
+offset_right = 5507.8887
+offset_bottom = 137.95187
 scale = Vector2(0.25, 0.25)
 mouse_filter = 2
 texture = ExtResource("9_kltya")
@@ -487,10 +543,334 @@ show_behind_parent = true
 material = SubResource("ShaderMaterial_hpc6h")
 clip_contents = true
 layout_mode = 0
-offset_left = -634.992
-offset_top = 86.52643
-offset_right = 5334.008
-offset_bottom = 208.52643
+offset_left = -461.11115
+offset_top = 86.389435
+offset_right = 5507.8887
+offset_bottom = 208.38943
+scale = Vector2(0.25, 0.25)
+mouse_filter = 2
+texture = ExtResource("9_kltya")
+
+[node name="VBoxContainer_2" type="VBoxContainer" parent="UI/HUD" unique_id=57274296]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 568.0
+offset_right = 1064.4446
+offset_bottom = 801.8047
+scale = Vector2(0.9, 0.9)
+
+[node name="Control_2" type="Control" parent="UI/HUD/VBoxContainer_2" unique_id=2012299349]
+custom_minimum_size = Vector2(834.675, 40.675)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureButton_2" type="TextureButton" parent="UI/HUD/VBoxContainer_2/Control_2" unique_id=1232990615]
+layout_mode = 0
+offset_left = 898.3248
+offset_top = -252.612
+offset_right = 1185.3248
+offset_bottom = 399.388
+scale = Vector2(0.24, 0.24)
+pivot_offset = Vector2(143.43, 321.39)
+texture_normal = ExtResource("7_hpc6h")
+stretch_mode = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/HUD/VBoxContainer_2/Control_2" unique_id=1156022743]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.95800006
+anchor_bottom = 3.6880002
+offset_right = 0.38134766
+offset_bottom = -0.009399414
+theme_override_constants/separation = 63
+alignment = 1
+
+[node name="German_Warrior_Button" type="TextureButton" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2" unique_id=1304362318]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 1)
+custom_minimum_size = Vector2(130, 140)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_scale = Vector2(1.31, 1.31)
+texture_normal = ExtResource("14_k2e45")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Warrior_Button" unique_id=120709265]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.865
+offset_top = -10.0
+offset_right = 25.134995
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(79.615, 76.82)
+offset_transform_enabled = true
+offset_transform_position = Vector2(1.42, 1.605)
+offset_transform_scale = Vector2(0.79, 0.79)
+texture = ExtResource("7_hptm8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Warrior_Button" unique_id=1483889100]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 0
+offset_left = 88.09
+offset_right = 191.09
+offset_bottom = 50.0
+scale = Vector2(0.7, 0.7)
+offset_transform_enabled = true
+offset_transform_position = Vector2(-11.96, 23.7)
+offset_transform_scale = Vector2(0.765, 0.765)
+
+[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Warrior_Button/HBoxContainer" unique_id=364582610]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("7_ynf5e")
+expand_mode = 1
+
+[node name="Precio_Warrior" type="Label" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Warrior_Button/HBoxContainer" unique_id=1825242814]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "5"
+
+[node name="German_Archer_Button" type="TextureButton" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2" unique_id=990525544]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 1)
+custom_minimum_size = Vector2(150, 117.605)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -4.715)
+texture_normal = ExtResource("15_536cc")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Archer_Button" unique_id=1250631801]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.215
+offset_top = -10.0
+offset_right = 24.709991
+offset_bottom = 11.339996
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(81.675, 78.02)
+texture = ExtResource("7_hptm8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Archer_Button" unique_id=944050240]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 0
+offset_left = 99.925
+offset_top = 5.91
+offset_right = 202.92493
+offset_bottom = 55.91
+scale = Vector2(0.7, 0.7)
+
+[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Archer_Button/HBoxContainer" unique_id=1824275353]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("7_ynf5e")
+expand_mode = 1
+
+[node name="Precio_Archer" type="Label" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Archer_Button/HBoxContainer" unique_id=2053970278]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "10"
+
+[node name="German_Heavy_Button" type="TextureButton" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2" unique_id=559376494]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 1)
+custom_minimum_size = Vector2(160, 108.27)
+layout_mode = 2
+texture_normal = ExtResource("16_aqgau")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Heavy_Button" unique_id=2094696108]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -10.0
+offset_right = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(79.475, 78.005)
+texture = ExtResource("7_hptm8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Heavy_Button" unique_id=1482944889]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 0
+offset_left = 94.94
+offset_right = 197.93991
+offset_bottom = 50.0
+scale = Vector2(0.7, 0.7)
+
+[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Heavy_Button/HBoxContainer" unique_id=1022596173]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("7_ynf5e")
+expand_mode = 1
+
+[node name="Precio_Heavy" type="Label" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Heavy_Button/HBoxContainer" unique_id=327467805]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "15"
+
+[node name="German_Miner_Button" type="TextureButton" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2" unique_id=595500917]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 1)
+custom_minimum_size = Vector2(145.3, 131.175)
+layout_mode = 2
+texture_normal = ExtResource("9_6vcvc")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Miner_Button" unique_id=1909850283]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.333313
+offset_top = -9.588928
+offset_right = 21.828293
+offset_bottom = 0.41107178
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(79.325, 76.955)
+texture = ExtResource("7_hptm8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Miner_Button" unique_id=1312708290]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 0
+offset_left = 90.0
+offset_right = 193.0
+offset_bottom = 50.0
+scale = Vector2(0.7, 0.7)
+
+[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Miner_Button/HBoxContainer" unique_id=654407144]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("7_ynf5e")
+expand_mode = 1
+
+[node name="Precio_Miner" type="Label" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Miner_Button/HBoxContainer" unique_id=1820372504]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "20"
+
+[node name="German_Special_Button" type="TextureButton" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2" unique_id=1624743245]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 1)
+custom_minimum_size = Vector2(167, 164.085)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(-54.965, 0)
+offset_transform_scale = Vector2(1.25, 1.25)
+texture_normal = ExtResource("17_8cuat")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Special_Button" unique_id=46367540]
+show_behind_parent = true
+custom_minimum_size = Vector2(12.015, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.89
+offset_top = -5.77
+offset_right = -3.3699799
+offset_bottom = -6.625
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(79.615, 76.82)
+offset_transform_enabled = true
+offset_transform_position = Vector2(34.61, 2.425)
+offset_transform_scale = Vector2(0.775, 0.775)
+texture = ExtResource("7_hptm8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Special_Button" unique_id=1805407027]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 0
+offset_left = 85.41
+offset_right = 188.41013
+offset_bottom = 50.0
+scale = Vector2(0.7, 0.7)
+offset_transform_enabled = true
+offset_transform_position = Vector2(30.68, 22.35)
+offset_transform_scale = Vector2(0.875, 0.875)
+
+[node name="Oro_Png" type="TextureRect" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Special_Button/HBoxContainer" unique_id=321184234]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("7_ynf5e")
+expand_mode = 1
+
+[node name="Precio_Warrior" type="Label" parent="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Special_Button/HBoxContainer" unique_id=1666939987]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+text = "30"
+
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer_2/Control_2" unique_id=1734036447]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_e08e2")
+clip_contents = true
+layout_mode = 0
+offset_left = -461.11115
+offset_top = 15.951878
+offset_right = 5507.8887
+offset_bottom = 137.95187
+scale = Vector2(0.25, 0.25)
+mouse_filter = 2
+texture = ExtResource("9_kltya")
+
+[node name="TextureRect2" type="TextureRect" parent="UI/HUD/VBoxContainer_2/Control_2" unique_id=1100030783]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_hpc6h")
+clip_contents = true
+layout_mode = 0
+offset_left = -461.11115
+offset_top = 86.389435
+offset_right = 5507.8887
+offset_bottom = 208.38943
 scale = Vector2(0.25, 0.25)
 mouse_filter = 2
 texture = ExtResource("9_kltya")
@@ -700,3 +1080,37 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.866435, -0.024289062, 3.715
 [connection signal="mouse_entered" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button" to="UI" method="_on_roman_miner_button_mouse_entered"]
 [connection signal="mouse_exited" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button" to="UI" method="_on_roman_miner_button_mouse_exited"]
 [connection signal="pressed" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button" to="UI" method="_on_roman_miner_button_pressed"]
+[connection signal="button_down" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Special_Button" to="UI" method="_on_roman_special_button_button_down"]
+[connection signal="button_up" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Special_Button" to="UI" method="_on_roman_special_button_button_up"]
+[connection signal="mouse_entered" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Special_Button" to="UI" method="_on_roman_special_button_mouse_entered"]
+[connection signal="mouse_exited" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Special_Button" to="UI" method="_on_roman_special_button_mouse_exited"]
+[connection signal="pressed" from="UI/HUD/VBoxContainer/Control/HBoxContainer2/Roman_Special_Button" to="UI" method="_on_roman_special_button_pressed"]
+[connection signal="button_down" from="UI/HUD/VBoxContainer_2/Control_2/TextureButton_2" to="UI" method="_on_texture_button_2_button_down"]
+[connection signal="button_up" from="UI/HUD/VBoxContainer_2/Control_2/TextureButton_2" to="UI" method="_on_texture_button_2_button_up"]
+[connection signal="mouse_entered" from="UI/HUD/VBoxContainer_2/Control_2/TextureButton_2" to="UI" method="_on_texture_button_2_mouse_entered"]
+[connection signal="mouse_exited" from="UI/HUD/VBoxContainer_2/Control_2/TextureButton_2" to="UI" method="_on_texture_button_2_mouse_exited"]
+[connection signal="button_down" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Warrior_Button" to="UI" method="_on_german_warrior_button_button_down"]
+[connection signal="button_up" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Warrior_Button" to="UI" method="_on_german_warrior_button_button_up"]
+[connection signal="mouse_entered" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Warrior_Button" to="UI" method="_on_german_warrior_button_mouse_entered"]
+[connection signal="mouse_exited" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Warrior_Button" to="UI" method="_on_german_warrior_button_mouse_exited"]
+[connection signal="pressed" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Warrior_Button" to="UI" method="_on_german_warrior_button_pressed"]
+[connection signal="button_down" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Archer_Button" to="UI" method="_on_german_archer_button_button_down"]
+[connection signal="button_up" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Archer_Button" to="UI" method="_on_german_archer_button_button_up"]
+[connection signal="mouse_entered" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Archer_Button" to="UI" method="_on_german_archer_button_mouse_entered"]
+[connection signal="mouse_exited" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Archer_Button" to="UI" method="_on_german_archer_button_mouse_exited"]
+[connection signal="pressed" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Archer_Button" to="UI" method="_on_german_archer_button_pressed"]
+[connection signal="button_down" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Heavy_Button" to="UI" method="_on_german_heavy_button_button_down"]
+[connection signal="button_up" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Heavy_Button" to="UI" method="_on_german_heavy_button_button_up"]
+[connection signal="mouse_entered" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Heavy_Button" to="UI" method="_on_german_heavy_button_mouse_entered"]
+[connection signal="mouse_exited" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Heavy_Button" to="UI" method="_on_german_heavy_button_mouse_exited"]
+[connection signal="pressed" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Heavy_Button" to="UI" method="_on_german_heavy_button_pressed"]
+[connection signal="button_down" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Miner_Button" to="UI" method="_on_german_miner_button_button_down"]
+[connection signal="button_up" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Miner_Button" to="UI" method="_on_german_miner_button_button_up"]
+[connection signal="mouse_entered" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Miner_Button" to="UI" method="_on_german_miner_button_mouse_entered"]
+[connection signal="mouse_exited" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Miner_Button" to="UI" method="_on_german_miner_button_mouse_exited"]
+[connection signal="pressed" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Miner_Button" to="UI" method="_on_german_miner_button_pressed"]
+[connection signal="button_down" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Special_Button" to="UI" method="_on_german_special_button_button_down"]
+[connection signal="button_up" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Special_Button" to="UI" method="_on_german_special_button_button_up"]
+[connection signal="mouse_entered" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Special_Button" to="UI" method="_on_german_special_button_mouse_entered"]
+[connection signal="mouse_exited" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Special_Button" to="UI" method="_on_german_special_button_mouse_exited"]
+[connection signal="pressed" from="UI/HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Special_Button" to="UI" method="_on_german_special_button_pressed"]
