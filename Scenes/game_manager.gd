@@ -229,8 +229,12 @@ func _get_mouse_3d_position() -> Vector3:
 	
 	var space_state = get_world_3d().direct_space_state
 	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_origin + ray_normal * 1000)
-	 
+
 	var result = space_state.intersect_ray(query)
 	if result:
-		return result.position # Retorna el impacto con el suelo
+		# Si el primer impacto es con un obstáculo del mapa, ignoramos el click
+		var collider = result.get("collider")
+		if collider and collider is Node and collider.is_in_group("map_obstacle"):
+			return Vector3.INF
+		return result.position # Retorna el impacto con el suelo u otro objeto válido
 	return Vector3.INF
