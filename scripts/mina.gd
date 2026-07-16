@@ -30,7 +30,7 @@ func extract_gold(amount: int) -> int:
 
 func _update_label():
 	if label:
-		label.text = "Oro: " + str(gold_remaining) if not is_infinite else "Oro: Infinito"
+		label.text = "Gold: " + str(gold_remaining) if not is_infinite else "Gold: Infinite"
 
 func _deplete():
 	print("Mina agotada")

@@ -1,8 +1,9 @@
 extends Node3D
 @onready var spawner: MultiplayerSpawner = $MultiplayerSpawner
 
-# Cada facción tiene su propio set de escenas. El team_id 0 (Romanos) usa las
-# escenas roman_*, el team_id 1 (Germanos) usa las german_*. El minero es común.
+# Each faction has its own set of scenes. team_id 0 (Romans) uses the roman_*
+# scenes; team_id 1 (Celts) uses the german_* scenes (kept as file names for
+# stability — the celtic look is applied by the scripts). The miner is shared.
 var ROMAN_UNIT_SCENES = {
 	Statics.UnitType.HEAVY: preload("res://Scenes/roman_heavy.tscn"),
 	Statics.UnitType.WARRIOR: preload("res://Scenes/roman_warrior.tscn"),
@@ -11,7 +12,7 @@ var ROMAN_UNIT_SCENES = {
 	Statics.UnitType.SPECIAL: preload("res://Scenes/centurion.tscn"),
 }
 
-var GERMAN_UNIT_SCENES = {
+var CELT_UNIT_SCENES = {
 	Statics.UnitType.HEAVY: preload("res://Scenes/german_heavy.tscn"),
 	Statics.UnitType.WARRIOR: preload("res://Scenes/german_warrior.tscn"),
 	Statics.UnitType.ARCHER: preload("res://Scenes/german_archer.tscn"),
@@ -82,19 +83,18 @@ func _get_random_spawn_unit_type() -> Statics.UnitType:
 	return COMBAT_UNIT_TYPES[randi_range(0, COMBAT_UNIT_TYPES.size() - 1)]
 
 
-# Devuelve la escena de la unidad para la facción dada (Romanos / Germanos).
-# El team_id (bando 0/1) es independiente: dos jugadores con la misma facción
-# acaban en bandos opuestos.
+# Returns the unit scene for the given faction (Romans / Celts). team_id is
+# independent: two players with the same faction still end up on opposite sides.
 func _get_unit_scene_for_faction(unit_type: Statics.UnitType, faction: int) -> PackedScene:
-	var scenes = ROMAN_UNIT_SCENES if faction == Statics.Role.ROMANS else GERMAN_UNIT_SCENES
+	var scenes = ROMAN_UNIT_SCENES if faction == Statics.Role.ROMANS else CELT_UNIT_SCENES
 	return scenes.get(unit_type, scenes[Statics.UnitType.HEAVY])
 
 func _custom_spawn(data: Variant) -> Node:
 	var unit_type = data["unit_type"]
 	var team_id = int(data.get("team_id", 0))
-	# La facción viene en los datos cuando el jugador la elige; si no, se asume
-	# Romanos en el bando 0 y Germanos en el bando 1 (oleada inicial / debug).
-	var default_faction = Statics.Role.ROMANS if team_id == 0 else Statics.Role.GERMANS
+	# Faction comes in the spawn data when the player picks one; otherwise we
+	# default to Romans on side 0 and Celts on side 1 (initial wave / debug).
+	var default_faction = Statics.Role.ROMANS if team_id == 0 else Statics.Role.CELTS
 	var faction = int(data.get("faction", default_faction))
 	var id = data["id"]
 	var scene = _get_unit_scene_for_faction(unit_type, faction)
@@ -120,9 +120,9 @@ func _get_team_spawn_position(team_id: int) -> Vector3:
 		return team_0_spawn_position
 	return team_1_spawn_position
 
-# RPC para que los clientes soliciten spawnear en una coordenada.
-# `faction` es la facción del solicitante (Statics.Role.ROMANS / GERMANS), que
-# decide la apariencia de la unidad; `team_id` decide a qué bando pertenece.
+# RPC clients call to request a spawn at a specific coordinate.
+# `faction` is the requester's faction (Statics.Role.ROMANS / CELTS), which
+# decides the unit's look; `team_id` decides which side it fights for.
 @rpc("any_peer", "call_local")
 func request_custom_spawn(unit_type: Statics.UnitType, team_id: int, faction: int, target_pos: Vector3):
 	if not multiplayer.is_server():

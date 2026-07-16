@@ -9,7 +9,7 @@ const PORT = 5409 # Number between 1024 and 65535.
 enum Role {
 	NONE,
 	ROMANS,
-	GERMANS,
+	CELTS,
 }
 
 
@@ -26,11 +26,11 @@ enum UnitType {
 static func get_role_name(role: Role) -> String:
 	match role:
 		Role.NONE:
-			return "Sin facción"
+			return "No faction"
 		Role.ROMANS:
-			return "Romanos"
-		Role.GERMANS:
-			return "Germanos"
+			return "Romans"
+		Role.CELTS:
+			return "Celts"
 	return "Unknown"
 
 

@@ -34,8 +34,8 @@ var selected_unit_type = null
 func _ready():
 	await get_tree().process_frame
 
-	# El equipo (bando 0/1) se asigna por orden de entrada al lobby; la facción
-	# (Romanos/Germanos) solo determina qué unidades se spawnean.
+	# Team (side 0/1) is assigned by lobby join order; the faction (Romans/Celts)
+	# only decides which unit scenes get spawned.
 	var current = Game.get_current_player()
 	if current:
 		player_id = Statics.player_team_id(current)
@@ -66,10 +66,10 @@ func _on_castle_destroyed(_emitted_id, losing_team_id: int) -> void:
 		return
 	_game_over = true
 	if player_id == losing_team_id:
-		result_label.text = "DERROTA"
+		result_label.text = "DEFEAT"
 		result_label.modulate = Color(1.0, 0.35, 0.35)
 	else:
-		result_label.text = "VICTORIA"
+		result_label.text = "VICTORY"
 		result_label.modulate = Color(0.4, 1.0, 0.4)
 	game_over_screen.visible = true
 
@@ -94,7 +94,7 @@ func _on_health_updated(curr, _max):
 		health_percentage_label.text = "0%"
 
 func update_gold(amount: int):
-	resource_label.text = "Oro: " + str(amount)
+	resource_label.text = "Gold: " + str(amount)
 	
 func Set_Prices():
 	Heavy_Cost.text = str(game_manager.heavy_price)

@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_germanic_special")
-unit_name = "Germanic Special"
+unit_name = "Celtic Special"
 max_health = 180
 damage = 35
 move_speed = 1.2
