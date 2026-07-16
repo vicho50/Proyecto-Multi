@@ -1,5 +1,4 @@
 extends Node3D
-
 @onready var spawner: MultiplayerSpawner = $MultiplayerSpawner
 
 # Cada facción tiene su propio set de escenas. El team_id 0 (Romanos) usa las
@@ -160,9 +159,29 @@ func request_custom_spawn(unit_type: Statics.UnitType, team_id: int, faction: in
 			GameManager.sub_gold(team_id, special_price)
 			spawner.spawn(data)
 
+func is_position_valid(target_pos: Vector3, team_id: int) -> bool:
+	# Validación original Castillo
+	var spawn_exclusion_radius= 3
+	var castle_group = "castillo_jugador_" + str(team_id)
+	var castles = get_tree().get_nodes_in_group(castle_group)
+	#Obtiene la posición global del nodo del castillo
+	var castle_node = castles[0]
+	var castle_pos = castle_node.global_position
+	# Comparamos horizontalmente XZ
+	var flat_spawn = Vector2(target_pos.x, target_pos.z)
+	var flat_castle = Vector2(castle_pos.x, castle_pos.z)
+	
+	# Validación distancia frontal
+	var team_1_max_x: float = 2.0
+	var team_0_max_x: float = -2.0
+	print(target_pos[0])
+	if team_id==0:
+		return flat_spawn.distance_to(flat_castle) > spawn_exclusion_radius and target_pos.x <= team_0_max_x
+	else:
+		return flat_spawn.distance_to(flat_castle) > spawn_exclusion_radius and target_pos.x >= team_1_max_x
+	
 
 func _unhandled_input(event):
-	# Procesa clics del mouse no manejados por la UI
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		var ui_nodes = get_tree().get_nodes_in_group("UI_Nodes")
 		if ui_nodes.is_empty(): return
@@ -172,9 +191,11 @@ func _unhandled_input(event):
 			var clicked_position = _get_mouse_3d_position()
 			if clicked_position != Vector3.INF:
 				var current = Game.get_current_player()
+				var team_id = Statics.player_team_id(current)
 				var faction = current.role if current else Statics.Role.ROMANS
-				request_custom_spawn.rpc(ui_layer.selected_unit_type, ui_layer.player_id, faction, clicked_position)
-				return
+				# Validación de distancias
+				if is_position_valid(clicked_position, team_id):
+					request_custom_spawn.rpc(ui_layer.selected_unit_type, team_id, faction, clicked_position)
 
 	if Input.is_key_pressed(KEY_T): manual_unit_spawn(Statics.UnitType.HEAVY, 0)
 	if Input.is_key_pressed(KEY_Y): manual_unit_spawn(Statics.UnitType.WARRIOR, 0)

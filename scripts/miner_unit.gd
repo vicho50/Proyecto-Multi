@@ -7,6 +7,9 @@ enum State {IDLE, GO_TO_MINE, MINING, RETURN_TO_BASE}
 @export var carry_capacity: int = 20
 @export var mining_speed: float = 1.5
 @export var move_speed: float = 4.0
+@export var obstacle_avoidance_distance: float = 2.0
+@export var obstacle_avoidance_probe_radius: float = 0.8
+@export var obstacle_avoidance_angles: PackedFloat32Array = PackedFloat32Array([0.0, 20.0, -20.0, 40.0, -40.0, 60.0, -60.0, 90.0, -90.0])
 
 # Sincronizadas por MultiplayerSynchronizer
 var current_state: int = State.IDLE
@@ -77,7 +80,7 @@ func _run_logic(delta: float) -> void:
 	match current_state:
 		State.GO_TO_MINE:
 			if target_mine and is_instance_valid(target_mine):
-				_move_towards(target_mine.global_position, delta)
+				_move_towards(target_mine.global_position, delta, true)
 				if global_position.distance_to(target_mine.global_position) < 1.5:
 					_update_state(State.MINING)
 			else:
@@ -87,7 +90,7 @@ func _run_logic(delta: float) -> void:
 
 		State.RETURN_TO_BASE:
 			if home_castle and is_instance_valid(home_castle):
-				_move_towards(home_castle.global_position, delta)
+				_move_towards(home_castle.global_position, delta, false)
 				if global_position.distance_to(home_castle.global_position) < 1.5:
 					_deposit_gold()
 
@@ -106,21 +109,73 @@ func _update_state(new_state: int) -> void:
 			if home_castle:
 				nav_agent.target_position = home_castle.global_position
 
-func _move_towards(dest: Vector3, delta: float) -> void:
+func _move_towards(dest: Vector3, delta: float, avoid_obstacles: bool) -> void:
 	var next_pos = nav_agent.get_next_path_position()
 
 	# Si el agente no tiene camino aún, moverse directamente al destino
 	if global_position.distance_to(next_pos) < 0.05:
 		next_pos = dest
 
-	var direction = global_position.direction_to(next_pos)
-	global_position = global_position.move_toward(next_pos, move_speed * delta)
+	var desired_direction = global_position.direction_to(next_pos)
+	var direction = _find_clear_direction(desired_direction) if avoid_obstacles else desired_direction
+	global_position = global_position.move_toward(global_position + direction * move_speed * delta, move_speed * delta)
 
 	# Rotar hacia la dirección de movimiento
 	var flat_dir = Vector3(direction.x, 0.0, direction.z)
 	if flat_dir.length() > 0.01:
 		var target_angle = atan2(flat_dir.x, flat_dir.z)
 		rotation.y = lerp_angle(rotation.y, target_angle, 10.0 * delta)
+
+
+func _find_clear_direction(desired_dir: Vector3) -> Vector3:
+	var flat := desired_dir
+	flat.y = 0.0
+	if flat.length() <= 0.001:
+		return Vector3.ZERO
+
+	var desired := flat.normalized()
+	if not _is_direction_blocked(desired):
+		return desired
+
+	for angle_degrees in obstacle_avoidance_angles:
+		var rotated := desired.rotated(Vector3.UP, deg_to_rad(angle_degrees))
+		if rotated.length() <= 0.001:
+			continue
+		if not _is_direction_blocked(rotated):
+			return rotated.normalized()
+
+	return desired
+
+
+func _is_direction_blocked(direction: Vector3) -> bool:
+	var flat := direction.normalized()
+	var side := Vector3.UP.cross(flat)
+	if side.length() <= 0.001:
+		side = Vector3.RIGHT
+	else:
+		side = side.normalized()
+
+	var space_state = get_world_3d().direct_space_state
+	for lateral in [0.0, obstacle_avoidance_probe_radius, -obstacle_avoidance_probe_radius]:
+		var from: Vector3 = global_position + Vector3.UP * 0.3 + side * lateral
+		var to: Vector3 = from + flat * obstacle_avoidance_distance
+		var query := PhysicsRayQueryParameters3D.create(from, to)
+		query.exclude = [self]
+		query.collide_with_areas = false
+		query.collide_with_bodies = true
+		var hit: Dictionary = space_state.intersect_ray(query)
+		if hit.is_empty():
+			continue
+		var collider: Node = hit.get("collider") as Node
+		if collider == null:
+			continue
+		if collider.is_in_group("minas"):
+			continue
+			if collider.is_in_group("castillo_jugador_" + str(team_id)):
+				continue
+		return true
+
+	return false
 
 func _on_mining_tick() -> void:
 	if not multiplayer.is_server():

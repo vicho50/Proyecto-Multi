@@ -15,6 +15,10 @@ var home_castle: Node3D = null
 @onready var nav_agent = $NavigationAgent3D
 @onready var mining_timer = $MiningTimer
 
+@export var obstacle_avoidance_distance: float = 2.0
+@export var obstacle_avoidance_probe_radius: float = 0.8
+@export var obstacle_avoidance_angles: PackedFloat32Array = PackedFloat32Array([0.0, 20.0, -20.0, 40.0, -40.0, 60.0, -60.0, 90.0, -90.0])
+
 func _ready():
 	mining_timer.wait_time = mining_speed
 	mining_timer.timeout.connect(_on_mining_tick)
@@ -24,12 +28,12 @@ func _ready():
 func _physics_process(_delta):
 	match current_state:
 		State.GO_TO_MINE:
-			_move_logic(target_mine.global_position if target_mine else Vector3.ZERO)
+			_move_logic(target_mine.global_position if target_mine else Vector3.ZERO, true)
 			if nav_agent.is_navigation_finished():
 				update_state(State.MINING)
 				
 		State.RETURN_TO_BASE:
-			_move_logic(home_castle.global_position if home_castle else Vector3.ZERO)
+			_move_logic(home_castle.global_position if home_castle else Vector3.ZERO, false)
 			if nav_agent.is_navigation_finished():
 				_deposit_gold()
 
@@ -46,11 +50,71 @@ func update_state(new_state):
 			mining_timer.stop()
 			if home_castle: nav_agent.target_position = home_castle.global_position
 
-func _move_logic(dest):
+func _move_logic(dest, avoid_obstacles: bool):
 	if dest == Vector3.ZERO: return
 	var next_pos = nav_agent.get_next_path_position()
-	velocity = global_position.direction_to(next_pos) * move_speed
+	var desired_dir = global_position.direction_to(next_pos)
+	if avoid_obstacles:
+		velocity = _find_clear_direction(desired_dir) * move_speed
+	else:
+		var flat := desired_dir
+		flat.y = 0.0
+		if flat.length() <= 0.001:
+			velocity = Vector3.ZERO
+		else:
+			velocity = flat.normalized() * move_speed
 	move_and_slide()
+
+
+func _find_clear_direction(desired_dir: Vector3) -> Vector3:
+	var flat := desired_dir
+	flat.y = 0.0
+	if flat.length() <= 0.001:
+		return Vector3.ZERO
+
+	var desired := flat.normalized()
+	if not _is_direction_blocked(desired):
+		return desired
+
+	for angle_degrees in obstacle_avoidance_angles:
+		var rotated := desired.rotated(Vector3.UP, deg_to_rad(angle_degrees))
+		if rotated.length() <= 0.001:
+			continue
+		if not _is_direction_blocked(rotated):
+			return rotated.normalized()
+
+	return desired
+
+
+func _is_direction_blocked(direction: Vector3) -> bool:
+	var flat := direction.normalized()
+	var side := Vector3.UP.cross(flat)
+	if side.length() <= 0.001:
+		side = Vector3.RIGHT
+	else:
+		side = side.normalized()
+
+	var space_state = get_world_3d().direct_space_state
+	for lateral in [0.0, obstacle_avoidance_probe_radius, -obstacle_avoidance_probe_radius]:
+		var from: Vector3 = global_position + Vector3.UP * 0.3 + side * lateral
+		var to: Vector3 = from + flat * obstacle_avoidance_distance
+		var query = PhysicsRayQueryParameters3D.create(from, to)
+		query.exclude = [self]
+		query.collide_with_areas = false
+		query.collide_with_bodies = true
+		var hit: Dictionary = space_state.intersect_ray(query)
+		if hit.is_empty():
+			continue
+		var collider: Node = hit.get("collider") as Node
+		if collider == null:
+			continue
+		if collider.is_in_group("minas"):
+			continue
+			if collider.is_in_group("castillo_jugador_" + str(team_id)):
+				continue
+		return true
+
+	return false
 
 func _on_mining_tick():
 	if target_mine and target_mine.has_method("extract_gold"):
