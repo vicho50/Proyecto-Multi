@@ -171,7 +171,7 @@ mesh = SubResource("BoxMesh_5pi0x")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1083248575]
 replication_config = SubResource("SceneReplicationConfig_3hm6q")
 
-[node name="RomanShield" type="MeshInstance3D" parent="." unique_id=1865277995]
+[node name="RomanShield" type="MeshInstance3D" parent="Visuals" unique_id=1865277995]
 transform = Transform3D(-5.2453664e-09, 0, 0.12, 0, 0.12, 0, -0.12, 0, -5.2453664e-09, -0.18870224, 0.20505443, 0.079788685)
 mesh = ExtResource("3_y660q")
 surface_material_override/1 = SubResource("StandardMaterial3D_fnem3")
