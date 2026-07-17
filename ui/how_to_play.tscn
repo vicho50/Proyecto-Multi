@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdmw5eak5vjxs"]
+
+[ext_resource type="PackedScene" uid="uid://cgsspji18smle" path="res://lobby/lobby_screen.tscn" id="1_lobby"]
+[ext_resource type="Script" path="res://ui/how_to_play.gd" id="2_howto"]
+
+[node name="HowToPlayScreen" instance=ExtResource("1_lobby")]
+script = ExtResource("2_howto")
+
+[node name="Label" parent="MarginContainer2/VBoxContainer/Panel" index="0"]
+text = "Battle Manual"
+
+[node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" parent="MarginContainer2/VBoxContainer/MarginContainer/Control" index="0"]
+theme_type_variation = &"Zero"
+
+[node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" type="RichTextLabel" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" index="0"]
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+text = "[center]
+[b]HOW TO PLAY[/b]
+
+
+[b]GOLD[/b]
+Each faction starts with 10 gold.
+Your treasury grows by 5 gold every second.
+Deploy Miners to gold mines to gather extra income for your side.
+
+
+[b]SPAWNING UNITS[/b]
+Click a unit portrait in the HUD to select it.
+Then click on the battlefield to deploy the unit.
+Each unit costs gold from your treasury:
+Warrior 5  ·  Archer 10  ·  Heavy 15  ·  Miner 20  ·  Special 30
+You can only deploy on your side of the map, not right next to your own castle.
+
+
+[b]WINNING THE BATTLE[/b]
+Destroy the enemy castle to claim VICTORY.
+If your castle falls first, DEFEAT is yours.
+[/center]"
