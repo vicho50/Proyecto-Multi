@@ -16,6 +16,10 @@ signal vote_updated(id)
 var players: Array[Statics.PlayerData] = []
 # Se pone a true cuando cae un castillo. Las unidades lo leen para congelarse.
 var game_over := false
+# Semilla decidida por el servidor al iniciar la partida para que TODOS los peers
+# generen exactamente el mismo layout de obstáculos (decoration_obstacles.gd).
+# Si vale 0, decoration_obstacles cae a randomize() (modo standalone / testing).
+var map_seed: int = 0
 var change_window_scale := true :
 	set(value):
 		var last_value = change_window_scale

@@ -14,8 +14,10 @@ theme_type_variation = &"Zero"
 
 [node name="MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" type="RichTextLabel" parent="MarginContainer2/VBoxContainer/MarginContainer/Control/MarginContainer2_VBoxContainer_MarginContainer_Panel#PanelContainer" index="0"]
 layout_mode = 2
+mouse_filter = 0
 bbcode_enabled = true
-fit_content = true
+fit_content = false
+scroll_active = true
 text = "[center]
 [b]HOW TO PLAY[/b]
 

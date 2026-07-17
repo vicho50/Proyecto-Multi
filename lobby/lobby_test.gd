@@ -68,11 +68,12 @@ func _send_player_data_id(index, id):
 
 
 func _on_start_game_timeout() -> void:
-	_start_game.rpc()
+	_start_game.rpc(randi())
 
 
 @rpc("reliable", "call_local")
-func _start_game() -> void:
+func _start_game(map_seed: int) -> void:
+	Game.map_seed = map_seed
 	get_tree().change_scene_to_packed(Game.main_scene)
 
 

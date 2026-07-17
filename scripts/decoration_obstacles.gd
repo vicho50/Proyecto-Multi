@@ -17,7 +17,13 @@ var _built := false
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 func _ready() -> void:
-	_rng.randomize()
+	# Usar la semilla que decidió el servidor así todos los peers generan
+	# EL MISMO layout y las colisiones cuadran. Si no hay semilla (modo
+	# standalone/testing) caemos a random.
+	if Game.map_seed != 0:
+		_rng.seed = Game.map_seed
+	else:
+		_rng.randomize()
 	if randomize_layout:
 		_randomize_layout()
 	call_deferred("_build_obstacles")

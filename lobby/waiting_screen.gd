@@ -26,7 +26,7 @@ func _ready() -> void:
 	Game.player_updated.connect(func(_id): _update_ready_button())
 	Game.vote_updated.connect(func(_id): _handle_vote_updated())
 	if multiplayer.is_server():
-		start_timer.timeout.connect(func(): _start_game.rpc())
+		start_timer.timeout.connect(func(): _start_game.rpc(randi()))
 	_handle_players_updated()
 	role_button.visible = Game.use_roles
 	back_button.pressed.connect(_handle_back_pressed)
@@ -126,7 +126,10 @@ func _stop_timer() -> void:
 
 
 @rpc("reliable", "call_local")
-func _start_game() -> void:
+func _start_game(map_seed: int) -> void:
+	# El servidor decide la semilla; todos los peers la usan para generar el
+	# mismo layout de obstáculos y evitar mismatches de colisión.
+	Game.map_seed = map_seed
 	Game.set_current_player_vote(false)
 	get_tree().change_scene_to_packed(Game.main_scene)
 
