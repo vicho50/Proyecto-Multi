@@ -14,6 +14,8 @@ signal vote_updated(id)
 @export var main_scene: PackedScene
 
 var players: Array[Statics.PlayerData] = []
+# Se pone a true cuando cae un castillo. Las unidades lo leen para congelarse.
+var game_over := false
 var change_window_scale := true :
 	set(value):
 		var last_value = change_window_scale

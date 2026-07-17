@@ -84,14 +84,19 @@ func flash_damage():
 func die():
 	if is_dead: return
 	is_dead = true
-	
+
 	print("Castillo ", team_id, " destruido.")
 	castle_destroyed.emit(player_id)
-	
+
 	# Dejar de ser un objetivo para las unidades
 	remove_from_group("units")
-	
+
 	# Desactivar colisión para que no estorbe si se queda el modelo ahí
 	$CollisionShape3D.set_deferred("disabled", true)
-	
+
+	# Marca la partida como acabada; MeleeUnit y miner_unit lo consultan cada
+	# frame para congelarse. Como die() corre en todos los peers (vía RPC),
+	# cada peer setea su propio Game.game_over local.
+	Game.game_over = true
+
 	# Aquí podrías añadir una animación de derrumbe o partículas

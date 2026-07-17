@@ -52,6 +52,9 @@ func _ready():
 	spawner.spawn_function = _custom_spawn
 	# Reinicia la economía al comenzar el combate (10 de oro por equipo + ingreso pasivo).
 	GameManager.start_match()
+	# Reset del flag por si venimos de una partida anterior; sin esto las unidades
+	# spawneadas nada más entrar aparecerían congeladas.
+	Game.game_over = false
 	if multiplayer.is_server() and spawn_initial_wave:
 		await get_tree().create_timer(0.5).timeout
 		_spawn_initial_symmetric_wave()

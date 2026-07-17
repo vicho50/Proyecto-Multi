@@ -74,12 +74,19 @@ func _physics_process(delta: float) -> void:
 	if is_dead:
 		update_visuals(delta)
 		return
-	
+
+	# Si la partida ya se decidió, las unidades dejan de moverse y de atacar.
+	if Game.game_over:
+		velocity = Vector3.ZERO
+		update_visuals(delta)
+		update_health_bar()
+		return
+
 	if multiplayer.is_server():
 		update_target()
 		update_logic(delta)
 		move_and_slide()
-		
+
 	update_visuals(delta)
 	update_health_bar()
 
@@ -188,6 +195,9 @@ func update_attack_visual(delta: float) -> void:
 
 func update_dead_visual(delta: float) -> void:
 	visuals.position.y = lerp(visuals.position.y, visual_base_y - 0.3, 6.0 * delta)
+	# Al morir, la barra de vida desaparece.
+	if health_bar_root and health_bar_root.visible:
+		health_bar_root.visible = false
 
 func move_towards_position(pos: Vector3) -> void:
 	_steer_velocity(pos - global_position)

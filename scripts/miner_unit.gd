@@ -71,6 +71,11 @@ func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
 
+	# Al declararse un vencedor los mineros también dejan de trabajar.
+	if Game.game_over:
+		_update_visuals(delta)
+		return
+
 	if multiplayer.is_server():
 		_run_logic(delta)
 
