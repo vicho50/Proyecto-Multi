@@ -16,6 +16,9 @@ enum UnitState {
 # fila y rodeen al objetivo en vez de quedarse atascadas detrás de un aliado.
 @export var separation_radius: float = 1.2
 @export var separation_weight: float = 1.5
+# Radio de detección para obstáculos del terreno (árboles, colinas, montañas).
+# Es más grande porque los meshes de decoración ocupan más espacio que un aliado.
+@export var obstacle_separation_radius: float = 2.5
 @export var obstacle_avoidance_distance: float = 1.0
 @export var obstacle_avoidance_probe_radius: float = 0.28
 @export var castle_engage_distance: float = 12.0
@@ -309,22 +312,30 @@ func _is_direction_blocked(direction: Vector3) -> bool:
 
 	return false
 
-# Vector que apunta lejos de los aliados cercanos (boids separation).
+# Vector que apunta lejos de aliados cercanos y de obstáculos del terreno.
+# El objetivo actual (target) queda excluido para no bloquear la persecución.
 func _get_separation() -> Vector3:
 	var push := Vector3.ZERO
 	for body in detection_area.get_overlapping_bodies():
-		if body == self:
+		if body == self or body == target:
 			continue
-		if not (body is MeleeUnit):
+
+		var radius := 0.0
+		if body is MeleeUnit and body.team_id == team_id and not body.is_dead:
+			# Aliados del mismo equipo: se dispersan para no apilarse.
+			radius = separation_radius
+		elif body.is_in_group("map_obstacle"):
+			# Decoración del mapa (árboles, colinas, montañas): rodear en vez de encallar.
+			radius = obstacle_separation_radius
+		else:
 			continue
-		if body.team_id != team_id or body.is_dead:
-			continue
+
 		var offset := global_position - body.global_position
 		offset.y = 0.0
 		var dist := offset.length()
-		if dist > 0.001 and dist < separation_radius:
-			# Más empuje cuanto más cerca está el aliado.
-			push += offset.normalized() * (1.0 - dist / separation_radius)
+		if dist > 0.001 and dist < radius:
+			# Más empuje cuanto más cerca está.
+			push += offset.normalized() * (1.0 - dist / radius)
 	return push
 
 func face_target(delta: float) -> void:
