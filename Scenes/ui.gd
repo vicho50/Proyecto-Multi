@@ -46,6 +46,9 @@ func _ready():
 	if current:
 		player_id = Statics.player_team_id(current)
 
+	# Show only the HUD panel that matches the local player's faction.
+	_apply_faction_hud(current.role if current else Statics.Role.ROMANS)
+
 	player_data = GameManager.get_player(player_id)
 
 	if player_data:
@@ -56,6 +59,16 @@ func _ready():
 		add_to_group("UI_Nodes")
 	Set_Prices()
 	_setup_game_over_watch()
+
+
+func _apply_faction_hud(faction: int) -> void:
+	var roman_panel = get_node_or_null("HUD/VBoxContainer")
+	var celt_panel = get_node_or_null("HUD/VBoxContainer_2")
+	var is_roman := faction == Statics.Role.ROMANS
+	if roman_panel:
+		roman_panel.visible = is_roman
+	if celt_panel:
+		celt_panel.visible = not is_roman
 
 # Escucha la destrucción de ambos castillos para mostrar victoria/derrota.
 func _setup_game_over_watch():
@@ -103,10 +116,24 @@ func update_gold(amount: int):
 	resource_label.text = "Gold: " + str(amount)
 	
 func Set_Prices():
-	Heavy_Cost.text = str(game_manager.heavy_price)
-	Warrior_Cost.text = str(game_manager.warrior_price)
-	Archer_Cost.text = str(game_manager.archer_price)
-	Miner_Cost.text = str(game_manager.miner_price)
+	# Roman panel
+	_set_label_text("HUD/VBoxContainer/Control/HBoxContainer2/Roman_Warrior_Button/HBoxContainer/Precio_Warrior", game_manager.warrior_price)
+	_set_label_text("HUD/VBoxContainer/Control/HBoxContainer2/Roman_Archer_Button/HBoxContainer/Precio_Archer", game_manager.archer_price)
+	_set_label_text("HUD/VBoxContainer/Control/HBoxContainer2/Roman_Heavy_Button/HBoxContainer/Precio_Heavy", game_manager.heavy_price)
+	_set_label_text("HUD/VBoxContainer/Control/HBoxContainer2/Roman_Miner_Button/HBoxContainer/Precio_Miner", game_manager.miner_price)
+	_set_label_text("HUD/VBoxContainer/Control/HBoxContainer2/Roman_Special_Button/HBoxContainer/Precio_Warrior", game_manager.special_price)
+	# Celt panel (nodes still named "German_*" internally)
+	_set_label_text("HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Warrior_Button/HBoxContainer/Precio_Warrior", game_manager.warrior_price)
+	_set_label_text("HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Archer_Button/HBoxContainer/Precio_Archer", game_manager.archer_price)
+	_set_label_text("HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Heavy_Button/HBoxContainer/Precio_Heavy", game_manager.heavy_price)
+	_set_label_text("HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Miner_Button/HBoxContainer/Precio_Miner", game_manager.miner_price)
+	_set_label_text("HUD/VBoxContainer_2/Control_2/HBoxContainer2/German_Special_Button/HBoxContainer/Precio_Warrior", game_manager.special_price)
+
+
+func _set_label_text(path: String, value) -> void:
+	var label = get_node_or_null(path)
+	if label:
+		label.text = str(value)
 
 func _input(_event):
 	if Input.is_key_pressed(KEY_KP_ADD):

@@ -457,8 +457,13 @@ func get_team_color() -> Color:
 	return Color(0.2, 0.4, 1.0) if team_id == 0 else Color(1.0, 0.2, 0.2)
 
 func get_body_color() -> Color:
-	# Misma tonalidad piel que la cabeza.
-	return get_head_color()
+	# Las unidades celtas tienen alas + falda grandes que ya muestran el color
+	# del equipo, así que su cuerpo queda en tono piel para no saturar.
+	# Las romanas (sin esas decoraciones) usan el color del equipo en el cuerpo
+	# para que se distinga a qué bando pertenecen.
+	if get_node_or_null("Visuals/Skirt") != null or get_node_or_null("Visuals/Helmet/Wing1") != null:
+		return get_head_color()
+	return get_team_color()
 
 func get_head_color() -> Color:
 	return Color(1.0, 0.8, 0.6)
